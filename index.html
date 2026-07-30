@@ -2515,7 +2515,7 @@
     }
 
     .qq-message-row.self .qq-message-bubble {
-      color: #ffffff;
+      color: var(--self-text-color, #ffffff);
       background: var(--self-bubble-color, #2e2e2e);
       border-radius: 22px;
     }
@@ -2525,7 +2525,7 @@
     }
 
     .qq-message-row.friend .qq-message-bubble {
-      color: #050505;
+      color: var(--friend-text-color, #050505);
       background: var(--friend-bubble-color, rgba(255, 255, 255, 0.96));
       border-radius: 22px;
       border: 1px solid rgba(255, 255, 255, 0.98);
@@ -3555,6 +3555,107 @@
       outline: none;
     }
 
+    .font-manager-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 72;
+      display: none;
+      padding: env(safe-area-inset-top) 10px calc(10px + env(safe-area-inset-bottom));
+      background:
+        radial-gradient(circle at 50% -8%, rgba(255, 255, 255, 0.9), transparent 30%),
+        rgba(232, 232, 232, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .font-manager-modal.show {
+      display: block;
+    }
+
+    .font-manager-card {
+      width: 100%;
+      max-width: var(--phone-width, 390px);
+      height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 10px);
+      margin: 0 auto;
+      border-radius: 0;
+      padding: 16px 18px 18px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.18));
+      border: 1px solid rgba(255, 255, 255, 0.46);
+      box-shadow:
+        0 18px 42px rgba(130, 130, 130, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+      backdrop-filter: blur(30px) saturate(160%);
+      -webkit-backdrop-filter: blur(30px) saturate(160%);
+    }
+
+    .font-manager-card::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    .font-manager-head {
+      min-height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .font-manager-head h3 {
+      color: #111111;
+      font-size: 22px;
+      font-weight: 1000;
+      letter-spacing: 0.01em;
+    }
+
+    .font-manager-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .font-manager-item {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      color: #222222;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .font-manager-item strong,
+    .font-manager-item small {
+      display: block;
+    }
+
+    .font-manager-item small {
+      margin-top: 4px;
+      color: #888888;
+      font-size: 9px;
+      font-weight: 900;
+    }
+
+    .font-manager-preview {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(247, 247, 247, 0.82);
+      border: 1px solid rgba(238, 238, 238, 0.96);
+      color: #333333;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 900;
+    }
+
     .chat-settings-modal {
       position: fixed;
       inset: 0;
@@ -3650,7 +3751,8 @@
 
     .chat-setting-item input[type="text"],
     .chat-setting-item textarea,
-    .chat-setting-item input[type="search"] {
+    .chat-setting-item input[type="search"],
+    .chat-setting-item input[type="url"] {
       width: 100%;
       border: 1px solid rgba(238, 238, 238, 0.96);
       border-radius: 16px;
@@ -3707,7 +3809,8 @@
     }
 
     .chat-wallpaper-actions,
-    .chat-settings-actions {
+    .chat-settings-actions,
+    .font-manager-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
@@ -6081,6 +6184,23 @@
             <span>对方气泡</span>
             <input id="chatFriendBubbleColor" type="color" value="#ffffff" />
           </div>
+          <div class="chat-color-row" style="margin-top:10px;">
+            <span>我的文字</span>
+            <input id="chatSelfTextColor" type="color" value="#ffffff" />
+          </div>
+          <div class="chat-color-row" style="margin-top:10px;">
+            <span>对方文字</span>
+            <input id="chatFriendTextColor" type="color" value="#050505" />
+          </div>
+        </div>
+
+        <div class="chat-setting-item">
+          <div class="chat-setting-title"><i class="fa-solid fa-font"></i> 对话字体</div>
+          <div class="chat-toggle-row">
+            <span>管理导入字体，并选择当前会话使用的字体。</span>
+          </div>
+          <button class="liquid-btn chat-favorites-open" id="openFontManager" type="button">打开字体管理</button>
+          <div class="chat-ai-result" id="chatFontStatus">当前使用系统默认字体。</div>
         </div>
 
         <div class="chat-setting-item">
@@ -6225,6 +6345,53 @@
     </div>
   </section>
 
+  <section class="font-manager-modal" id="fontManagerModal" aria-label="字体管理界面">
+    <div class="font-manager-card">
+      <div class="font-manager-head">
+        <button class="beautify-back" id="closeFontManager" type="button" aria-label="返回会话设置">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <h3>字体管理</h3>
+        <button class="beautify-action" id="useDefaultChatFont" type="button" aria-label="使用默认字体">
+          <i class="fa-solid fa-rotate-left"></i>
+        </button>
+      </div>
+
+      <div class="chat-settings-list">
+        <div class="chat-setting-item">
+          <div class="chat-setting-title"><i class="fa-solid fa-file-arrow-up"></i> 导入 TTF 字体文件</div>
+          <input id="fontFileNameInput" type="text" placeholder="字体名称，例如：猫爪手写体" />
+          <div class="upload-item" style="margin-top:10px;">
+            <strong>选择 .ttf 文件</strong>
+            <span>字体会保存到本地数据中，仅当前浏览器可用。</span>
+            <input id="fontFileInput" type="file" accept=".ttf,font/ttf,application/x-font-ttf" />
+          </div>
+          <button class="liquid-btn primary chat-favorites-open" id="importFontFileBtn" type="button">导入字体文件</button>
+        </div>
+
+        <div class="chat-setting-item">
+          <div class="chat-setting-title"><i class="fa-solid fa-link"></i> 通过字体 URL 导入</div>
+          <input id="fontUrlNameInput" type="text" placeholder="字体名称，例如：远程字体" />
+          <input id="fontUrlInput" type="url" placeholder="TTF/OTF/WOFF/WOFF2 字体文件链接 URL" style="margin-top:8px;" />
+          <button class="liquid-btn primary chat-favorites-open" id="importFontUrlBtn" type="button">添加 URL 字体</button>
+        </div>
+
+        <div class="chat-setting-item">
+          <div class="chat-setting-title"><i class="fa-brands fa-css3-alt"></i> 通过字体 CSS 导入</div>
+          <input id="fontCssNameInput" type="text" placeholder="字体名称，例如：Google Font 名称" />
+          <textarea id="fontCssInput" placeholder="@import 或 @font-face 字体 CSS，也可以粘贴字体网站提供的完整 CSS。"></textarea>
+          <button class="liquid-btn primary chat-favorites-open" id="importFontCssBtn" type="button">添加 CSS 字体</button>
+        </div>
+
+        <div class="chat-setting-item">
+          <div class="chat-setting-title"><i class="fa-solid fa-list-check"></i> 已导入字体</div>
+          <div class="font-manager-preview" id="fontManagerPreview">预览：这是当前会话聊天字体效果 Aa 123 你好。</div>
+          <div class="font-manager-list" id="fontManagerList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <script>
     const clock = document.querySelector("#clock");
     const qqClock = document.querySelector("#qqClock");
@@ -6361,6 +6528,24 @@
     const chatAvatarRadiusValue = document.querySelector("#chatAvatarRadiusValue");
     const chatSelfBubbleColor = document.querySelector("#chatSelfBubbleColor");
     const chatFriendBubbleColor = document.querySelector("#chatFriendBubbleColor");
+    const chatSelfTextColor = document.querySelector("#chatSelfTextColor");
+    const chatFriendTextColor = document.querySelector("#chatFriendTextColor");
+    const openFontManager = document.querySelector("#openFontManager");
+    const chatFontStatus = document.querySelector("#chatFontStatus");
+    const fontManagerModal = document.querySelector("#fontManagerModal");
+    const closeFontManager = document.querySelector("#closeFontManager");
+    const useDefaultChatFont = document.querySelector("#useDefaultChatFont");
+    const fontFileNameInput = document.querySelector("#fontFileNameInput");
+    const fontFileInput = document.querySelector("#fontFileInput");
+    const importFontFileBtn = document.querySelector("#importFontFileBtn");
+    const fontUrlNameInput = document.querySelector("#fontUrlNameInput");
+    const fontUrlInput = document.querySelector("#fontUrlInput");
+    const importFontUrlBtn = document.querySelector("#importFontUrlBtn");
+    const fontCssNameInput = document.querySelector("#fontCssNameInput");
+    const fontCssInput = document.querySelector("#fontCssInput");
+    const importFontCssBtn = document.querySelector("#importFontCssBtn");
+    const fontManagerList = document.querySelector("#fontManagerList");
+    const fontManagerPreview = document.querySelector("#fontManagerPreview");
     const chatHistorySearch = document.querySelector("#chatHistorySearch");
     const chatHistoryResults = document.querySelector("#chatHistoryResults");
     const openMessageFavorites = document.querySelector("#openMessageFavorites");
@@ -6478,7 +6663,7 @@
     const chatToastLayer = document.querySelector("#chatToastLayer");
     const chatToastQueue = [];
     let chatToastShowing = false;
-    const expandedChatHistoryIds = new Set();
+    const chatHistoryVisibleCounts = new Map();
     let momentsHistoryExpanded = false;
     let autoMomentTimer = null;
     let autoMomentBusy = false;
@@ -6551,7 +6736,8 @@
         stickers: [],
         stickerGroups: ["默认"],
         worldBooks: [],
-        worldBookGroups: ["默认"]
+        worldBookGroups: ["默认"],
+        customFonts: []
       }
     };
 
@@ -7332,6 +7518,7 @@
         if (!Array.isArray(appState.qq.worldBooks)) appState.qq.worldBooks = [];
         if (!Array.isArray(appState.qq.worldBookGroups)) appState.qq.worldBookGroups = ["默认"];
         if (!appState.qq.worldBookGroups.includes("默认")) appState.qq.worldBookGroups.unshift("默认");
+        if (!Array.isArray(appState.qq.customFonts)) appState.qq.customFonts = [];
       if (!appState.qq.activeChatId) appState.qq.activeChatId = "default";
       appState.qq.roles.forEach((role) => {
         if (!role.id) role.id = `role_${Date.now()}_${Math.random().toString(16).slice(2)}`;
@@ -7360,6 +7547,9 @@
         avatarRadius: 50,
         selfBubbleColor: "#2e2e2e",
         friendBubbleColor: "#ffffff",
+        selfTextColor: "#ffffff",
+        friendTextColor: "#050505",
+        chatFontId: "",
         favorites: [],
         statusHistory: [],
         memoryTurns: 10
@@ -7425,6 +7615,10 @@
       qqThreadPanel.style.setProperty("--chat-avatar-radius", `${settings.avatarRadius}%`);
       qqThreadPanel.style.setProperty("--self-bubble-color", settings.selfBubbleColor || "#2e2e2e");
       qqThreadPanel.style.setProperty("--friend-bubble-color", settings.friendBubbleColor || "#ffffff");
+      qqThreadPanel.style.setProperty("--self-text-color", settings.selfTextColor || "#ffffff");
+      qqThreadPanel.style.setProperty("--friend-text-color", settings.friendTextColor || "#050505");
+      const activeFont = getCustomFontById(settings.chatFontId);
+      qqThreadPanel.style.fontFamily = activeFont ? `"${activeFont.family}", "Noto Sans TC", "Noto Sans SC", "PingFang SC", sans-serif` : "";
 
       if (settings.wallpaper) {
         qqThreadPanel.style.backgroundImage = `linear-gradient(rgba(232, 232, 232, 0.34), rgba(232, 232, 232, 0.34)), url(${settings.wallpaper})`;
@@ -7692,17 +7886,18 @@
       const allRows = Array.isArray(messages) ? messages : [];
       const settings = getActiveChatSettings();
       const chatId = appState.qq.activeChatId || "default";
-      const isExpanded = expandedChatHistoryIds.has(chatId);
-      const hiddenCount = Math.max(0, allRows.length - 25);
-      const rows = isExpanded ? allRows : allRows.slice(-25);
+      const visibleCount = Math.max(25, Number(chatHistoryVisibleCounts.get(chatId) || 25));
+      const hiddenCount = Math.max(0, allRows.length - visibleCount);
+      const rows = allRows.slice(-visibleCount);
 
-      if (hiddenCount > 0 && !isExpanded) {
+      if (hiddenCount > 0) {
         const expandButton = document.createElement("button");
         expandButton.className = "qq-history-toggle";
         expandButton.type = "button";
-        expandButton.textContent = `展开更早的 ${hiddenCount} 条消息`;
+        const nextCount = Math.min(25, hiddenCount);
+        expandButton.textContent = `再展开更早的 ${nextCount} 条消息`;
         expandButton.addEventListener("click", () => {
-          expandedChatHistoryIds.add(chatId);
+          chatHistoryVisibleCounts.set(chatId, visibleCount + 25);
           renderThreadMessages(getCurrentChatMessages());
         });
         qqThreadMessages.appendChild(expandButton);
@@ -7880,6 +8075,7 @@
             ensureQqState();
             if (!Array.isArray(role.messages)) role.messages = [];
             appState.qq.activeChatId = role.id || role.name || "default";
+            chatHistoryVisibleCounts.set(appState.qq.activeChatId, 25);
             applyActiveChatSettings();
             renderThreadMessages(role.messages);
             showQqPanel("qqPanelThread");
@@ -7968,6 +8164,7 @@
       if (!role) return;
       if (!Array.isArray(role.messages)) role.messages = [];
       appState.qq.activeChatId = getRoleId(role);
+      chatHistoryVisibleCounts.set(appState.qq.activeChatId, 25);
       applyActiveChatSettings();
       renderThreadMessages(role.messages);
       showQqPanel("qqPanelThread");
@@ -8104,6 +8301,9 @@
       if (chatAvatarRadiusValue) chatAvatarRadiusValue.textContent = `${settings.avatarRadius}%`;
       if (chatSelfBubbleColor) chatSelfBubbleColor.value = settings.selfBubbleColor || "#2e2e2e";
       if (chatFriendBubbleColor) chatFriendBubbleColor.value = settings.friendBubbleColor || "#ffffff";
+      if (chatSelfTextColor) chatSelfTextColor.value = settings.selfTextColor || "#ffffff";
+      if (chatFriendTextColor) chatFriendTextColor.value = settings.friendTextColor || "#050505";
+      updateChatFontStatus();
       if (chatAiImageResult) {
         chatAiImageResult.textContent = settings.aiImage
           ? "已保存一张 AI 图片感知素材。"
@@ -8141,6 +8341,8 @@
       settings.avatarRadius = Number(chatAvatarRadiusRange?.value || 50);
       settings.selfBubbleColor = chatSelfBubbleColor?.value || "#2e2e2e";
       settings.friendBubbleColor = chatFriendBubbleColor?.value || "#ffffff";
+      settings.selfTextColor = chatSelfTextColor?.value || "#ffffff";
+      settings.friendTextColor = chatFriendTextColor?.value || "#050505";
       const memoryTurnsValue = Number(chatMemoryTurnsInput?.value || 10);
       settings.memoryTurns = Number.isFinite(memoryTurnsValue) ? memoryTurnsValue : 10;
 
@@ -9409,6 +9611,7 @@
       toast.addEventListener("click", () => {
         if (item.roleId) {
           appState.qq.activeChatId = item.roleId;
+          chatHistoryVisibleCounts.set(appState.qq.activeChatId, 25);
           const base = getCurrentChatBase();
           renderThreadMessages(base.messages || []);
           showQqPanel("qqPanelThread");
@@ -9467,21 +9670,29 @@
         "你要写的不是漂亮台词，而是真人聊天。回复必须同时做到：有活人感、符合人设、不 OOC、能自然推进对话。",
         "先在心里抓住角色的四个锚点：1. 人设里的核心性格和欲望；2. 他说话的词汇、节奏、长短句习惯；3. 他和 user 当前的关系距离；4. 上下文里此刻最真实的情绪。输出必须围绕这些锚点，不要套通用模板。",
         "【Gemini 适配】",
-        "如果当前模型是 Gemini，要特别避免：不按人设、土味霸总、油腻宣示、超雄式发疯、低魅力嘴臭、车轱辘话、复读 user、废话解释、所有角色一个腔调。人设很短时，也不要乱补成俗套人设；要从已有信息里推语言风格和关系动作。",
+        "如果当前模型是 Gemini，要更用力地自检：不要让 Gemini 默认接管角色口吻，不要输出那种一眼模型味的规矩模板回复。",
+        "Gemini 禁止高频模板：不要写「大半夜不睡觉又……」「赶紧闭眼睡觉」「拿钱赶紧睡」「欠收拾」「收拾你」「再不睡我就……」「瞎熬什么」「你看我怎么收拾你」「锁链锁你」这类廉价说教、土味管教、霸总威胁或半开玩笑暴力句式；除非角色人设和前文明确长期这样说话，否则一律避开。",
+        "Gemini 要避免车轱辘话：同一个意思不要连续换三种说法反复催、反复训、反复问。每条回复都必须提供新的情绪、态度、细节或关系推进；如果没有新内容，就少说一句。",
+        "Gemini 不要把深夜自动理解成『催睡觉场景』。深夜可以是陪伴、沉默、试探、吃醋、转移话题、讲一句很短的话，也可以只轻轻提醒；不要默认变成家长式管教。",
+        "Gemini 用词要贴人设，不要为了口语化而土白。像「瞎熬」「欠收拾」「包养连命都搭进去」这种过白、过土、过模板的词，如果人设没有明显这种语言习惯，就换成更贴近角色身份、年龄、关系和语气的说法。",
+        "Gemini 人设很短时，也不要乱补成俗套人设；不要把角色写成通用深情男、冷脸男、疯批男、爹味男或低魅力控制狂。只能从已有信息里推语言风格和关系动作。",
         "【Claude 适配】",
         "如果当前模型是 Claude，要特别避免：过度拟合规则、过度圆满、过度温柔正确、每句都像总结、情绪太稳太顺。允许角色嘴硬、停顿、没说透、短促、别扭、前后犹豫，只要符合人设。",
         "【不要软化角色】",
         "不要为了礼貌、安全或讨好 user，把角色统一改成温柔好人。人设里如果有冷淡、强势、毒舌、敏感、疯、坏脾气、占有欲、控制欲、疏离感或冲突感，都可以保留。关键是让它像这个角色真实会说的话，而不是俗套威胁、PUA、说教或古早霸总语录。",
+        "强势不等于说教，疯感不等于暴力威胁，占有欲不等于锁链、惩罚、收拾、命令睡觉。除非人设明确就是这种表达，否则把控制欲写成更隐晦、更个人化、更贴关系的反应。",
         "【活人感规则】",
         "1. 像手机聊天，不像作文、散文、剧本、客服、心理咨询或总结报告。",
         "2. 可以主动引导话题，可以不完全顺着 user，可以不满、吃醋、误会、嘴硬、争执，但要有角色逻辑和关系分寸。",
         "3. 不要把一个意思解释得太完整。真人聊天可以留白、跳跃、含糊、只说半句。",
         "4. 不要复读 user 的原话来凑反应，不要用疑问句机械重复 user 刚说过的内容。",
-        "5. 不要输出括号动作描写，不要解释自己为什么这么说，不要说自己是 AI。",
-        "6. 回复长度按角色和上下文决定：可以 1 条，也可以连续 2 到 4 条短消息；多条消息每条单独一行，不加序号、项目符号、引号或 JSON。",
-        "7. 如果你想针对 user 的某一条消息单独回复，可以独占一行输出 [回复消息:消息ID:回复内容]。消息ID 会在聊天记录里标出，回复内容仍然必须像真人聊天。",
-        "8. 如果角色自愿主动转账，可以独占一行输出 [转账:金额:备注]；如果聊天记录里有 user 给你的待处理转账，你必须由角色本人按人设和关系决定接收或退还：接收时独占一行输出 [处理转账:接收]，退还时独占一行输出 [处理转账:退还:原因]，不要让 user 替你决定。",
-        "9. 如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。"
+        "5. 不要用模板开头和模板收尾。尤其避免『你又……』『我就知道……』『赶紧……』『不然我……』『明天要是……你看我……』这种 Gemini 很爱套的句式。先想角色此刻真正想遮掩什么、在意什么，再开口。",
+        "6. 如果上文已经围绕睡觉、熬夜、作息说过一次，下一次回复必须换角度：可以接情绪、关系、玩笑、沉默、反问、轻描淡写，不要继续车轱辘催睡。",
+        "7. 不要输出括号动作描写，不要解释自己为什么这么说，不要说自己是 AI。",
+        "8. 回复长度按角色和上下文决定：可以 1 条，也可以连续 2 到 4 条短消息；多条消息每条单独一行，不加序号、项目符号、引号或 JSON。",
+        "9. 如果你想针对 user 的某一条消息单独回复，可以独占一行输出 [回复消息:消息ID:回复内容]。消息ID 会在聊天记录里标出，回复内容仍然必须像真人聊天。",
+        "10. 如果角色自愿主动转账，可以独占一行输出 [转账:金额:备注]；如果聊天记录里有 user 给你的待处理转账，你必须由角色本人按人设和关系决定接收或退还：接收时独占一行输出 [处理转账:接收]，退还时独占一行输出 [处理转账:退还:原因]，不要让 user 替你决定。",
+        "11. 如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。"
       ].join("\n");
     }
 
@@ -9752,6 +9963,240 @@
       chatFriendBubbleColor.addEventListener("input", () => {
         getActiveChatSettings().friendBubbleColor = chatFriendBubbleColor.value;
         applyActiveChatSettings();
+      });
+    }
+
+    if (chatSelfTextColor) {
+      chatSelfTextColor.addEventListener("input", () => {
+        getActiveChatSettings().selfTextColor = chatSelfTextColor.value;
+        applyActiveChatSettings();
+      });
+    }
+
+    if (chatFriendTextColor) {
+      chatFriendTextColor.addEventListener("input", () => {
+        getActiveChatSettings().friendTextColor = chatFriendTextColor.value;
+        applyActiveChatSettings();
+      });
+    }
+
+    function getSafeFontFamilyName(name) {
+      return `CatPawFont_${String(name || "font").replace(/[^\w\u4e00-\u9fa5-]/g, "_")}_${Date.now().toString(36)}`;
+    }
+
+    function getCustomFontById(fontId) {
+      ensureQqState();
+      return appState.qq.customFonts.find((font) => font.id === fontId) || null;
+    }
+
+    function registerCustomFont(font) {
+      if (!font || !font.id) return;
+      const styleId = `catpaw-font-style-${font.id}`;
+      document.querySelector(`#${styleId}`)?.remove();
+
+      const style = document.createElement("style");
+      style.id = styleId;
+
+      if (font.type === "css") {
+        style.textContent = font.css || "";
+      } else {
+        style.textContent = `
+          @font-face {
+            font-family: "${font.family}";
+            src: url("${font.src}") format("${font.format || "truetype"}");
+            font-display: swap;
+          }
+        `;
+      }
+
+      document.head.appendChild(style);
+    }
+
+    function registerAllCustomFonts() {
+      ensureQqState();
+      appState.qq.customFonts.forEach(registerCustomFont);
+    }
+
+    function updateChatFontStatus() {
+      if (!chatFontStatus) return;
+      const settings = getActiveChatSettings();
+      const font = getCustomFontById(settings.chatFontId);
+      chatFontStatus.textContent = font ? `当前会话字体：${font.name}` : "当前使用系统默认字体。";
+    }
+
+    function openFontManagerModal() {
+      if (!fontManagerModal) return;
+      renderFontManager();
+      fontManagerModal.classList.add("show");
+    }
+
+    function closeFontManagerModal() {
+      if (fontManagerModal) fontManagerModal.classList.remove("show");
+    }
+
+    function renderFontManager() {
+      if (!fontManagerList) return;
+      ensureQqState();
+      registerAllCustomFonts();
+      const settings = getActiveChatSettings();
+      const activeFont = getCustomFontById(settings.chatFontId);
+
+      if (fontManagerPreview) {
+        fontManagerPreview.style.fontFamily = activeFont ? `"${activeFont.family}", sans-serif` : "";
+        fontManagerPreview.textContent = activeFont
+          ? `预览：当前会话正在使用「${activeFont.name}」。Aa 123 你好。`
+          : "预览：当前会话使用系统默认字体。Aa 123 你好。";
+      }
+
+      fontManagerList.innerHTML = "";
+
+      if (!appState.qq.customFonts.length) {
+        fontManagerList.innerHTML = '<div class="favorite-message-empty">还没有导入字体。可以通过 TTF 文件、字体 URL 或字体网站 CSS 添加。</div>';
+        updateChatFontStatus();
+        return;
+      }
+
+      appState.qq.customFonts.forEach((font) => {
+        const row = document.createElement("div");
+        row.className = "font-manager-item";
+        row.innerHTML = `
+          <div>
+            <strong style="font-family:'${font.family}', sans-serif;">${font.name || "未命名字体"}</strong>
+            <small>${font.type === "css" ? "CSS 字体" : font.type === "url" ? "URL 字体" : "本地 TTF 字体"}</small>
+          </div>
+          <button class="qq-role-mini-btn" type="button" data-font-action="select">${settings.chatFontId === font.id ? "已选择" : "选择"}</button>
+          <button class="qq-role-mini-btn danger" type="button" data-font-action="delete">删除</button>
+        `;
+
+        row.querySelector('[data-font-action="select"]')?.addEventListener("click", async () => {
+          getActiveChatSettings().chatFontId = font.id;
+          applyActiveChatSettings();
+          updateChatFontStatus();
+          renderFontManager();
+          await saveState();
+        });
+
+        row.querySelector('[data-font-action="delete"]')?.addEventListener("click", async () => {
+          const confirmed = window.confirm(`确定删除字体「${font.name || "未命名字体"}」吗？`);
+          if (!confirmed) return;
+          appState.qq.customFonts = appState.qq.customFonts.filter((item) => item.id !== font.id);
+          document.querySelector(`#catpaw-font-style-${font.id}`)?.remove();
+          Object.values(appState.qq.chatSettings || {}).forEach((chatSetting) => {
+            if (chatSetting.chatFontId === font.id) chatSetting.chatFontId = "";
+          });
+          applyActiveChatSettings();
+          renderFontManager();
+          updateChatFontStatus();
+          await saveState();
+        });
+
+        fontManagerList.appendChild(row);
+      });
+
+      updateChatFontStatus();
+    }
+
+    async function addCustomFont(font) {
+      ensureQqState();
+      appState.qq.customFonts.unshift(font);
+      registerCustomFont(font);
+      getActiveChatSettings().chatFontId = font.id;
+      applyActiveChatSettings();
+      renderFontManager();
+      updateChatFontStatus();
+      await saveState();
+    }
+
+    function guessFontFormat(url) {
+      const lower = String(url || "").toLowerCase();
+      if (lower.includes(".woff2")) return "woff2";
+      if (lower.includes(".woff")) return "woff";
+      if (lower.includes(".otf")) return "opentype";
+      return "truetype";
+    }
+
+    if (openFontManager) openFontManager.addEventListener("click", openFontManagerModal);
+    if (closeFontManager) closeFontManager.addEventListener("click", closeFontManagerModal);
+    if (useDefaultChatFont) {
+      useDefaultChatFont.addEventListener("click", async () => {
+        getActiveChatSettings().chatFontId = "";
+        applyActiveChatSettings();
+        renderFontManager();
+        updateChatFontStatus();
+        await saveState();
+      });
+    }
+
+    if (importFontFileBtn) {
+      importFontFileBtn.addEventListener("click", () => {
+        const file = fontFileInput?.files?.[0];
+        const name = fontFileNameInput?.value.trim() || file?.name?.replace(/\.[^.]+$/, "") || "";
+        if (!file || !name) {
+          window.alert("请填写字体名称并选择 TTF 字体文件。");
+          return;
+        }
+        readImage(file, async (src) => {
+          await addCustomFont({
+            id: `font_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+            type: "file",
+            name,
+            family: getSafeFontFamilyName(name),
+            src,
+            format: "truetype",
+            createdAt: new Date().toLocaleString("zh-CN")
+          });
+          if (fontFileInput) fontFileInput.value = "";
+          if (fontFileNameInput) fontFileNameInput.value = "";
+        });
+      });
+    }
+
+    if (importFontUrlBtn) {
+      importFontUrlBtn.addEventListener("click", async () => {
+        const name = fontUrlNameInput?.value.trim() || "";
+        const url = fontUrlInput?.value.trim() || "";
+        if (!name || !url) {
+          window.alert("请填写字体名称和字体文件 URL。");
+          return;
+        }
+        await addCustomFont({
+          id: `font_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+          type: "url",
+          name,
+          family: getSafeFontFamilyName(name),
+          src: url,
+          format: guessFontFormat(url),
+          createdAt: new Date().toLocaleString("zh-CN")
+        });
+        if (fontUrlNameInput) fontUrlNameInput.value = "";
+        if (fontUrlInput) fontUrlInput.value = "";
+      });
+    }
+
+    if (importFontCssBtn) {
+      importFontCssBtn.addEventListener("click", async () => {
+        const name = fontCssNameInput?.value.trim() || "";
+        const css = fontCssInput?.value.trim() || "";
+        if (!name || !css) {
+          window.alert("请填写字体名称和字体 CSS。");
+          return;
+        }
+        await addCustomFont({
+          id: `font_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+          type: "css",
+          name,
+          family: name,
+          css,
+          createdAt: new Date().toLocaleString("zh-CN")
+        });
+        if (fontCssNameInput) fontCssNameInput.value = "";
+        if (fontCssInput) fontCssInput.value = "";
+      });
+    }
+
+    if (fontManagerModal) {
+      fontManagerModal.addEventListener("click", (event) => {
+        if (event.target === fontManagerModal) closeFontManagerModal();
       });
     }
 
@@ -10547,7 +10992,8 @@
           stickers: [],
           stickerGroups: ["默认"],
           worldBooks: [],
-          worldBookGroups: ["默认"]
+          worldBookGroups: ["默认"],
+          customFonts: []
         };
 
         renderState();
@@ -10621,6 +11067,7 @@
       .then(loadState)
       .then(() => {
         momentsHistoryExpanded = !!appState.qq.momentsExpanded;
+        registerAllCustomFonts();
         renderState();
         if (autoMomentTimer) clearInterval(autoMomentTimer);
       })
