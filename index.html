@@ -2499,11 +2499,11 @@
 
     .qq-message-bubble {
       position: relative;
-      max-width: 76%;
-      padding: 9px 13px;
-      border-radius: 23px;
-      font-size: 15px;
-      line-height: 1.38;
+      max-width: 74%;
+      padding: 7px 11px;
+      border-radius: 22px;
+      font-size: 14px;
+      line-height: 1.34;
       font-weight: 900;
       letter-spacing: 0.01em;
       box-shadow: none;
@@ -2515,7 +2515,7 @@
     }
 
     .qq-message-row.self .qq-message-bubble {
-      color: var(--self-bubble-text-color, #ffffff);
+      color: #ffffff;
       background: var(--self-bubble-color, #2e2e2e);
       border-radius: 22px;
     }
@@ -2525,7 +2525,7 @@
     }
 
     .qq-message-row.friend .qq-message-bubble {
-      color: var(--friend-bubble-text-color, #050505);
+      color: #050505;
       background: var(--friend-bubble-color, rgba(255, 255, 255, 0.96));
       border-radius: 22px;
       border: 1px solid rgba(255, 255, 255, 0.98);
@@ -2533,52 +2533,6 @@
 
     .qq-message-row.friend .qq-message-bubble::after {
       display: none;
-    }
-
-    .qq-thread.bubble-wechat .qq-message-bubble {
-      max-width: 82%;
-      min-height: 50px;
-      padding: 5px 9px;
-      border-radius: 6px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      font-family: "Noto Sans TC", "PingFang TC", "PingFang HK", "Microsoft JhengHei", "Source Han Sans TC", "Noto Sans SC", "PingFang SC", sans-serif;
-      font-size: 18px;
-      font-weight: 300;
-      letter-spacing: 0.01em;
-      line-height: 1.38;
-    }
-
-    .qq-thread.bubble-wechat .qq-message-row.self .qq-message-bubble {
-      border-radius: 6px;
-    }
-
-    .qq-thread.bubble-wechat .qq-message-row.friend .qq-message-bubble {
-      border-radius: 6px;
-    }
-
-    .qq-thread.bubble-wechat .qq-message-row.self .qq-message-bubble::after,
-    .qq-thread.bubble-wechat .qq-message-row.friend .qq-message-bubble::after {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 16px;
-      width: 0;
-      height: 0;
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
-    }
-
-    .qq-thread.bubble-wechat .qq-message-row.self .qq-message-bubble::after {
-      right: -5px;
-      border-left: 7px solid var(--self-bubble-color, #2e2e2e);
-    }
-
-    .qq-thread.bubble-wechat .qq-message-row.friend .qq-message-bubble::after {
-      left: -5px;
-      border-right: 7px solid var(--friend-bubble-color, rgba(255, 255, 255, 0.96));
     }
 
     .qq-message-bubble.marked {
@@ -3231,8 +3185,6 @@
       --chat-avatar-radius: 50%;
       --self-bubble-color: #2e2e2e;
       --friend-bubble-color: rgba(255, 255, 255, 0.96);
-      --self-bubble-text-color: #ffffff;
-      --friend-bubble-text-color: #050505;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -3261,10 +3213,6 @@
     .qq-message-row {
       gap: 12px;
       align-items: flex-start;
-    }
-
-    .qq-message-row:has(.qq-read-status) {
-      gap: 12px;
     }
 
     .qq-message-avatar-stack {
@@ -3313,14 +3261,6 @@
       font-weight: 1000;
       white-space: nowrap;
       line-height: 1;
-    }
-
-    .qq-message-row.friend .qq-read-status {
-      margin-left: 3px;
-    }
-
-    .qq-message-row.self .qq-read-status {
-      margin-right: 3px;
     }
 
     .qq-message-row.self .qq-read-status {
@@ -3710,7 +3650,6 @@
 
     .chat-setting-item input[type="text"],
     .chat-setting-item textarea,
-    .chat-setting-item select,
     .chat-setting-item input[type="search"] {
       width: 100%;
       border: 1px solid rgba(238, 238, 238, 0.96);
@@ -6142,22 +6081,6 @@
             <span>对方气泡</span>
             <input id="chatFriendBubbleColor" type="color" value="#ffffff" />
           </div>
-          <div class="chat-color-row" style="margin-top:10px;">
-            <span>我的字体</span>
-            <input id="chatSelfBubbleTextColor" type="color" value="#ffffff" />
-          </div>
-          <div class="chat-color-row" style="margin-top:10px;">
-            <span>对方字体</span>
-            <input id="chatFriendBubbleTextColor" type="color" value="#050505" />
-          </div>
-        </div>
-
-        <div class="chat-setting-item">
-          <div class="chat-setting-title"><i class="fa-regular fa-comment-dots"></i> 气泡样式</div>
-          <select id="chatBubbleStyleSelect">
-            <option value="default">默认圆角气泡</option>
-            <option value="wechat">仿微信尖角气泡 · 港台细体</option>
-          </select>
         </div>
 
         <div class="chat-setting-item">
@@ -6438,9 +6361,6 @@
     const chatAvatarRadiusValue = document.querySelector("#chatAvatarRadiusValue");
     const chatSelfBubbleColor = document.querySelector("#chatSelfBubbleColor");
     const chatFriendBubbleColor = document.querySelector("#chatFriendBubbleColor");
-    const chatSelfBubbleTextColor = document.querySelector("#chatSelfBubbleTextColor");
-    const chatFriendBubbleTextColor = document.querySelector("#chatFriendBubbleTextColor");
-    const chatBubbleStyleSelect = document.querySelector("#chatBubbleStyleSelect");
     const chatHistorySearch = document.querySelector("#chatHistorySearch");
     const chatHistoryResults = document.querySelector("#chatHistoryResults");
     const openMessageFavorites = document.querySelector("#openMessageFavorites");
@@ -7440,9 +7360,6 @@
         avatarRadius: 50,
         selfBubbleColor: "#2e2e2e",
         friendBubbleColor: "#ffffff",
-        selfBubbleTextColor: "#ffffff",
-        friendBubbleTextColor: "#050505",
-        bubbleStyle: "default",
         favorites: [],
         statusHistory: [],
         memoryTurns: 10
@@ -7504,13 +7421,10 @@
       setThreadHeader(getChatDisplayName(base), base.avatar || "");
       qqThreadPanel.classList.toggle("avatar-hidden", !settings.showAvatars);
       qqThreadPanel.classList.toggle("timestamp-visible", !!settings.showAvatarTimestamp);
-      qqThreadPanel.classList.toggle("bubble-wechat", settings.bubbleStyle === "wechat");
       qqThreadPanel.style.setProperty("--chat-avatar-size", `${settings.avatarSize}px`);
       qqThreadPanel.style.setProperty("--chat-avatar-radius", `${settings.avatarRadius}%`);
       qqThreadPanel.style.setProperty("--self-bubble-color", settings.selfBubbleColor || "#2e2e2e");
       qqThreadPanel.style.setProperty("--friend-bubble-color", settings.friendBubbleColor || "#ffffff");
-      qqThreadPanel.style.setProperty("--self-bubble-text-color", settings.selfBubbleTextColor || "#ffffff");
-      qqThreadPanel.style.setProperty("--friend-bubble-text-color", settings.friendBubbleTextColor || "#050505");
 
       if (settings.wallpaper) {
         qqThreadPanel.style.backgroundImage = `linear-gradient(rgba(232, 232, 232, 0.34), rgba(232, 232, 232, 0.34)), url(${settings.wallpaper})`;
@@ -8190,9 +8104,6 @@
       if (chatAvatarRadiusValue) chatAvatarRadiusValue.textContent = `${settings.avatarRadius}%`;
       if (chatSelfBubbleColor) chatSelfBubbleColor.value = settings.selfBubbleColor || "#2e2e2e";
       if (chatFriendBubbleColor) chatFriendBubbleColor.value = settings.friendBubbleColor || "#ffffff";
-      if (chatSelfBubbleTextColor) chatSelfBubbleTextColor.value = settings.selfBubbleTextColor || "#ffffff";
-      if (chatFriendBubbleTextColor) chatFriendBubbleTextColor.value = settings.friendBubbleTextColor || "#050505";
-      if (chatBubbleStyleSelect) chatBubbleStyleSelect.value = settings.bubbleStyle || "default";
       if (chatAiImageResult) {
         chatAiImageResult.textContent = settings.aiImage
           ? "已保存一张 AI 图片感知素材。"
@@ -8230,9 +8141,6 @@
       settings.avatarRadius = Number(chatAvatarRadiusRange?.value || 50);
       settings.selfBubbleColor = chatSelfBubbleColor?.value || "#2e2e2e";
       settings.friendBubbleColor = chatFriendBubbleColor?.value || "#ffffff";
-      settings.selfBubbleTextColor = chatSelfBubbleTextColor?.value || "#ffffff";
-      settings.friendBubbleTextColor = chatFriendBubbleTextColor?.value || "#050505";
-      settings.bubbleStyle = chatBubbleStyleSelect?.value || "default";
       const memoryTurnsValue = Number(chatMemoryTurnsInput?.value || 10);
       settings.memoryTurns = Number.isFinite(memoryTurnsValue) ? memoryTurnsValue : 10;
 
@@ -9844,28 +9752,6 @@
       chatFriendBubbleColor.addEventListener("input", () => {
         getActiveChatSettings().friendBubbleColor = chatFriendBubbleColor.value;
         applyActiveChatSettings();
-      });
-    }
-
-    if (chatSelfBubbleTextColor) {
-      chatSelfBubbleTextColor.addEventListener("input", () => {
-        getActiveChatSettings().selfBubbleTextColor = chatSelfBubbleTextColor.value;
-        applyActiveChatSettings();
-      });
-    }
-
-    if (chatFriendBubbleTextColor) {
-      chatFriendBubbleTextColor.addEventListener("input", () => {
-        getActiveChatSettings().friendBubbleTextColor = chatFriendBubbleTextColor.value;
-        applyActiveChatSettings();
-      });
-    }
-
-    if (chatBubbleStyleSelect) {
-      chatBubbleStyleSelect.addEventListener("change", async () => {
-        getActiveChatSettings().bubbleStyle = chatBubbleStyleSelect.value || "default";
-        applyActiveChatSettings();
-        await saveState();
       });
     }
 
