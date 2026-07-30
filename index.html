@@ -1132,27 +1132,26 @@
       text-shadow: none;
       flex-shrink: 0;
     }
-
-    .qq-hud .hud-battery {
-      background: transparent;
-      color: currentColor;
-      padding: 0;
+    .qq-hud {
+      display: none !important;
     }
 
     .qq-view {
       flex: 1;
-      height: auto;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       min-height: 0;
+      overflow: hidden;
     }
 
     .qq-hero-head {
       display: grid;
       grid-template-columns: 48px 1fr 48px;
-      align-items: start;
-      padding: 0 14px;
-      margin-bottom: 10px;
+      align-items: center;
+      padding: calc(10px + env(safe-area-inset-top)) 14px 8px;
+      margin-bottom: 2px;
+      flex-shrink: 0;
     }
 
     .qq-back,
@@ -1265,7 +1264,6 @@
 
     .qq-banner-card {
       position: relative;
-      min-height: 194px;
       border-radius: 22px;
       padding: 10px;
       background:
@@ -1274,19 +1272,11 @@
       box-shadow:
         0 10px 20px rgba(166, 166, 166, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.94);
-      overflow: visible;
+      overflow: hidden;
     }
 
     .qq-banner-topbar {
-      position: absolute;
-      left: 50%;
-      top: -18px;
-      transform: translateX(-50%);
-      width: 58%;
-      height: 24px;
-      border-radius: 10px 10px 7px 7px;
-      background: linear-gradient(180deg, #ababab, #949494);
-      box-shadow: 0 8px 14px rgba(110, 110, 110, 0.16);
+      display: none;
     }
 
     .qq-home-tabs {
