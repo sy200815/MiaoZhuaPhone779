@@ -32,13 +32,17 @@
       --glass: rgba(255, 255, 255, 0.28);
       --glass-strong: rgba(255, 255, 255, 0.38);
       --shadow: 0 10px 30px rgba(114, 116, 122, 0.12);
+      --phone-width: 390px;
+      --dock-width: 350px;
     }
 
     html,
     body {
+      width: 100%;
       touch-action: manipulation;
       overscroll-behavior: none;
-      -webkit-text-size-adjust: 100%;
+      text-size-adjust: none;
+      -webkit-text-size-adjust: none;
     }
 
     body {
@@ -50,9 +54,19 @@
       background-color: #f7f7f5;
     }
 
+    body.ui-size-small {
+      --phone-width: 360px;
+      --dock-width: 326px;
+    }
+
+    body.ui-size-large {
+      --phone-width: 430px;
+      --dock-width: 390px;
+    }
+
     .desktop {
       width: 100%;
-      max-width: 390px;
+      max-width: var(--phone-width, 390px);
       height: 100dvh;
       min-height: 0;
       margin: 0 auto;
@@ -188,10 +202,10 @@
     }
 
     .hero-top {
-      display: grid;
+      display: none;
       grid-template-columns: 38px 1fr 38px;
       align-items: center;
-      margin-bottom: 6px;
+      margin-bottom: 0;
       color: rgba(255, 255, 255, 0.96);
     }
 
@@ -762,7 +776,7 @@
       left: 50%;
       bottom: calc(12px + env(safe-area-inset-bottom));
       transform: translateX(-50%);
-      width: min(350px, calc(100vw - 24px));
+      width: min(var(--dock-width, 350px), calc(100vw - 24px));
       height: 94px;
       padding: 13px 18px 20px;
       border-radius: 34px;
@@ -835,7 +849,7 @@
     .beautify-shell,
     .qq-shell {
       width: 100%;
-      max-width: 390px;
+      max-width: var(--phone-width, 390px);
       height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 10px);
       margin: 0 auto;
       border-radius: 28px;
@@ -2479,11 +2493,11 @@
 
     .qq-message-bubble {
       position: relative;
-      max-width: 82%;
-      padding: 7px 10px;
-      border-radius: 16px;
+      max-width: 74%;
+      padding: 7px 11px;
+      border-radius: 22px;
       font-size: 14px;
-      line-height: 1.38;
+      line-height: 1.34;
       font-weight: 900;
       letter-spacing: 0.01em;
       box-shadow: none;
@@ -2497,7 +2511,7 @@
     .qq-message-row.self .qq-message-bubble {
       color: #ffffff;
       background: var(--self-bubble-color, #2e2e2e);
-      border-radius: 16px;
+      border-radius: 22px;
     }
 
     .qq-message-row.self .qq-message-bubble::after {
@@ -2507,7 +2521,7 @@
     .qq-message-row.friend .qq-message-bubble {
       color: #050505;
       background: var(--friend-bubble-color, rgba(255, 255, 255, 0.96));
-      border-radius: 16px;
+      border-radius: 22px;
       border: 1px solid rgba(255, 255, 255, 0.98);
     }
 
@@ -2531,6 +2545,71 @@
       z-index: 1;
     }
 
+    .qq-message-quote {
+      max-width: 100%;
+      margin-bottom: 5px;
+      padding: 5px 8px;
+      border-radius: 14px;
+      color: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.14);
+      font-size: 11px;
+      line-height: 1.3;
+      font-weight: 1000;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .qq-message-row.friend .qq-message-quote {
+      color: rgba(20, 20, 20, 0.58);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .qq-message-content {
+      display: block;
+    }
+
+    .qq-reply-preview {
+      grid-column: 1 / -1;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 32px;
+      margin: 0 50px 2px;
+      padding: 6px 10px;
+      border-radius: 18px;
+      color: #3d3d3d;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.96);
+      box-shadow: 0 8px 18px rgba(145, 145, 145, 0.1);
+      font-size: 11px;
+      font-weight: 1000;
+    }
+
+    .qq-reply-preview.show {
+      display: flex;
+    }
+
+    .qq-reply-preview span {
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .qq-reply-cancel {
+      width: 22px;
+      height: 22px;
+      border: 0;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #6f6f6f;
+      background: rgba(242, 242, 242, 0.94);
+      flex-shrink: 0;
+    }
+
     .qq-thread-compose {
       position: relative;
       bottom: auto;
@@ -2544,11 +2623,11 @@
     }
 
     .qq-page.thread-mode {
-      background: #f4f5f7 !important;
+      background: #f7f7f5 !important;
     }
 
     .qq-page.thread-mode .qq-shell {
-      background: #f4f5f7 !important;
+      background: #f7f7f5 !important;
       padding: 0 !important;
       margin: 0 auto !important;
       width: 100% !important;
@@ -2566,7 +2645,7 @@
       min-height: 0;
       border-radius: 0;
       padding: 0;
-      background: #f4f5f7 !important;
+      background: #f7f7f5 !important;
       box-shadow: none !important;
     }
 
@@ -2581,7 +2660,7 @@
       width: 100%;
       height: 100dvh;
       overflow: hidden;
-      background-color: #f4f5f7 !important;
+      background-color: #f7f7f5 !important;
       box-shadow: none !important;
       border: 0 !important;
     }
@@ -2598,18 +2677,39 @@
       margin-bottom: 0;
     }
 
-    .qq-page.thread-mode .qq-thread-time,
-    .qq-page.thread-mode .qq-thread-typing-text {
+    .qq-page.thread-mode .qq-thread-time {
       position: relative;
       z-index: 2;
       background: transparent !important;
+    }
+
+    .qq-page.thread-mode .qq-thread-typing-text {
+      position: fixed;
+      left: 50%;
+      bottom: calc(58px + env(safe-area-inset-bottom));
+      z-index: 17;
+      width: min(320px, calc(100vw - 76px));
+      min-height: 22px;
+      margin: 0;
+      padding: 4px 12px;
+      border-radius: 999px;
+      transform: translate(-50%, 5px);
+      background: rgba(255, 255, 255, 0.82) !important;
+      border: 1px solid rgba(255, 255, 255, 0.94);
+      box-shadow: 0 8px 18px rgba(145, 145, 145, 0.12);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+    }
+
+    .qq-page.thread-mode .qq-thread-typing-text.show {
+      transform: translate(-50%, 0);
     }
 
     .qq-page.thread-mode .qq-thread-messages {
       flex: 1;
       min-height: 0;
       overflow-y: auto;
-      padding: 8px 12px calc(64px + env(safe-area-inset-bottom)) 12px;
+      padding: 18px 28px calc(74px + env(safe-area-inset-bottom)) 28px;
     }
 
     .qq-page.thread-mode .qq-thread-compose {
@@ -2617,7 +2717,7 @@
       left: 50%;
       bottom: calc(8px + env(safe-area-inset-bottom));
       z-index: 16;
-      width: min(390px, 100vw);
+      width: min(var(--phone-width, 390px), 100vw);
       transform: translateX(-50%);
       grid-template-columns: 44px 1fr 44px 44px;
       gap: 7px;
@@ -2686,31 +2786,82 @@
     }
 
     .qq-attach-menu {
-      position: absolute;
-      left: 0;
-      bottom: 52px;
-      z-index: 20;
+      position: fixed;
+      inset: 0;
+      z-index: 82;
       display: none;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      min-width: 126px;
-      padding: 8px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(226, 226, 226, 0.95);
-      box-shadow: 0 12px 28px rgba(80, 80, 80, 0.12);
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(34, 34, 34, 0.24);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
     }
 
     .qq-attach-menu.show {
+      display: flex;
+    }
+
+    .qq-attach-menu-inner {
+      width: min(100%, 360px);
+      margin: auto;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.9), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 245, 244, 0.54));
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      box-shadow:
+        0 22px 48px rgba(20, 20, 20, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(34px) saturate(180%);
+      -webkit-backdrop-filter: blur(34px) saturate(180%);
+      overflow: hidden;
+    }
+
+    .qq-attach-menu-preview {
+      margin: 14px 14px 8px;
+      padding: 12px 13px;
+      border-radius: 20px;
+      color: #111111;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.45;
+      background: rgba(255, 255, 255, 0.64);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+    }
+
+    .qq-attach-menu-list {
       display: grid;
+      gap: 1px;
+      padding: 8px;
     }
 
     .qq-attach-menu .qq-compose-round {
-      width: 42px;
-      height: 42px;
-      background: #f7f7f7;
-      border: 1px solid #eeeeee;
+      width: 100%;
+      border: 0;
+      min-height: 46px;
+      height: 46px;
+      border-radius: 18px;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #111111;
+      background: rgba(255, 255, 255, 0.36);
       box-shadow: none;
+      font-size: 13px;
+      font-weight: 1000;
+    }
+
+    .qq-attach-menu .qq-compose-round i {
+      color: #565656;
+      font-size: 15px;
+    }
+
+    .qq-attach-menu .qq-compose-round::after {
+      content: attr(aria-label);
+      font-size: 13px;
+      font-weight: 1000;
     }
 
     .qq-compose-avatar {
@@ -2828,7 +2979,7 @@
 
     .role-editor-card {
       width: 100%;
-      max-width: 390px;
+      max-width: var(--phone-width, 390px);
       height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 10px);
       margin: 0 auto;
       border-radius: 0;
@@ -2904,11 +3055,57 @@
       resize: vertical;
     }
 
-    .role-editor-actions {
+    .role-editor-actions,
+    .role-io-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
       margin-top: 2px;
+    }
+
+    .role-io-card {
+      padding: 12px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.42);
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      box-shadow:
+        0 12px 24px rgba(150, 150, 150, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+    }
+
+    .role-io-card strong {
+      display: block;
+      color: #111111;
+      font-size: 13px;
+      font-weight: 1000;
+    }
+
+    .role-io-card span {
+      display: block;
+      margin: 5px 0 10px;
+      color: #7b858f;
+      font-size: 10px;
+      line-height: 1.45;
+      font-weight: 900;
+    }
+
+    .role-io-card input[type="file"] {
+      width: 100%;
+      margin-top: 8px;
+      padding: 9px;
+      border-radius: 16px;
+      background: rgba(247, 247, 247, 0.76);
+      border: 1px solid rgba(238, 238, 238, 0.95);
+    }
+
+    .role-io-result {
+      margin-top: 9px;
+      color: #7b858f;
+      font-size: 10px;
+      line-height: 1.45;
+      font-weight: 900;
     }
 
     .role-preview {
@@ -2963,7 +3160,7 @@
     }
 
     .qq-thread {
-      --chat-avatar-size: 30px;
+      --chat-avatar-size: 40px;
       --chat-avatar-radius: 50%;
       --self-bubble-color: #2e2e2e;
       --friend-bubble-color: rgba(255, 255, 255, 0.96);
@@ -2993,7 +3190,7 @@
     }
 
     .qq-message-row {
-      gap: 7px;
+      gap: 12px;
       align-items: flex-start;
     }
 
@@ -3322,7 +3519,7 @@
 
     .chat-settings-card {
       width: 100%;
-      max-width: 390px;
+      max-width: var(--phone-width, 390px);
       height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 10px);
       margin: 0 auto;
       border-radius: 0;
@@ -3646,7 +3843,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 390px;
+      max-width: var(--phone-width, 390px);
       height: 100dvh;
       margin: 0 auto;
       padding: env(safe-area-inset-top) 14px calc(12px + env(safe-area-inset-bottom));
@@ -4413,6 +4610,65 @@
       overflow: hidden;
     }
 
+    .qq-thread-messages,
+    .qq-list,
+    .qq-empty-panel,
+    .qq-moments-wrap,
+    .chat-settings-card,
+    .role-editor-card,
+    .beautify-shell,
+    .card-shell {
+      contain: layout paint style;
+    }
+
+    .qq-message-row,
+    .qq-chat-row,
+    .qq-card,
+    .moment-card,
+    .library-item,
+    .bill-item,
+    .status-history-item {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 76px;
+    }
+
+    body.perf-lite .weather-glass,
+    body.perf-lite .weather-icon-card,
+    body.perf-lite .album-widget,
+    body.perf-lite .mid-glass,
+    body.perf-lite .dock,
+    body.perf-lite .qq-attach-menu,
+    body.perf-lite .message-action-sheet,
+    body.perf-lite .message-edit-card,
+    body.perf-lite .multi-delete-card,
+    body.perf-lite .favorites-card,
+    body.perf-lite .chat-settings-card,
+    body.perf-lite .role-editor-card {
+      backdrop-filter: blur(16px) saturate(145%) !important;
+      -webkit-backdrop-filter: blur(16px) saturate(145%) !important;
+      box-shadow: 0 10px 22px rgba(70, 80, 94, 0.1) !important;
+    }
+
+    body.perf-lite .app-icon,
+    body.perf-lite .chat-toast,
+    body.perf-lite .qq-compose-round,
+    body.perf-lite .qq-back,
+    body.perf-lite .qq-thread-back,
+    body.perf-lite .qq-thread-video {
+      box-shadow: 0 8px 16px rgba(70, 80, 94, 0.1) !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
     @keyframes batteryChargingPulse {
       0%,
       100% {
@@ -4818,6 +5074,34 @@
         <article class="setting-group">
           <button class="group-toggle" type="button">
             <div class="group-title">
+              <span class="group-icon"><i class="fa-solid fa-expand"></i></span>
+              <div class="group-copy">
+                <strong>界面渲染大小</strong>
+                <span>按设备屏幕差异调节整体界面宽度，避免安卓与 iOS 渲染大小不一致。</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="group-body">
+            <div class="field-stack">
+              <div class="field">
+                <label for="layoutSizeSelect">界面大小档位</label>
+                <select id="layoutSizeSelect">
+                  <option value="small">小</option>
+                  <option value="default">默认</option>
+                  <option value="large">大</option>
+                </select>
+              </div>
+              <div class="result-box">
+                默认档接近 iOS 390px 视觉宽度；小档适合窄屏或显示过大的安卓机；大档适合宽屏设备。
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="setting-group">
+          <button class="group-toggle" type="button">
+            <div class="group-title">
               <span class="group-icon"><i class="fa-solid fa-database"></i></span>
               <div class="group-copy">
                 <strong>应用数据管理</strong>
@@ -5211,13 +5495,24 @@
                 <i class="fa-solid fa-paperclip"></i>
               </button>
               <div class="qq-attach-menu" id="qqAttachMenu" aria-label="更多功能菜单">
-                <button class="qq-compose-round" id="openEmojiPicker" type="button" aria-label="表情包">
-                  <i class="fa-regular fa-face-smile"></i>
-                </button>
-                <button class="qq-compose-round" id="openTransferModal" type="button" aria-label="转账">
-                  <i class="fa-solid fa-yen-sign"></i>
-                </button>
+                <div class="qq-attach-menu-inner">
+                  <div class="qq-attach-menu-preview">更多功能</div>
+                  <div class="qq-attach-menu-list">
+                    <button class="qq-compose-round" id="openEmojiPicker" type="button" aria-label="表情包">
+                      <i class="fa-regular fa-face-smile"></i>
+                    </button>
+                    <button class="qq-compose-round" id="openTransferModal" type="button" aria-label="转账">
+                      <i class="fa-solid fa-yen-sign"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
+          <div class="qq-reply-preview" id="qqReplyPreview">
+            <span>正在回复这条消息</span>
+            <button class="qq-reply-cancel" id="cancelReplyMessage" type="button" aria-label="取消回复">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
           <input class="qq-compose-input" id="qqMessageInput" type="text" placeholder="그에게 메시지를 보내려면 클릭하세요!" autocomplete="off" />
           <button class="qq-compose-round" id="qqRoleReply" type="button" aria-label="角色回复">
             <i class="fa-solid fa-reply"></i>
@@ -5523,6 +5818,15 @@
         </button>
       </div>
       <div class="role-editor-body">
+        <div class="role-io-card">
+          <strong>导入角色文件</strong>
+          <span>导入保存过的人设文件后，会直接创建为新角色。聊天记录、账单、收藏和状态记忆不会随角色文件导入。</span>
+          <div class="single-action">
+            <button class="liquid-btn primary" type="button" onclick="document.querySelector('#importRolesInput')?.click()">导入角色文件</button>
+          </div>
+          <input id="importRolesInput" type="file" accept="application/json" />
+          <div class="role-io-result" id="roleImportResult">支持单个角色 JSON 或包含 roles 数组的角色包。</div>
+        </div>
         <div class="field">
           <label for="roleAvatarInput">角色头像</label>
           <input id="roleAvatarInput" type="file" accept="image/*" />
@@ -5750,6 +6054,14 @@
           <div class="chat-ai-result">这里填写会发送给 AI 的最近聊天轮数，默认 10 轮。</div>
         </div>
 
+        <div class="chat-setting-item">
+          <div class="chat-setting-title"><i class="fa-solid fa-file-export"></i> 导出当前角色</div>
+          <div class="chat-toggle-row">
+            <span>导出当前联系人的人设文件，方便下次直接导入创建角色。</span>
+          </div>
+          <button class="liquid-btn chat-favorites-open" id="exportCurrentRoleBtn" type="button">导出当前角色人设</button>
+        </div>
+
         <button class="liquid-btn chat-delete-contact" id="deleteCurrentContact" type="button">删除联系人</button>
 
         <div class="chat-settings-actions">
@@ -5780,6 +6092,10 @@
     <div class="message-action-sheet">
       <div class="message-action-preview" id="messageActionPreview"></div>
       <div class="message-action-list">
+        <button class="message-action-btn" type="button" data-message-action="reply">
+          <span>回复这条消息</span>
+          <i class="fa-solid fa-reply"></i>
+        </button>
         <button class="message-action-btn" type="button" data-message-action="edit">
           <span>编辑消息内容</span>
           <i class="fa-solid fa-pen"></i>
@@ -5879,6 +6195,7 @@
     const modelName = document.querySelector("#modelName");
     const globalVisionToggle = document.querySelector("#globalVisionToggle");
     const realTimeAwarenessToggle = document.querySelector("#realTimeAwarenessToggle");
+    const layoutSizeSelect = document.querySelector("#layoutSizeSelect");
     const apiBase = document.querySelector("#apiBase");
     const apiKey = document.querySelector("#apiKey");
     const desktop = document.querySelector(".desktop");
@@ -5927,6 +6244,8 @@
     const roleLocationInput = document.querySelector("#roleLocationInput");
     const roleBirthdayInput = document.querySelector("#roleBirthdayInput");
     const roleStoryInput = document.querySelector("#roleStoryInput");
+    const importRolesInput = document.querySelector("#importRolesInput");
+    const roleImportResult = document.querySelector("#roleImportResult");
     const rolePreviewAvatar = document.querySelector("#rolePreviewAvatar");
     const rolePreviewName = document.querySelector("#rolePreviewName");
     const rolePreviewMeta = document.querySelector("#rolePreviewMeta");
@@ -5983,6 +6302,7 @@
     const chatMemoryTurnsInput = document.querySelector("#chatMemoryTurnsInput");
     const clearCurrentContactMemory = document.querySelector("#clearCurrentContactMemory");
     const deleteCurrentContact = document.querySelector("#deleteCurrentContact");
+    const exportCurrentRoleBtn = document.querySelector("#exportCurrentRoleBtn");
     const wallpaperPreviewModal = document.querySelector("#wallpaperPreviewModal");
     const wallpaperPreviewPhone = document.querySelector("#wallpaperPreviewPhone");
     const closeWallpaperPreview = document.querySelector("#closeWallpaperPreview");
@@ -6087,6 +6407,8 @@
     const closeStatusHistory = document.querySelector("#closeStatusHistory");
     const statusHistoryList = document.querySelector("#statusHistoryList");
     const qqTypingText = document.querySelector("#qqTypingText");
+    const qqReplyPreview = document.querySelector("#qqReplyPreview");
+    const cancelReplyMessage = document.querySelector("#cancelReplyMessage");
     const chatToastLayer = document.querySelector("#chatToastLayer");
     const chatToastQueue = [];
     let chatToastShowing = false;
@@ -6095,6 +6417,7 @@
     let autoMomentTimer = null;
     let autoMomentBusy = false;
     let roleReplyBusy = false;
+    let pendingReplyMessageId = "";
 
     const DB_NAME = "catpaw-desktop-db";
     const STORE_NAME = "app_state";
@@ -6145,7 +6468,8 @@
         cardPageSubtitle: "资产、表情包与世界书都在这里整理",
         cardProfileName: "CatPaw Keeper",
         cardProfileBio: "把角色关系、转账记录、表情和世界观设定收进一张透明卡片。",
-        cardProfileCoverImage: ""
+        cardProfileCoverImage: "",
+        layoutSize: "default"
       },
       qq: {
         roles: [],
@@ -6391,6 +6715,13 @@
       }
     }
 
+    function applyLayoutSize(size) {
+      const normalized = ["small", "default", "large"].includes(size) ? size : "default";
+      document.body.classList.remove("ui-size-small", "ui-size-large");
+      if (normalized === "small") document.body.classList.add("ui-size-small");
+      if (normalized === "large") document.body.classList.add("ui-size-large");
+    }
+
     function renderModels() {
       if (!modelSelect) return;
       modelSelect.innerHTML = "";
@@ -6415,6 +6746,8 @@
       if (modelName) modelName.value = appState.api.modelName || "";
       if (globalVisionToggle) globalVisionToggle.checked = !!appState.api.globalVisionEnabled;
       if (realTimeAwarenessToggle) realTimeAwarenessToggle.checked = !!appState.api.realTimeAwarenessEnabled;
+      if (layoutSizeSelect) layoutSizeSelect.value = appState.theme.layoutSize || "default";
+      applyLayoutSize(appState.theme.layoutSize || "default");
 
       const profileTitle = document.querySelector(".profile-copy h1");
       if (profileTitle) profileTitle.childNodes[0].textContent = `${appState.theme.profileTitle || "CatPaw Studio"} `;
@@ -6701,6 +7034,14 @@
       });
     }
 
+    if (layoutSizeSelect) {
+      layoutSizeSelect.addEventListener("change", async () => {
+        appState.theme.layoutSize = layoutSizeSelect.value || "default";
+        applyLayoutSize(appState.theme.layoutSize);
+        await saveState();
+      });
+    }
+
     function readImage(file, callback) {
       if (!file) return;
       const reader = new FileReader();
@@ -6751,6 +7092,119 @@
     function closeRoleEditorModal() {
       if (!roleEditorModal) return;
       roleEditorModal.classList.remove("show");
+    }
+
+    function getRoleExportPayload() {
+      ensureQqState();
+      const roles = appState.qq.roles.map((role) => ({
+        name: role.name || "",
+        gender: role.gender || "",
+        persona: role.persona || "",
+        location: role.location || "",
+        birthday: role.birthday || "",
+        story: role.story || "",
+        group: role.group || "未分组",
+        avatar: role.avatar || ""
+      }));
+
+      return {
+        type: "catpaw-role-pack",
+        version: 1,
+        exportedAt: new Date().toLocaleString("zh-CN"),
+        groups: appState.qq.groups || ["未分组"],
+        roles
+      };
+    }
+
+    function normalizeImportedRole(rawRole) {
+      if (!rawRole || typeof rawRole !== "object") return null;
+      const name = String(rawRole.name || rawRole.roleName || "").trim();
+      const persona = String(rawRole.persona || rawRole.prompt || rawRole.description || "").trim();
+
+      if (!name || !persona) return null;
+
+      return {
+        id: `role_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        avatar: rawRole.avatar || rawRole.avatarImage || "",
+        name,
+        gender: String(rawRole.gender || "").trim(),
+        persona,
+        location: String(rawRole.location || "").trim(),
+        birthday: String(rawRole.birthday || "").trim(),
+        story: String(rawRole.story || rawRole.relationship || "").trim(),
+        group: String(rawRole.group || "未分组").trim() || "未分组",
+        messages: []
+      };
+    }
+
+    function exportCurrentRole() {
+      ensureQqState();
+      const base = getCurrentChatBase();
+
+      if (!base.role) {
+        window.alert("请先进入一个角色会话，再导出当前角色人设。");
+        return;
+      }
+
+      const role = base.role;
+      const safeName = String(role.name || "role").replace(/[\\/:*?"<>|]/g, "_");
+      downloadJson(`catpaw-role-${safeName}.json`, {
+        type: "catpaw-role",
+        version: 1,
+        exportedAt: new Date().toLocaleString("zh-CN"),
+        name: role.name || "",
+        gender: role.gender || "",
+        persona: role.persona || "",
+        location: role.location || "",
+        birthday: role.birthday || "",
+        story: role.story || "",
+        group: role.group || "未分组",
+        avatar: role.avatar || ""
+      });
+    }
+
+    async function importRoleFile(file) {
+      if (!file) return;
+
+      try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        const rawRoles = Array.isArray(data)
+          ? data
+          : Array.isArray(data.roles)
+            ? data.roles
+            : [data];
+
+        const importedRoles = rawRoles.map(normalizeImportedRole).filter(Boolean);
+
+        if (!importedRoles.length) {
+          throw new Error("没有识别到有效角色。角色至少需要 name 和 persona。");
+        }
+
+        ensureQqState();
+
+        if (Array.isArray(data.groups)) {
+          data.groups.forEach((group) => {
+            const groupName = String(group || "").trim();
+            if (groupName && !appState.qq.groups.includes(groupName)) appState.qq.groups.push(groupName);
+          });
+        }
+
+        importedRoles.forEach((role) => {
+          if (!appState.qq.groups.includes(role.group)) appState.qq.groups.push(role.group);
+          appState.qq.roles.push(role);
+        });
+
+        syncRoleGroupOptions();
+        renderRoleList();
+        renderChatList();
+        await saveState();
+
+        if (roleImportResult) roleImportResult.textContent = `导入成功：新增 ${importedRoles.length} 个角色。`;
+        if (importRolesInput) importRolesInput.value = "";
+      } catch (error) {
+        if (roleImportResult) roleImportResult.textContent = `导入失败：${error.message}`;
+      }
     }
 
     function updateRolePreview() {
@@ -6808,13 +7262,13 @@
         myName: "",
         aiImageEnabled: false,
         aiImage: "",
-        showAvatars: false,
+        showAvatars: true,
         showReadStatus: false,
         roleCanSendStickers: false,
         boundStickerGroups: [],
         boundWorldBookGroups: [],
         wallpaper: "",
-        avatarSize: 30,
+        avatarSize: 40,
         avatarRadius: 50,
         selfBubbleColor: "#2e2e2e",
         friendBubbleColor: "#ffffff",
@@ -6888,7 +7342,7 @@
         qqThreadPanel.style.backgroundColor = "";
       } else {
         qqThreadPanel.style.backgroundImage = "none";
-        qqThreadPanel.style.backgroundColor = "#f4f5f7";
+        qqThreadPanel.style.backgroundColor = "#f7f7f5";
       }
     }
 
@@ -6908,6 +7362,37 @@
 
     function findCurrentMessageById(messageId) {
       return getCurrentChatMessages().find((item) => getMessageId(item) === messageId);
+    }
+
+    function getMessageReplyLabel(messageId) {
+      const message = findCurrentMessageById(messageId);
+      if (!message) return "";
+      const speaker = message.sender === "friend" ? "对方" : "我";
+      const text = message.type === "transfer"
+        ? `[转账] ${formatMoney(message.amount)} ${message.note || ""}`
+        : message.type === "sticker"
+          ? `[表情包] ${message.note || "未备注"}`
+          : (message.text || "");
+      return `${speaker}：${text}`;
+    }
+
+    function updateReplyPreview() {
+      if (!qqReplyPreview) return;
+      const label = pendingReplyMessageId ? getMessageReplyLabel(pendingReplyMessageId) : "";
+      qqReplyPreview.classList.toggle("show", !!label);
+      const textNode = qqReplyPreview.querySelector("span");
+      if (textNode) textNode.textContent = label ? `回复 ${label}` : "正在回复这条消息";
+    }
+
+    function setReplyTarget(messageId) {
+      pendingReplyMessageId = messageId || "";
+      updateReplyPreview();
+      if (qqMessageInput) qqMessageInput.focus();
+    }
+
+    function clearReplyTarget() {
+      pendingReplyMessageId = "";
+      updateReplyPreview();
     }
 
     function closeMessageActionMenu() {
@@ -7153,13 +7638,28 @@
               <em>${transferStatus}</em>
             </div>
           `;
-          bubble.addEventListener("click", () => openTransferDecision(messageId));
+          if (isFriend) {
+            bubble.addEventListener("click", () => openTransferDecision(messageId));
+          }
         } else if (item.type === "sticker") {
           bubble.classList.add("media-message", "sticker-message");
           bubble.innerHTML = `<img class="chat-sticker-img" src="${item.url || ""}" alt="${item.note || "表情包"}" />`;
           bubble.title = item.note || "";
         } else {
-          bubble.textContent = item.text || "";
+          if (item.replyTo) {
+            const quoteText = getMessageReplyLabel(item.replyTo);
+            if (quoteText) {
+              const quote = document.createElement("div");
+              quote.className = "qq-message-quote";
+              quote.textContent = quoteText;
+              bubble.appendChild(quote);
+            }
+          }
+
+          const content = document.createElement("span");
+          content.className = "qq-message-content";
+          content.textContent = item.text || "";
+          bubble.appendChild(content);
         }
 
         const status = document.createElement("span");
@@ -7193,7 +7693,13 @@
 
       ensureQqState();
 
-      const message = { id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`, sender: "self", text, read: false };
+      const message = {
+        id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        sender: "self",
+        text,
+        read: false,
+        replyTo: pendingReplyMessageId || ""
+      };
       const activeChatId = appState.qq.activeChatId || "default";
 
       if (activeChatId === "default") {
@@ -7209,6 +7715,7 @@
       }
 
       qqMessageInput.value = "";
+      clearReplyTarget();
       renderChatList();
       saveState();
       requestAnimationFrame(() => {
@@ -7961,6 +8468,12 @@
       const amount = Number(message.amount || 0);
       const oldStatus = message.transferStatus || "pending";
 
+      if (message.sender === "self") {
+        window.alert("这笔转账需要由角色在回复中决定接收或退还。");
+        closeTransferDecisionModal();
+        return;
+      }
+
       if (oldStatus === "accepted" && status === "refunded") {
         if (message.sender === "friend") appState.qq.assets -= amount;
         if (message.sender === "self") appState.qq.assets += amount;
@@ -8009,6 +8522,42 @@
       renderThreadMessages(getCurrentChatMessages());
       renderChatList();
       await saveState();
+    }
+
+    function processRoleTransferDecision(status, note = "") {
+      const messages = getCurrentChatMessages();
+      const message = [...messages].reverse().find((item) => item.type === "transfer" && item.sender === "self" && (item.transferStatus || "pending") === "pending");
+      if (!message) return "";
+
+      const base = getCurrentChatBase();
+      const amount = Number(message.amount || 0);
+      const finalStatus = status === "accepted" ? "accepted" : "refunded";
+      const actionText = finalStatus === "accepted" ? "接收了" : "退还了";
+
+      if (finalStatus === "accepted") {
+        if (appState.qq.assets < amount) {
+          message.transferStatus = "refunded";
+          message.text = `[转账消息：我给${base.name || "角色"}的转账 ${formatMoney(amount)}，备注：${message.note || "猫爪转账"}。因为余额不足，系统自动退还。]`;
+          return "转账因余额不足已退还";
+        }
+        appState.qq.assets -= amount;
+      }
+
+      message.transferStatus = finalStatus;
+      message.text = `[转账消息：我给${base.name || "角色"}的转账 ${formatMoney(amount)}，备注：${message.note || "猫爪转账"}。${base.name || "角色"}选择${actionText}这笔转账${note ? `，理由：${note}` : ""}。]`;
+
+      appState.qq.transactions.unshift({
+        id: `bill_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        direction: "out",
+        roleId: base.id,
+        roleName: base.name || "角色",
+        amount,
+        note: `${message.note || "猫爪转账"} · 角色${actionText}${note ? ` · ${note}` : ""}`,
+        status: finalStatus,
+        createdAt: new Date().toLocaleString("zh-CN")
+      });
+
+      return `转账已${finalStatus === "accepted" ? "被接收" : "被退还"}`;
     }
 
     function openEmojiPickerModal() {
@@ -8063,6 +8612,25 @@
       return {
         amount: Number(match[1]),
         note: match[2]?.trim() || "角色主动转账"
+      };
+    }
+
+    function parseTransferDecisionCommand(text) {
+      const match = String(text || "").match(/\[?\s*(?:处理转账|转账处理|收款决定)\s*[:：]\s*(接收|收下|接受|退还|退回|拒收|拒绝)\s*(?:[:：]\s*([^\]]+))?\]?/);
+      if (!match) return null;
+      const rawStatus = match[1] || "";
+      return {
+        status: /接收|收下|接受/.test(rawStatus) ? "accepted" : "refunded",
+        note: match[2]?.trim() || ""
+      };
+    }
+
+    function parseRoleReplyReferenceCommand(text) {
+      const match = String(text || "").match(/^\s*\[?\s*(?:回复消息|引用回复|针对消息)\s*[:：]\s*(msg_[^:：\]\s]+)\s*[:：]\s*([\s\S]+?)\s*\]?\s*$/);
+      if (!match) return null;
+      return {
+        replyTo: match[1],
+        text: match[2]?.trim() || ""
       };
     }
 
@@ -8310,16 +8878,16 @@
 
       try {
         const prompt = [
-          "你要模拟角色在朋友圈/动态主页主动发一条动态。",
-          "必须严格贴合角色人设、说话方式、关系记忆，不要 OOC，不要提到 AI，不要解释设定。",
-          "【语言与表达最高禁令】",
-          "1. 强制禁止书面感词汇与任何书面语！必须使用真人在生活中的日常口语，禁止过度文学化或戏剧剧本感。",
-          "2. 语言风格日常真实，不要机械感，不要把一个意思说得太圆满或总结得太死。",
-          "3. 绝对禁止爹味、教训、打压（PUA）或威胁。绝不使用命令语气，绝不说“倒是”。",
-          "4. 禁词与禁句：严禁出现“胆子大了”、“胆子肥了”、“胆子也太小了”、“胆子”、“你脑子里一天天装着什么乱七八糟的东西”及任何相似衍生表达。",
-          "5. 正确表现占有欲/控制欲：占有欲表现为粘人、吃醋、对User有情绪价值需求以及提供安全感/保护感，绝对不是霸总台词或不尊重人的负面倾向；控制欲表现为害怕失控感和被抛弃，自身维持秩序感与沉稳，而不是管User闲事。",
-          getRoleMemoryText(role),
-          "请只输出动态正文，1 到 3 句即可。"
+          "你要以角色本人身份发一条朋友圈/动态。",
+          `当前调用模型：${appState.api.modelName || "未知模型"}`,
+          "核心目标：像真人随手发动态，同时严格符合人设、关系、近期聊天记忆，不 OOC，不解释设定，不提 AI。",
+          "先抓住角色的三件事：1. 他说话的节奏和用词；2. 他和 user 的关系距离；3. 他现在最可能藏着的情绪。动态必须从这三点自然长出来，不要套模板。",
+          "模型适配：如果是 Gemini，不要写土味霸总、超雄式发疯、油腻宣示、车轱辘话或人机废话；人设短也要从已有细节推语言风格，不要用通用深情男/冷脸男/疯批模板补空。",
+          "模型适配：如果是 Claude，不要过度追求圆满、正确、温柔或总结感；允许动态里有一点别扭、没说透、短促、欲言又止，像真实的人发出来的东西。",
+          "不要为了避免冲突把角色软化。人设里如果冷淡、毒舌、强势、敏感、占有欲强或情绪复杂，都可以保留，但要有生活逻辑和魅力，不能变成俗套威胁、说教、PUA 或古早霸总语录。",
+          "语言要求：日常口语，短一点，有生活现场感。不要写成散文、小说旁白、心理分析、鸡汤或小作文。",
+          "输出要求：只输出动态正文，1 到 3 句。不要加标题、括号动作、解释或引号。",
+          getRoleMemoryText(role)
         ].join("\n");
 
         const text = await callChatCompletion([
@@ -8437,14 +9005,15 @@
       try {
         const existingComments = (moment.comments || []).map((item) => `${item.authorName || "我"}：${item.text || ""}`).join("\n");
         const prompt = [
-          "你要模拟角色在动态下进行评论互动。",
-          "必须严格符合角色人设、聊天记忆、角色与我的关系，不要 OOC，不要提到 AI，不要旁白。",
-          "【评论表达最高禁令】",
-          "1. 强制禁止书面感与书面语！必须以真人口吻、日常口语评论，禁止剧本感与机械总结。",
-          "2. 情绪转折必须缓慢别扭，禁止以任何方式威胁User，禁止爹味管教或语气说教。",
-          "3. 允许有不满或微小争执矛盾，但必须建立在有教养、尊重User意愿的前提下。不盲目附和，但绝不PUA。",
-          "4. 禁词与禁句：严禁使用“胆子大了”、“胆子肥了”、“胆子也太小了”、“胆子”、“你脑子里一天天装着什么乱七八糟的东西”或类似变体；禁止以反问句/疑问句形式重复User的话；禁止使用“倒是”。",
-          "5. 占有欲表现为令人感到安全感和被保护感的正面倾向，或是因吃醋而难过的真实小情绪，绝不作霸总式言论。",
+          "你要以角色本人身份在朋友圈/动态下评论或回复。",
+          `当前调用模型：${appState.api.modelName || "未知模型"}`,
+          "核心目标：评论要像真人在评论区互动，短、准、有关系感，同时严格符合角色人设和说话方式，不 OOC，不提 AI，不旁白。",
+          "先判断：这条动态是谁发的、角色和对方是什么关系、角色看到后第一反应是什么。回复必须从这个第一反应出发，而不是从规则或模板出发。",
+          "模型适配：如果是 Gemini，避免土味霸总、油腻调戏、超雄发疯、复读 user、车轱辘话和没必要的解释。不要把所有角色都写成同一种控制狂或低魅力嘴臭人。",
+          "模型适配：如果是 Claude，避免过度圆滑、过度共情、过度总结。可以有停顿、别扭、吃醋、不满、嘴硬或轻微冲突，但要像真人，不要像安全回复范文。",
+          "不要为了礼貌把角色软化。角色可以冷、酸、倔、拧巴、吃醋、闹情绪，也可以不完全顺着 user；但冲突必须有角色逻辑和生活感，不能变成威胁、管教、PUA 或俗套霸总语录。",
+          "语言要求：口语化，像手机评论。不要写成散文、小说台词、心理剖析或长篇说明。不要用括号动作。",
+          "输出要求：只输出一条评论正文，通常 5 到 40 个字；需要更复杂时最多 2 句。",
           getRoleMemoryText(role),
           `动态作者：${moment.authorType === "self" ? "我" : (moment.authorName || role.name)}`,
           `动态正文：${moment.text || ""}`,
@@ -8555,8 +9124,14 @@
       try {
         const prompt = [
           "你要根据角色人设、最近聊天、动态记忆，生成一次角色状态栏。",
+          `当前调用模型：${appState.api.modelName || "未知模型"}`,
+          "核心目标：状态栏必须像这个角色真实生活中的一小段截面，符合人设，不 OOC，有活人感，不是模板化角色卡。",
+          "先抓住角色此刻最可能的状态：他在哪里、刚做完什么、情绪压在哪里、对 user 的态度有没有细微变化。不要把状态写得太圆满，也不要写成小说设定展示。",
+          "模型适配：如果是 Gemini，避免俗套霸总、超雄化、油腻、低魅力、空泛车轱辘和不按人设乱补。短人设也要依据已有聊天和关系细节推状态，不要套常见男主模板。",
+          "模型适配：如果是 Claude，避免过度精致、过度总结、过度温柔正确。允许角色状态里有矛盾、别扭、嘴硬、未说出口的情绪，但必须贴合人设。",
+          "不要为了安全或礼貌软化角色。冷淡、强势、敏感、占有欲、疏离或冲突都可以存在，但要有角色逻辑和生活质感，不能变成威胁、PUA、说教或土味霸总。",
           "请只输出 JSON，不要 Markdown，不要解释。",
-          "JSON 字段：action（此刻动作，20字内）、outfit（此刻服饰，40字内）、desire（0-100数字，性欲值，按角色设定和当前氛围合理给出）、mood（0-100数字，心情值）、diary（100到300字心声日记，要像角色内心独白，有生活感、有情绪，可以有趣或抒情）。",
+          "JSON 字段：action（此刻动作，20字内，生活化）、outfit（此刻服饰，40字内，符合角色习惯）、desire（0-100数字，按角色设定和当前氛围合理给出，不要固定中间值）、mood（0-100数字，按真实情绪给出）、diary（100到300字心声日记，要像角色脑子里真的闪过的东西，有口吻和私心，不要像总结报告）。",
           getRoleMemoryText(base.role)
         ].join("\n");
 
@@ -8720,23 +9295,27 @@
         `可用表情包：\n${getBoundStickerText()}`,
         `我的当前资产余额：${formatMoney(appState.qq.assets || 0)}`,
         getRealityTimePromptLine(),
+        `当前调用模型：${appState.api.modelName || "未知模型"}`,
         "下面是我和角色的线上聊天记录。user 代表我，assistant 代表你正在扮演的角色。",
-        "【核心性格与对话规则 - 最高优先】",
-        "1. 强制禁止书面感词汇，强制禁止任何书面语！必须以一个真人的口吻说话，而不是演剧本。主动引导对话，语言风格日常真实。",
-        "2. 不要输出太有机械感的内容，不要把一个意思说得太圆满或死板总结。",
-        "3. 角色的情绪转折必须要缓慢而别扭，有真实的心理拉扯，禁止瞬间翻脸或瞬间妥协。",
-        "4. 绝对禁止以任何方式威胁 user，无论 user 做什么都不能威胁 user。",
-        "5. 绝对禁止爹味！角色不是 user 的爹，不需要管 user 干什么，分清楚 PUA 和关心，禁止 PUA user。除非角色吃醋，但吃醋也只能做普通人会做的正常行为。",
-        "6. 控制欲强与占有欲强的正确表现：",
-        "   - 控制欲强：表现为害怕失控感，害怕被抛弃，害怕自己变得不像平时的自己，害怕自己情绪过度爆发；控制欲强的角色平时情绪沉稳稳定，能掌控好自己的生活，注重秩序感。严禁表现为多管 user 闲事或喜欢说教。",
-        "   - 占有欲强：表现为容易吃醋，容易因为 user 对别人展露好感而难过，对 user 有强烈的情绪价值需求，会表现得粘人，给人安全感和被保护感。严禁挂霸总语录（如'你是我的人'），严禁侵犯 user 意愿或作负面威胁。",
-        "7. 严禁出现以下词汇与句子结构（包括相似衍生）：",
-        "   - 禁词：'胆子大了'、'胆子肥了'、'胆子也太小了'、'胆子'、'你脑子里一天天装着什么乱七八糟的东西'。",
-        "   - 严禁使用反问句或疑问句的形式将 user 的话重复输出（例如 user 说'我今天吃了苹果'，角色严禁回复'吃了苹果？'）。",
-        "   - 严禁角色管束 user，严禁使用不尊重 user 意愿的命令语气，严禁说'倒是'。",
-        "8. 不一味附和 user，可以不满也可以闹矛盾、争吵，但这一切的基础必须是在有教养的表现下进行。",
-        "9. 回复要像真实即时通讯软件中的聊天：不要解释人设，不要说自己是 AI，不要旁白，不要输出括号动作描写，直接回复聊天文字。你可以只回复 1 条，也可以像真人一样连续发送 2 到 4 条短消息（每条独占一行）。",
-        "10. 特殊格式：如角色自愿主动转账可独占一行输出 [转账:金额:备注]；允许发表情时可提到表情ID或备注；聊天结束觉得想发动态可独占一行输出 [朋友圈:动态正文]（自然决定，勿频繁发）。"
+        "【角色回复目标】",
+        "你要写的不是漂亮台词，而是真人聊天。回复必须同时做到：有活人感、符合人设、不 OOC、能自然推进对话。",
+        "先在心里抓住角色的四个锚点：1. 人设里的核心性格和欲望；2. 他说话的词汇、节奏、长短句习惯；3. 他和 user 当前的关系距离；4. 上下文里此刻最真实的情绪。输出必须围绕这些锚点，不要套通用模板。",
+        "【Gemini 适配】",
+        "如果当前模型是 Gemini，要特别避免：不按人设、土味霸总、油腻宣示、超雄式发疯、低魅力嘴臭、车轱辘话、复读 user、废话解释、所有角色一个腔调。人设很短时，也不要乱补成俗套人设；要从已有信息里推语言风格和关系动作。",
+        "【Claude 适配】",
+        "如果当前模型是 Claude，要特别避免：过度拟合规则、过度圆满、过度温柔正确、每句都像总结、情绪太稳太顺。允许角色嘴硬、停顿、没说透、短促、别扭、前后犹豫，只要符合人设。",
+        "【不要软化角色】",
+        "不要为了礼貌、安全或讨好 user，把角色统一改成温柔好人。人设里如果有冷淡、强势、毒舌、敏感、疯、坏脾气、占有欲、控制欲、疏离感或冲突感，都可以保留。关键是让它像这个角色真实会说的话，而不是俗套威胁、PUA、说教或古早霸总语录。",
+        "【活人感规则】",
+        "1. 像手机聊天，不像作文、散文、剧本、客服、心理咨询或总结报告。",
+        "2. 可以主动引导话题，可以不完全顺着 user，可以不满、吃醋、误会、嘴硬、争执，但要有角色逻辑和关系分寸。",
+        "3. 不要把一个意思解释得太完整。真人聊天可以留白、跳跃、含糊、只说半句。",
+        "4. 不要复读 user 的原话来凑反应，不要用疑问句机械重复 user 刚说过的内容。",
+        "5. 不要输出括号动作描写，不要解释自己为什么这么说，不要说自己是 AI。",
+        "6. 回复长度按角色和上下文决定：可以 1 条，也可以连续 2 到 4 条短消息；多条消息每条单独一行，不加序号、项目符号、引号或 JSON。",
+        "7. 如果你想针对 user 的某一条消息单独回复，可以独占一行输出 [回复消息:消息ID:回复内容]。消息ID 会在聊天记录里标出，回复内容仍然必须像真人聊天。",
+        "8. 如果角色自愿主动转账，可以独占一行输出 [转账:金额:备注]；如果聊天记录里有 user 给你的待处理转账，你必须由角色本人按人设和关系决定接收或退还：接收时独占一行输出 [处理转账:接收]，退还时独占一行输出 [处理转账:退还:原因]，不要让 user 替你决定。",
+        "9. 如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。"
       ].join("\n");
     }
 
@@ -8765,10 +9344,10 @@
       const memoryMessageCount = Number.isFinite(memoryTurns) && memoryTurns > 0 ? Math.floor(memoryTurns) * 2 : 20;
       const chatMessages = messages.slice(-memoryMessageCount).map((item) => {
         const textContent = item.type === "sticker"
-          ? `[表情包：${item.note || "未备注"}]`
+          ? `[消息ID:${getMessageId(item)}；${item.sender === "friend" ? "assistant" : "user"}发送表情包：${item.note || "未备注"}]`
           : item.type === "transfer"
-            ? `[转账消息：${item.text || `${formatMoney(item.amount)} ${item.note || ""}`}]`
-            : (item.text || "");
+            ? `[转账消息ID:${getMessageId(item)}；发送方:${item.sender === "friend" ? "assistant" : "user"}；金额:${formatMoney(item.amount)}；备注:${item.note || "猫爪转账"}；状态:${item.transferStatus || "pending"}；说明:${item.text || ""}]`
+            : `[消息ID:${getMessageId(item)}；发送方:${item.sender === "friend" ? "assistant" : "user"}${item.replyTo ? `；引用:${getMessageReplyLabel(item.replyTo)}` : ""}；内容:${item.text || ""}]`;
         if (appState.api.globalVisionEnabled && item.type === "sticker" && item.url) {
           return {
             role: item.sender === "friend" ? "assistant" : "user",
@@ -8828,20 +9407,31 @@
         const notificationItems = [];
 
         for (const text of finalReplies) {
-          const transfer = parseTransferCommand(text);
+          const replyReference = parseRoleReplyReferenceCommand(text);
+          const outputText = replyReference?.text || text;
+          const outputReplyTo = replyReference?.replyTo || "";
+
+          const transferDecision = parseTransferDecisionCommand(outputText);
+          if (transferDecision) {
+            const resultText = processRoleTransferDecision(transferDecision.status, transferDecision.note);
+            if (resultText) notificationItems.push({ text: resultText });
+            continue;
+          }
+
+          const transfer = parseTransferCommand(outputText);
           if (transfer) {
             await addIncomingTransfer(transfer.amount, transfer.note);
             notificationItems.push({ text: `[转账] ${formatMoney(transfer.amount)} · ${transfer.note}` });
             continue;
           }
 
-          const momentPost = parseMomentCommand(text);
+          const momentPost = parseMomentCommand(outputText);
           if (momentPost) {
             await addRoleMomentFromChat(momentPost.text);
             continue;
           }
 
-          const sticker = findRoleStickerByHint(text);
+          const sticker = findRoleStickerByHint(outputText);
           if (sticker) {
             messages.push({
               id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
@@ -8858,10 +9448,11 @@
           messages.push({
             id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
             sender: "friend",
-            text,
-            read: true
+            text: outputText,
+            read: true,
+            replyTo: outputReplyTo
           });
-          notificationItems.push({ text });
+          notificationItems.push({ text: outputText });
         }
 
         renderCardPage();
@@ -9066,6 +9657,10 @@
       deleteCurrentContact.addEventListener("click", deleteActiveContact);
     }
 
+    if (exportCurrentRoleBtn) {
+      exportCurrentRoleBtn.addEventListener("click", exportCurrentRole);
+    }
+
     if (openMessageFavorites) {
       openMessageFavorites.addEventListener("click", openFavoritesModal);
     }
@@ -9145,15 +9740,14 @@
     if (openAttachMenu && qqAttachMenu) {
       openAttachMenu.addEventListener("click", (event) => {
         event.stopPropagation();
-        qqAttachMenu.classList.toggle("show");
+        if (qqAttachMenu.parentElement !== document.body) {
+          document.body.appendChild(qqAttachMenu);
+        }
+        qqAttachMenu.classList.add("show");
       });
 
       qqAttachMenu.addEventListener("click", (event) => {
-        event.stopPropagation();
-      });
-
-      document.addEventListener("click", (event) => {
-        if (!event.target.closest(".qq-thread-compose")) {
+        if (event.target === qqAttachMenu) {
           qqAttachMenu.classList.remove("show");
         }
       });
@@ -9240,6 +9834,7 @@
         if (action === "edit") openMessageEditModal(messageId);
         if (action === "favorite") await favoriteMessageById(messageId);
         if (action === "multi") openMultiDeleteModal(messageId);
+        if (action === "reply") setReplyTarget(messageId);
       });
     }
 
@@ -9529,6 +10124,11 @@
     if (openRoleEditor) openRoleEditor.addEventListener("click", openRoleEditorModal);
     if (closeRoleEditor) closeRoleEditor.addEventListener("click", closeRoleEditorModal);
     if (cancelRoleEditor) cancelRoleEditor.addEventListener("click", closeRoleEditorModal);
+    if (importRolesInput) {
+      importRolesInput.addEventListener("change", (event) => {
+        importRoleFile(event.target.files?.[0]);
+      });
+    }
 
     if (saveRoleEditor) {
       saveRoleEditor.addEventListener("click", async () => {
@@ -9572,6 +10172,7 @@
 
     if (qqSendMessage) qqSendMessage.addEventListener("click", sendCurrentMessage);
     if (qqRoleReply) qqRoleReply.addEventListener("click", requestRoleReply);
+    if (cancelReplyMessage) cancelReplyMessage.addEventListener("click", clearReplyTarget);
 
     if (qqMessageInput) {
       qqMessageInput.addEventListener("keydown", (event) => {
@@ -9749,7 +10350,8 @@
           cardPageSubtitle: "资产、表情包与世界书都在这里整理",
           cardProfileName: "CatPaw Keeper",
           cardProfileBio: "把角色关系、转账记录、表情和世界观设定收进一张透明卡片。",
-          cardProfileCoverImage: ""
+          cardProfileCoverImage: "",
+          layoutSize: "default"
         };
         appState.qq = {
           roles: [],
@@ -9785,6 +10387,34 @@
       });
     }
 
+    function setupPerformanceMode() {
+      const cores = Number(navigator.hardwareConcurrency || 4);
+      const memory = Number(navigator.deviceMemory || 4);
+      const lowPowerByDevice = cores <= 4 || memory <= 4;
+      const lowPowerByScreen = Math.min(window.innerWidth, window.innerHeight) <= 390 && window.devicePixelRatio >= 2.5;
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+      if (lowPowerByDevice || lowPowerByScreen || reduceMotion) {
+        document.body.classList.add("perf-lite");
+      }
+
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(() => {
+          document.querySelectorAll("img").forEach((img) => {
+            img.loading = "lazy";
+            img.decoding = "async";
+          });
+        });
+      } else {
+        setTimeout(() => {
+          document.querySelectorAll("img").forEach((img) => {
+            img.loading = "lazy";
+            img.decoding = "async";
+          });
+        }, 800);
+      }
+    }
+
     document.addEventListener("gesturestart", (event) => {
       event.preventDefault();
     });
@@ -9802,6 +10432,7 @@
       lastTouchEnd = now;
     }, { passive: false });
 
+    setupPerformanceMode();
     setupPwaManifest();
     updateTime();
     setupBatteryStatus();
