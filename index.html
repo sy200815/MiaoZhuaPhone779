@@ -62,37 +62,125 @@
     }
 
     .screen-hud {
-      display: flex;
+      display: none !important;
       justify-content: space-between;
       align-items: center;
       padding: 2px 4px 10px;
-      color: rgba(255, 255, 255, 0.95);
-      font-size: 13px;
-      font-weight: 1000;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+      color: rgba(255, 255, 255, 0.96);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
     .hud-left {
       display: flex;
       align-items: center;
       gap: 6px;
+      min-width: 54px;
       font-size: 15px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
     }
 
     .hud-icons {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 14px;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .hud-icons i {
+      opacity: 0.96;
+      transform: translateY(0.2px);
     }
 
     .hud-battery {
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.78);
-      color: #60636a;
+      min-width: 44px;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      color: currentColor;
       font-size: 11px;
-      line-height: 1.2;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      font-variant-numeric: tabular-nums;
+      text-shadow: none;
+    }
+
+    .hud-battery-percent {
+      min-width: 18px;
+      text-align: right;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      opacity: 0.92;
+    }
+
+    .hud-battery-shell {
+      position: relative;
+      width: 25px;
+      height: 12px;
+      border-radius: 3.8px;
+      border: 1.4px solid currentColor;
+      display: inline-flex;
+      align-items: center;
+      padding: 1.2px;
+      opacity: 0.95;
+    }
+
+    .hud-battery-shell::after {
+      content: "";
+      position: absolute;
+      right: -3.4px;
+      top: 3.3px;
+      width: 2px;
+      height: 5px;
+      border-radius: 0 2px 2px 0;
+      background: currentColor;
+      opacity: 0.9;
+    }
+
+    .hud-battery-fill {
+      height: 100%;
+      width: var(--battery-level, 90%);
+      min-width: 2px;
+      border-radius: 2.4px;
+      background: currentColor;
+      transition: width 0.25s ease, background 0.25s ease;
+    }
+
+    .hud-battery-bolt {
+      display: none;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+      font-size: 7px;
+      line-height: 1;
+      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.16));
+      z-index: 1;
+    }
+
+    .hud-battery.charging .hud-battery-fill {
+      background: #34c759;
+      animation: batteryChargingPulse 1.2s ease-in-out infinite;
+    }
+
+    .hud-battery.charging .hud-battery-bolt {
+      display: block;
+    }
+
+    .hud-battery.low .hud-battery-fill {
+      background: #ff3b30;
     }
 
     .hero {
@@ -294,15 +382,8 @@
       overflow: hidden;
     }
 
-    .weather-glass::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.02) 42%),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.18) 88%, rgba(255, 255, 255, 0.3));
-      pointer-events: none;
+    .qq-page.thread-mode #qqPanelThread.active::before {
+      display: none;
     }
 
     .weather-main {
@@ -1053,9 +1134,9 @@
     }
 
     .qq-hud .hud-battery {
-      background: rgba(20, 20, 20, 0.88);
-      color: #fff;
-      padding: 2px 8px;
+      background: transparent;
+      color: currentColor;
+      padding: 0;
     }
 
     .qq-view {
@@ -2314,7 +2395,7 @@
       position: relative;
       min-height: 0;
       flex: 1;
-      padding: 0 12px;
+      padding: 0;
     }
 
     .qq-thread-head {
@@ -2322,8 +2403,11 @@
       grid-template-columns: 42px 1fr 42px;
       gap: 8px;
       align-items: center;
-      margin-bottom: 10px;
-      padding-top: 2px;
+      margin-bottom: 8px;
+      padding-top: 0;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
     }
 
     .qq-thread-person {
@@ -2461,12 +2545,129 @@
       position: relative;
       bottom: auto;
       display: grid;
-      grid-template-columns: 42px 42px 1fr 42px 42px;
+      grid-template-columns: 42px 1fr 42px 42px;
       gap: 7px;
       align-items: center;
       padding: 8px 0 0;
       background: transparent;
       flex-shrink: 0;
+    }
+
+    .qq-page.thread-mode {
+      background: #f4f5f7 !important;
+    }
+
+    .qq-page.thread-mode .qq-shell {
+      background: #f4f5f7 !important;
+      padding: 0 !important;
+      margin: 0 auto !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: 100dvh !important;
+    }
+
+    .qq-page.thread-mode .qq-hud {
+      display: none !important;
+    }
+
+    .qq-page.thread-mode .qq-main,
+    .qq-page.thread-mode .qq-home-shell {
+      flex: 1;
+      min-height: 0;
+      border-radius: 0;
+      padding: 0;
+      background: #f4f5f7 !important;
+      box-shadow: none !important;
+    }
+
+    .qq-page.thread-mode #qqPanelThread.active {
+      position: fixed;
+      inset: 0;
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
+      margin: 0;
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background-color: #f4f5f7 !important;
+      box-shadow: none !important;
+      border: 0 !important;
+    }
+
+    .qq-page.thread-mode #qqPanelThread.active::before {
+      display: none;
+    }
+
+    .qq-page.thread-mode .qq-thread-head {
+      position: relative;
+      z-index: 2;
+      background: transparent !important;
+      padding: 8px 12px 4px 12px;
+      margin-bottom: 0;
+    }
+
+    .qq-page.thread-mode .qq-thread-time,
+    .qq-page.thread-mode .qq-thread-typing-text {
+      position: relative;
+      z-index: 2;
+      background: transparent !important;
+    }
+
+    .qq-page.thread-mode .qq-thread-messages {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 8px 12px calc(64px + env(safe-area-inset-bottom)) 12px;
+    }
+
+    .qq-page.thread-mode .qq-thread-compose {
+      position: fixed;
+      left: 50%;
+      bottom: calc(8px + env(safe-area-inset-bottom));
+      z-index: 16;
+      width: min(390px, 100vw);
+      transform: translateX(-50%);
+      grid-template-columns: 44px 1fr 44px 44px;
+      gap: 7px;
+      align-items: center;
+      padding: 0 8px;
+      border-radius: 0;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      outline: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .qq-page.thread-mode .qq-compose-round {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.98);
+      box-shadow: 0 6px 14px rgba(145, 145, 145, 0.12);
+      color: #050505;
+      font-size: 19px;
+    }
+
+    .qq-page.thread-mode .qq-thread-compose::before,
+    .qq-page.thread-mode .qq-thread-compose::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    .qq-page.thread-mode .qq-compose-input {
+      min-height: 44px;
+      border-radius: 999px;
+      padding: 0 16px;
+      background: rgba(255, 255, 255, 0.96);
+      border-color: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 6px 14px rgba(145, 145, 145, 0.08);
+      font-size: 14px;
+      font-weight: 1000;
     }
 
     .qq-compose-input {
@@ -2491,6 +2692,35 @@
 
     .qq-compose-input::placeholder {
       color: #9a9a9a;
+      font-weight: 1000;
+    }
+
+    .qq-attach-menu {
+      position: absolute;
+      left: 0;
+      bottom: 52px;
+      z-index: 20;
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      min-width: 126px;
+      padding: 8px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(226, 226, 226, 0.95);
+      box-shadow: 0 12px 28px rgba(80, 80, 80, 0.12);
+    }
+
+    .qq-attach-menu.show {
+      display: grid;
+    }
+
+    .qq-attach-menu .qq-compose-round {
+      width: 42px;
+      height: 42px;
+      background: #f7f7f7;
+      border: 1px solid #eeeeee;
+      box-shadow: none;
     }
 
     .qq-compose-avatar {
@@ -4193,6 +4423,17 @@
       overflow: hidden;
     }
 
+    @keyframes batteryChargingPulse {
+      0%,
+      100% {
+        opacity: 0.68;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
     @keyframes typingPulse {
       0%,
       80%,
@@ -4976,13 +5217,18 @@
             <div class="qq-thread-typing-text" id="qqTypingText">对方正在输入中...</div>
 
             <div class="qq-thread-compose">
-              <button class="qq-compose-round" id="openEmojiPicker" type="button" aria-label="表情包">
-                <i class="fa-regular fa-face-smile"></i>
+              <button class="qq-compose-round" id="openAttachMenu" type="button" aria-label="更多功能">
+                <i class="fa-solid fa-paperclip"></i>
               </button>
-              <button class="qq-compose-round" id="openTransferModal" type="button" aria-label="转账">
-                <i class="fa-solid fa-yen-sign"></i>
-              </button>
-          <input class="qq-compose-input" id="qqMessageInput" type="text" placeholder="输入消息" autocomplete="off" />
+              <div class="qq-attach-menu" id="qqAttachMenu" aria-label="更多功能菜单">
+                <button class="qq-compose-round" id="openEmojiPicker" type="button" aria-label="表情包">
+                  <i class="fa-regular fa-face-smile"></i>
+                </button>
+                <button class="qq-compose-round" id="openTransferModal" type="button" aria-label="转账">
+                  <i class="fa-solid fa-yen-sign"></i>
+                </button>
+              </div>
+          <input class="qq-compose-input" id="qqMessageInput" type="text" placeholder="그에게 메시지를 보내려면 클릭하세요!" autocomplete="off" />
           <button class="qq-compose-round" id="qqRoleReply" type="button" aria-label="角色回复">
             <i class="fa-solid fa-reply"></i>
           </button>
@@ -5612,6 +5858,8 @@
     const clock = document.querySelector("#clock");
     const qqClock = document.querySelector("#qqClock");
     const cardClock = document.querySelector("#cardClock");
+    const batteryNodes = document.querySelectorAll(".hud-battery");
+    let batteryManager = null;
     const dateText = document.querySelector("#dateText");
     const notePill = document.querySelector("#notePill");
     const settingsApp = document.querySelector("#settingsApp");
@@ -5813,6 +6061,8 @@
     const worldBookContentInput = document.querySelector("#worldBookContentInput");
     const addWorldBookBtn = document.querySelector("#addWorldBookBtn");
     const worldBookList = document.querySelector("#worldBookList");
+    const openAttachMenu = document.querySelector("#openAttachMenu");
+    const qqAttachMenu = document.querySelector("#qqAttachMenu");
     const openEmojiPicker = document.querySelector("#openEmojiPicker");
     const emojiPickerModal = document.querySelector("#emojiPickerModal");
     const closeEmojiPicker = document.querySelector("#closeEmojiPicker");
@@ -5939,6 +6189,45 @@
       }
       if (qqThreadTime) {
         qqThreadTime.textContent = formatChatTime(now);
+      }
+    }
+
+    function updateBatteryHud(percent = 90, charging = false) {
+      const safePercent = Math.max(0, Math.min(100, Math.round(Number(percent) || 0)));
+      batteryNodes.forEach((node) => {
+        node.classList.toggle("charging", !!charging);
+        node.classList.toggle("low", safePercent <= 20 && !charging);
+        node.style.setProperty("--battery-level", `${safePercent}%`);
+        node.setAttribute("aria-label", `电量 ${safePercent}%${charging ? "，正在充电" : ""}`);
+        node.innerHTML = `
+          <span class="hud-battery-percent">${safePercent}</span>
+          <span class="hud-battery-shell" aria-hidden="true">
+            <span class="hud-battery-fill"></span>
+            <i class="fa-solid fa-bolt hud-battery-bolt"></i>
+          </span>
+        `;
+      });
+    }
+
+    async function setupBatteryStatus() {
+      updateBatteryHud(90, false);
+
+      if (!("getBattery" in navigator)) {
+        return;
+      }
+
+      try {
+        batteryManager = await navigator.getBattery();
+
+        const syncBattery = () => {
+          updateBatteryHud(batteryManager.level * 100, batteryManager.charging);
+        };
+
+        syncBattery();
+        batteryManager.addEventListener("levelchange", syncBattery);
+        batteryManager.addEventListener("chargingchange", syncBattery);
+      } catch (error) {
+        updateBatteryHud(90, false);
       }
     }
 
@@ -6229,6 +6518,7 @@
 
       const isThread = panelId === "qqPanelThread";
       const isMoments = panelId === "qqPanelMoments";
+      if (qqPage) qqPage.classList.toggle("thread-mode", isThread);
       if (qqBottomBar) qqBottomBar.style.display = (isThread || isMoments) ? "none" : "";
       if (qqModeSwitch) qqModeSwitch.style.display = (isThread || isMoments) ? "none" : "";
       if (qqFeatureCard) qqFeatureCard.style.display = (isThread || isMoments) ? "none" : "";
@@ -6345,7 +6635,7 @@
         const response = await fetch(`${base}/chat/completions`, {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${config.key}`,
+            Authorization: `Bearer ${key}`,
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
@@ -6605,8 +6895,10 @@
 
       if (settings.wallpaper) {
         qqThreadPanel.style.backgroundImage = `linear-gradient(rgba(232, 232, 232, 0.34), rgba(232, 232, 232, 0.34)), url(${settings.wallpaper})`;
+        qqThreadPanel.style.backgroundColor = "";
       } else {
-        qqThreadPanel.style.backgroundImage = "";
+        qqThreadPanel.style.backgroundImage = "none";
+        qqThreadPanel.style.backgroundColor = "#f4f5f7";
       }
     }
 
@@ -8492,7 +8784,7 @@
         const response = await fetch(`${config.baseUrl}/chat/completions`, {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${key}`,
+            Authorization: `Bearer ${config.key}`,
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
@@ -8818,7 +9110,12 @@
     if (openBillPanel) openBillPanel.addEventListener("click", () => openCardPanel("billPanel"));
     if (cardQuickAdd) cardQuickAdd.addEventListener("click", () => openCardPanel("stickerPanel"));
     if (openTransferModalFromCard) openTransferModalFromCard.addEventListener("click", openTransferDialog);
-    if (openTransferModal) openTransferModal.addEventListener("click", openTransferDialog);
+    if (openTransferModal) {
+      openTransferModal.addEventListener("click", () => {
+        if (qqAttachMenu) qqAttachMenu.classList.remove("show");
+        openTransferDialog();
+      });
+    }
     if (closeTransferModal) closeTransferModal.addEventListener("click", closeTransferDialog);
     if (cancelTransfer) cancelTransfer.addEventListener("click", closeTransferDialog);
     if (sendTransfer) sendTransfer.addEventListener("click", sendTransferToRole);
@@ -8841,7 +9138,29 @@
 
     if (importStickerBtn) importStickerBtn.addEventListener("click", importStickerFile);
     if (addWorldBookBtn) addWorldBookBtn.addEventListener("click", addWorldBookEntry);
-    if (openEmojiPicker) openEmojiPicker.addEventListener("click", openEmojiPickerModal);
+    if (openAttachMenu && qqAttachMenu) {
+      openAttachMenu.addEventListener("click", (event) => {
+        event.stopPropagation();
+        qqAttachMenu.classList.toggle("show");
+      });
+
+      qqAttachMenu.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".qq-thread-compose")) {
+          qqAttachMenu.classList.remove("show");
+        }
+      });
+    }
+
+    if (openEmojiPicker) {
+      openEmojiPicker.addEventListener("click", () => {
+        if (qqAttachMenu) qqAttachMenu.classList.remove("show");
+        openEmojiPickerModal();
+      });
+    }
     if (closeEmojiPicker) closeEmojiPicker.addEventListener("click", closeEmojiPickerModal);
     if (emojiPickerModal) {
       emojiPickerModal.addEventListener("click", (event) => {
@@ -9481,6 +9800,7 @@
 
     setupPwaManifest();
     updateTime();
+    setupBatteryStatus();
 
     openDatabase()
       .then(loadState)
