@@ -3241,6 +3241,94 @@
       display: block;
     }
 
+    .qq-thread.dark-mode {
+      color: #f4f4f5;
+      background-color: #111214 !important;
+    }
+
+    .qq-page.thread-mode #qqPanelThread.active.dark-mode {
+      background-color: #111214 !important;
+    }
+
+    .qq-page.thread-mode #qqPanelThread.active.dark-mode .qq-thread-head,
+    .qq-thread.dark-mode .qq-thread-head {
+      background: transparent !important;
+    }
+
+    .qq-thread.dark-mode .qq-thread-back,
+    .qq-thread.dark-mode .qq-thread-video,
+    .qq-thread.dark-mode .qq-compose-round {
+      color: #f5f5f5;
+      background: rgba(38, 40, 44, 0.92);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .qq-thread.dark-mode .qq-thread-name {
+      color: #f5f5f5;
+      background: rgba(38, 40, 44, 0.92);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .qq-thread.dark-mode .qq-thread-time,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-thread-time {
+      color: rgba(245, 245, 245, 0.78);
+      background: rgba(40, 42, 46, 0.82) !important;
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: none;
+    }
+
+    .qq-thread.dark-mode .qq-thread-typing-text,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-thread-typing-text {
+      color: rgba(245, 245, 245, 0.78);
+      background: rgba(38, 40, 44, 0.88) !important;
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.24);
+    }
+
+    .qq-thread.dark-mode .qq-message-row.friend .qq-message-bubble {
+      color: var(--friend-text-color, #f5f5f5);
+      background: var(--friend-bubble-color, rgba(44, 46, 50, 0.96));
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .qq-thread.dark-mode .qq-message-row.self .qq-message-bubble {
+      color: var(--self-text-color, #ffffff);
+      background: var(--self-bubble-color, #2d6cff);
+    }
+
+    .qq-thread.dark-mode .qq-message-quote {
+      color: rgba(245, 245, 245, 0.72);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .qq-thread.dark-mode .qq-message-row.friend .qq-message-quote {
+      color: rgba(245, 245, 245, 0.64);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .qq-thread.dark-mode .qq-message-timestamp,
+    .qq-thread.dark-mode .qq-read-status {
+      color: rgba(245, 245, 245, 0.58);
+    }
+
+    .qq-thread.dark-mode .qq-compose-input,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-compose-input {
+      color: #f5f5f5;
+      background: rgba(38, 40, 44, 0.94);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+    }
+
+    .qq-thread.dark-mode .qq-compose-input::placeholder {
+      color: rgba(245, 245, 245, 0.48);
+    }
+
 >>>>>>> REPLACE
 
 <<<<<<< SEARCH
@@ -6103,6 +6191,14 @@
         </div>
 
         <div class="chat-setting-item">
+          <div class="chat-setting-title"><i class="fa-solid fa-moon"></i> 夜间深色模式</div>
+          <div class="chat-toggle-row">
+            <span>开启后当前会话界面切换为深色背景，适合夜间聊天。</span>
+            <input id="chatDarkModeToggle" type="checkbox" />
+          </div>
+        </div>
+
+        <div class="chat-setting-item">
           <div class="chat-setting-title"><i class="fa-solid fa-users-viewfinder"></i> 显示/隐藏双方头像</div>
           <div class="chat-toggle-row">
             <span>控制聊天气泡旁双方头像是否显示</span>
@@ -6513,6 +6609,7 @@
     const chatAiImageToggle = document.querySelector("#chatAiImageToggle");
     const chatAiImageInput = document.querySelector("#chatAiImageInput");
     const chatAiImageResult = document.querySelector("#chatAiImageResult");
+    const chatDarkModeToggle = document.querySelector("#chatDarkModeToggle");
     const chatShowAvatarsToggle = document.querySelector("#chatShowAvatarsToggle");
     const chatAvatarTimestampToggle = document.querySelector("#chatAvatarTimestampToggle");
     const chatReadStatusToggle = document.querySelector("#chatReadStatusToggle");
@@ -7536,6 +7633,7 @@
         myName: "",
         aiImageEnabled: false,
         aiImage: "",
+        darkMode: false,
         showAvatars: true,
         showAvatarTimestamp: false,
         showReadStatus: false,
@@ -7609,6 +7707,7 @@
       const base = getCurrentChatBase();
 
       setThreadHeader(getChatDisplayName(base), base.avatar || "");
+      qqThreadPanel.classList.toggle("dark-mode", !!settings.darkMode);
       qqThreadPanel.classList.toggle("avatar-hidden", !settings.showAvatars);
       qqThreadPanel.classList.toggle("timestamp-visible", !!settings.showAvatarTimestamp);
       qqThreadPanel.style.setProperty("--chat-avatar-size", `${settings.avatarSize}px`);
@@ -7621,11 +7720,14 @@
       qqThreadPanel.style.fontFamily = activeFont ? `"${activeFont.family}", "Noto Sans TC", "Noto Sans SC", "PingFang SC", sans-serif` : "";
 
       if (settings.wallpaper) {
-        qqThreadPanel.style.backgroundImage = `linear-gradient(rgba(232, 232, 232, 0.34), rgba(232, 232, 232, 0.34)), url(${settings.wallpaper})`;
+        const overlay = settings.darkMode
+          ? "linear-gradient(rgba(8, 9, 11, 0.56), rgba(8, 9, 11, 0.56))"
+          : "linear-gradient(rgba(232, 232, 232, 0.34), rgba(232, 232, 232, 0.34))";
+        qqThreadPanel.style.backgroundImage = `${overlay}, url(${settings.wallpaper})`;
         qqThreadPanel.style.backgroundColor = "";
       } else {
         qqThreadPanel.style.backgroundImage = "none";
-        qqThreadPanel.style.backgroundColor = "#f7f7f5";
+        qqThreadPanel.style.backgroundColor = settings.darkMode ? "#111214" : "#f7f7f5";
       }
     }
 
@@ -7830,6 +7932,9 @@
       }
 
       multiDeleteModal.classList.add("show");
+      requestAnimationFrame(() => {
+        multiDeleteList.scrollTop = multiDeleteList.scrollHeight;
+      });
     }
 
     function closeMultiDeleteModal() {
@@ -8288,6 +8393,7 @@
       if (chatSettingRoleBirthday) chatSettingRoleBirthday.value = base.role?.birthday || "";
       if (chatSettingRoleStory) chatSettingRoleStory.value = base.role?.story || "";
       if (chatAiImageToggle) chatAiImageToggle.checked = !!settings.aiImageEnabled;
+      if (chatDarkModeToggle) chatDarkModeToggle.checked = !!settings.darkMode;
       if (chatShowAvatarsToggle) chatShowAvatarsToggle.checked = !!settings.showAvatars;
       if (chatAvatarTimestampToggle) chatAvatarTimestampToggle.checked = !!settings.showAvatarTimestamp;
       if (chatReadStatusToggle) chatReadStatusToggle.checked = !!settings.showReadStatus;
@@ -8331,6 +8437,7 @@
       settings.contactNote = chatSettingContactNote?.value.trim() || "";
       settings.myName = chatSettingMyName?.value.trim() || "";
       settings.aiImageEnabled = !!chatAiImageToggle?.checked;
+      settings.darkMode = !!chatDarkModeToggle?.checked;
       settings.showAvatars = !!chatShowAvatarsToggle?.checked;
       settings.showAvatarTimestamp = !!chatAvatarTimestampToggle?.checked;
       settings.showReadStatus = !!chatReadStatusToggle?.checked;
@@ -9152,8 +9259,7 @@
           <div class="moment-comment-box">
             <input class="moment-comment-input" type="text" placeholder="写评论 / 回复动态" />
             <div class="moment-comment-actions">
-              <button class="liquid-btn" type="button" data-moment-action="self-comment">我评论</button>
-              <button class="liquid-btn primary" type="button" data-moment-action="role-comment">角色回复</button>
+              <button class="liquid-btn primary" type="button" data-moment-action="self-comment">发送互动</button>
             </div>
           </div>
         `;
@@ -9168,16 +9274,21 @@
           commentsNode.appendChild(row);
         });
 
+        card.addEventListener("keydown", async (event) => {
+          if (event.key !== "Enter") return;
+          const input = event.target.closest(".moment-comment-input");
+          if (!input) return;
+          event.preventDefault();
+          await addSelfMomentCommentAndAutoReply(moment.id, input.value.trim());
+          input.value = "";
+        });
+
         card.addEventListener("click", async (event) => {
           const actionBtn = event.target.closest("[data-moment-action]");
           if (!actionBtn) return;
           const input = card.querySelector(".moment-comment-input");
           if (actionBtn.dataset.momentAction === "self-comment") {
-            await addSelfMomentComment(moment.id, input?.value.trim() || "");
-            if (input) input.value = "";
-          }
-          if (actionBtn.dataset.momentAction === "role-comment") {
-            await generateRoleMomentComment(moment.id, input?.value.trim() || "");
+            await addSelfMomentCommentAndAutoReply(moment.id, input?.value.trim() || "");
             if (input) input.value = "";
           }
           if (actionBtn.dataset.momentAction === "delete") {
@@ -9204,7 +9315,7 @@
       ensureQqState();
       const text = myMomentInput?.value.trim() || "";
       if (!text) return;
-      appState.qq.moments.unshift({
+      const moment = {
         id: `moment_${Date.now()}_${Math.random().toString(16).slice(2)}`,
         authorType: "self",
         authorName: "我",
@@ -9212,18 +9323,20 @@
         text,
         createdAt: new Date().toLocaleString("zh-CN"),
         comments: []
-      });
+      };
+      appState.qq.moments.unshift(moment);
       if (myMomentInput) myMomentInput.value = "";
       closeMomentComposerPage();
       renderMoments();
       await saveState();
+      await generateRoleMomentComment(moment.id, "");
     }
 
     async function addSelfMomentComment(momentId, text) {
-      if (!text) return;
+      if (!text) return false;
       ensureQqState();
       const moment = appState.qq.moments.find((item) => item.id === momentId);
-      if (!moment) return;
+      if (!moment) return false;
       if (!Array.isArray(moment.comments)) moment.comments = [];
       moment.comments.push({
         authorType: "self",
@@ -9233,6 +9346,13 @@
       });
       renderMoments();
       await saveState();
+      return true;
+    }
+
+    async function addSelfMomentCommentAndAutoReply(momentId, text) {
+      const added = await addSelfMomentComment(momentId, text);
+      if (!added) return;
+      await generateRoleMomentComment(momentId, text);
     }
 
     async function generateRoleMomentPost(roleIdOverride = "", silent = false) {
@@ -9365,11 +9485,11 @@
 
       let role = moment.roleId ? getMomentRoleById(moment.roleId) : null;
       if (!role) {
-        const roleId = momentRoleSelect?.value || "";
-        role = getMomentRoleById(roleId);
+        const activeBase = getCurrentChatBase();
+        role = activeBase.role || appState.qq.roles[0] || null;
       }
       if (!role) {
-        window.alert("请先在下拉框选择一个要回复/评论的角色。");
+        window.alert("请先创建角色，角色会在你互动后自动评论。");
         return;
       }
 
@@ -9847,7 +9967,8 @@
         "8. 回复长度按角色和上下文决定：可以 1 条，也可以连续 2 到 4 条短消息；多条消息每条单独一行，不加序号、项目符号、引号或 JSON。",
         "9. 如果你想针对 user 的某一条消息单独回复，可以独占一行输出 [回复消息:消息ID:回复内容]。消息ID 会在聊天记录里标出，回复内容仍然必须像真人聊天。",
         "10. 如果角色自愿主动转账，可以独占一行输出 [转账:金额:备注]；如果聊天记录里有 user 给你的待处理转账，你必须由角色本人按人设和关系决定接收或退还：接收时独占一行输出 [处理转账:接收]，退还时独占一行输出 [处理转账:退还:原因]，不要让 user 替你决定。",
-        "11. 如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。"
+        "11. 如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。",
+        "12. 是否发朋友圈由你按角色和聊天内容自行判断：遇到值得吐槽、想记录、暗戳戳表达在意、吃醋、好笑、烦躁、心动、生活化事件时，可以额外输出一行 [朋友圈:动态正文]；普通闲聊不要硬发。"
       ].join("\n");
     }
 
@@ -10058,6 +10179,15 @@
       saveChatSettings.addEventListener("click", async () => {
         await saveCurrentChatSettings();
         closeChatSettingsModal();
+      });
+    }
+
+    if (chatDarkModeToggle) {
+      chatDarkModeToggle.addEventListener("change", async () => {
+        const settings = getActiveChatSettings();
+        settings.darkMode = chatDarkModeToggle.checked;
+        applyActiveChatSettings();
+        await saveState();
       });
     }
 
