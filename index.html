@@ -2497,6 +2497,20 @@
       justify-content: flex-end;
     }
 
+    .qq-message-row.friend.message-pop-in {
+      animation: roleMessageRowPop 0.5s cubic-bezier(0.18, 0.9, 0.24, 1) both;
+      transform-origin: left center;
+    }
+
+    .qq-message-row.friend.message-pop-in .qq-message-bubble {
+      animation: roleMessageBubblePop 0.5s cubic-bezier(0.18, 0.9, 0.24, 1) both;
+      transform-origin: 18px 50%;
+    }
+
+    .qq-message-row.friend.message-pop-in .qq-message-avatar-stack {
+      animation: roleMessageAvatarPop 0.46s cubic-bezier(0.18, 0.9, 0.24, 1) both;
+    }
+
     .qq-message-bubble {
       position: relative;
       max-width: 74%;
@@ -2515,9 +2529,10 @@
     }
 
     .qq-message-row.self .qq-message-bubble {
-      color: var(--self-text-color, #ffffff);
-      background: var(--self-bubble-color, #2e2e2e);
+      color: var(--self-text-color, #050505);
+      background: var(--self-bubble-color, #ffffff);
       border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.98);
     }
 
     .qq-message-row.self .qq-message-bubble::after {
@@ -2781,6 +2796,107 @@
       font-weight: 1000;
     }
 
+    .qq-page.thread-mode .qq-thread {
+      --liquid-glass-bg: rgba(255, 255, 255, 0.26);
+      --liquid-glass-bg-strong: rgba(255, 255, 255, 0.44);
+      --liquid-glass-border: rgba(255, 255, 255, 0.58);
+      --liquid-glass-inner: rgba(255, 255, 255, 0.72);
+      --liquid-glass-shadow: rgba(76, 88, 108, 0.16);
+      --liquid-glass-dark-edge: rgba(120, 136, 160, 0.1);
+    }
+
+    .qq-page.thread-mode .qq-thread-back,
+    .qq-page.thread-mode .qq-thread-video,
+    .qq-page.thread-mode .qq-compose-round {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 24% 14%, rgba(255, 255, 255, 0.82), transparent 35%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.16) 54%, rgba(178, 194, 218, 0.18)),
+        var(--liquid-glass-bg) !important;
+      border: 1px solid var(--liquid-glass-border) !important;
+      box-shadow:
+        0 14px 28px var(--liquid-glass-shadow),
+        inset 0 1px 0 var(--liquid-glass-inner),
+        inset 0 -14px 22px rgba(255, 255, 255, 0.08),
+        inset 0 0 18px rgba(255, 255, 255, 0.12) !important;
+      backdrop-filter: blur(34px) saturate(220%) brightness(1.08);
+      -webkit-backdrop-filter: blur(34px) saturate(220%) brightness(1.08);
+    }
+
+    .qq-page.thread-mode .qq-thread-back::before,
+    .qq-page.thread-mode .qq-thread-video::before,
+    .qq-page.thread-mode .qq-compose-round::before,
+    .qq-page.thread-mode .qq-thread-name::before,
+    .qq-page.thread-mode .qq-compose-input::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        linear-gradient(150deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.12) 38%, rgba(255, 255, 255, 0.02) 64%),
+        radial-gradient(circle at 76% 88%, rgba(255, 255, 255, 0.22), transparent 42%);
+      pointer-events: none;
+    }
+
+    .qq-page.thread-mode .qq-thread-back i,
+    .qq-page.thread-mode .qq-thread-video i,
+    .qq-page.thread-mode .qq-compose-round i {
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.32));
+    }
+
+    .qq-page.thread-mode .qq-thread-name,
+    .qq-page.thread-mode .qq-thread-time,
+    .qq-page.thread-mode .qq-thread-typing-text,
+    .qq-page.thread-mode .qq-reply-preview {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.78), transparent 34%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.16) 58%, rgba(178, 194, 218, 0.14)),
+        var(--liquid-glass-bg) !important;
+      border: 1px solid var(--liquid-glass-border) !important;
+      box-shadow:
+        0 12px 24px rgba(76, 88, 108, 0.12),
+        inset 0 1px 0 var(--liquid-glass-inner),
+        inset 0 -12px 20px rgba(255, 255, 255, 0.08) !important;
+      backdrop-filter: blur(32px) saturate(210%) brightness(1.08);
+      -webkit-backdrop-filter: blur(32px) saturate(210%) brightness(1.08);
+    }
+
+    .qq-page.thread-mode .qq-compose-input {
+      background:
+        radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.84), transparent 34%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.24) 56%, rgba(178, 194, 218, 0.14)),
+        rgba(255, 255, 255, 0.38) !important;
+      border: 1px solid rgba(255, 255, 255, 0.72) !important;
+      box-shadow:
+        0 14px 28px rgba(76, 88, 108, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.88),
+        inset 0 -14px 22px rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(36px) saturate(230%) brightness(1.08);
+      -webkit-backdrop-filter: blur(36px) saturate(230%) brightness(1.08);
+    }
+
+    .qq-page.thread-mode .qq-message-row.friend .qq-message-bubble {
+      background: var(--friend-bubble-color, #ffffff) !important;
+      border: 1px solid rgba(255, 255, 255, 0.98) !important;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .qq-page.thread-mode .qq-message-row.self .qq-message-bubble {
+      color: var(--self-text-color, #050505);
+      background: var(--self-bubble-color, #ffffff) !important;
+      border: 1px solid rgba(255, 255, 255, 0.98);
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
     .qq-compose-input {
       width: 100%;
       min-height: 42px;
@@ -2883,6 +2999,35 @@
       content: attr(aria-label);
       font-size: 13px;
       font-weight: 1000;
+    }
+
+    .qq-attach-menu-inner {
+      background:
+        radial-gradient(circle at 16% 10%, rgba(255, 255, 255, 0.82), transparent 34%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0.16) 58%, rgba(178, 194, 218, 0.16)),
+        rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.54);
+      box-shadow:
+        0 24px 56px rgba(20, 24, 32, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.74),
+        inset 0 -18px 30px rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(42px) saturate(220%) brightness(1.08);
+      -webkit-backdrop-filter: blur(42px) saturate(220%) brightness(1.08);
+    }
+
+    .qq-attach-menu-preview,
+    .qq-attach-menu .qq-compose-round {
+      background:
+        radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.72), transparent 34%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.12) 58%, rgba(178, 194, 218, 0.12)),
+        rgba(255, 255, 255, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow:
+        0 10px 20px rgba(76, 88, 108, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.68),
+        inset 0 -10px 18px rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(30px) saturate(200%) brightness(1.08);
+      -webkit-backdrop-filter: blur(30px) saturate(200%) brightness(1.08);
     }
 
     .qq-compose-avatar {
@@ -3183,12 +3328,62 @@
     .qq-thread {
       --chat-avatar-size: 40px;
       --chat-avatar-radius: 50%;
-      --self-bubble-color: #2e2e2e;
-      --friend-bubble-color: rgba(255, 255, 255, 0.96);
+      --self-bubble-color: #ffffff;
+      --friend-bubble-color: #ffffff;
+      --chat-wallpaper-blur: 3px;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       transition: background 0.2s ease;
+    }
+
+    .qq-thread-wallpaper-blur {
+      position: absolute;
+      inset: -18px;
+      z-index: 0;
+      display: none;
+      pointer-events: none;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: blur(calc(var(--chat-wallpaper-blur, 3px) * 2.2)) saturate(1.28) brightness(1.04);
+      transform: scale(1.08);
+      opacity: 0.88;
+      overflow: hidden;
+    }
+
+    .qq-thread-wallpaper-blur::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.22), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.14) 52%, rgba(210, 214, 220, 0.24));
+      backdrop-filter: blur(calc(var(--chat-wallpaper-blur, 3px) * 1.8)) saturate(170%) brightness(1.04);
+      -webkit-backdrop-filter: blur(calc(var(--chat-wallpaper-blur, 3px) * 1.8)) saturate(170%) brightness(1.04);
+    }
+
+    .qq-thread.dark-mode .qq-thread-wallpaper-blur::after {
+      background:
+        radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(18, 20, 24, 0.58), rgba(18, 20, 24, 0.42) 52%, rgba(8, 9, 11, 0.58));
+    }
+
+    .qq-thread.wallpaper-blur-enabled {
+      overflow: hidden;
+    }
+
+    .qq-thread.wallpaper-blur-enabled .qq-thread-wallpaper-blur {
+      display: block;
+    }
+
+    .qq-thread.wallpaper-blur-enabled .qq-thread-head,
+    .qq-thread.wallpaper-blur-enabled .qq-thread-time,
+    .qq-thread.wallpaper-blur-enabled .qq-thread-messages,
+    .qq-thread.wallpaper-blur-enabled .qq-thread-typing-text,
+    .qq-thread.wallpaper-blur-enabled .qq-thread-compose {
+      position: relative;
+      z-index: 1;
     }
 
     .qq-message-avatar {
@@ -3239,6 +3434,150 @@
 
     .qq-thread.timestamp-visible .qq-message-timestamp {
       display: block;
+    }
+
+    .qq-thread.dark-mode {
+      color: #f4f4f5;
+      background-color: #111214 !important;
+    }
+
+    .qq-page.thread-mode #qqPanelThread.active.dark-mode {
+      background-color: #111214 !important;
+    }
+
+    .qq-page.thread-mode #qqPanelThread.active.dark-mode .qq-thread-head,
+    .qq-thread.dark-mode .qq-thread-head {
+      background: transparent !important;
+    }
+
+    .qq-thread.dark-mode .qq-thread-back,
+    .qq-thread.dark-mode .qq-thread-video,
+    .qq-thread.dark-mode .qq-compose-round {
+      color: #f5f5f5;
+      background: rgba(38, 40, 44, 0.92);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .qq-thread.dark-mode .qq-thread-name {
+      color: #f5f5f5;
+      background: rgba(38, 40, 44, 0.92);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .qq-thread.dark-mode .qq-thread-time,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-thread-time {
+      color: rgba(245, 245, 245, 0.78);
+      background: rgba(40, 42, 46, 0.82) !important;
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: none;
+    }
+
+    .qq-thread.dark-mode .qq-thread-typing-text,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-thread-typing-text {
+      color: rgba(245, 245, 245, 0.78);
+      background: rgba(38, 40, 44, 0.88) !important;
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.24);
+    }
+
+    .qq-thread.dark-mode .qq-message-row.friend .qq-message-bubble {
+      color: var(--friend-text-color, #f5f5f5);
+      background: var(--friend-bubble-color, rgba(44, 46, 50, 0.96));
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .qq-thread.dark-mode .qq-message-row.self .qq-message-bubble {
+      color: var(--self-text-color, #ffffff);
+      background: var(--self-bubble-color, #2d6cff);
+    }
+
+    .qq-thread.dark-mode .qq-message-quote {
+      color: rgba(245, 245, 245, 0.72);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .qq-thread.dark-mode .qq-message-row.friend .qq-message-quote {
+      color: rgba(245, 245, 245, 0.64);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .qq-thread.dark-mode .qq-message-timestamp,
+    .qq-thread.dark-mode .qq-read-status {
+      color: rgba(245, 245, 245, 0.58);
+    }
+
+    .qq-thread.dark-mode .qq-compose-input,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-compose-input {
+      color: #f5f5f5;
+      background: rgba(38, 40, 44, 0.94);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+    }
+
+    .qq-thread.dark-mode .qq-compose-input::placeholder {
+      color: rgba(245, 245, 245, 0.48);
+    }
+
+    .qq-page.thread-mode .qq-thread.dark-mode {
+      --liquid-glass-bg: rgba(28, 30, 36, 0.36);
+      --liquid-glass-bg-strong: rgba(48, 52, 60, 0.52);
+      --liquid-glass-border: rgba(255, 255, 255, 0.12);
+      --liquid-glass-inner: rgba(255, 255, 255, 0.16);
+      --liquid-glass-shadow: rgba(0, 0, 0, 0.28);
+      --liquid-glass-dark-edge: rgba(0, 0, 0, 0.18);
+    }
+
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-thread-back,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-thread-video,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-compose-round,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-thread-name,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-thread-time,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-thread-typing-text,
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-reply-preview {
+      color: rgba(245, 245, 245, 0.94);
+      background:
+        radial-gradient(circle at 22% 12%, rgba(255, 255, 255, 0.18), transparent 34%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025) 58%, rgba(0, 0, 0, 0.22)),
+        var(--liquid-glass-bg) !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+      box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -14px 22px rgba(0, 0, 0, 0.16) !important;
+      backdrop-filter: blur(34px) saturate(190%) brightness(0.96);
+      -webkit-backdrop-filter: blur(34px) saturate(190%) brightness(0.96);
+    }
+
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-compose-input {
+      color: rgba(245, 245, 245, 0.94);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.16), transparent 34%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03) 58%, rgba(0, 0, 0, 0.18)),
+        rgba(34, 36, 42, 0.58) !important;
+      border-color: rgba(255, 255, 255, 0.13) !important;
+      box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 -14px 22px rgba(0, 0, 0, 0.14) !important;
+      backdrop-filter: blur(36px) saturate(190%) brightness(0.96);
+      -webkit-backdrop-filter: blur(36px) saturate(190%) brightness(0.96);
+    }
+
+    .qq-page.thread-mode .qq-thread.dark-mode .qq-message-row.friend .qq-message-bubble {
+      color: var(--friend-text-color, #f5f5f5);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.15), transparent 34%),
+        var(--friend-bubble-color, rgba(44, 46, 50, 0.96)) !important;
+      border-color: rgba(255, 255, 255, 0.08) !important;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
 
 >>>>>>> REPLACE
@@ -4852,6 +5191,55 @@
       }
     }
 
+    @keyframes roleMessageRowPop {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes roleMessageBubblePop {
+      0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.86);
+        filter: blur(2px);
+      }
+
+      58% {
+        opacity: 1;
+        transform: translateY(-1px) scale(1.035);
+        filter: blur(0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes roleMessageAvatarPop {
+      0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.82);
+      }
+
+      68% {
+        opacity: 1;
+        transform: translateY(-1px) scale(1.04);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
     @media (max-width: 390px) {
       .desktop {
         padding-left: 10px;
@@ -5629,6 +6017,7 @@
             </section>
 
           <section class="qq-panel qq-thread" id="qqPanelThread">
+            <div class="qq-thread-wallpaper-blur" id="qqThreadWallpaperBlur" aria-hidden="true"></div>
             <div class="qq-thread-head">
               <button class="qq-thread-back" id="qqThreadBack" type="button" aria-label="返回聊天列表">
                 <i class="fa-solid fa-chevron-left"></i>
@@ -6103,6 +6492,14 @@
         </div>
 
         <div class="chat-setting-item">
+          <div class="chat-setting-title"><i class="fa-solid fa-moon"></i> 夜间深色模式</div>
+          <div class="chat-toggle-row">
+            <span>开启后当前会话界面切换为深色背景，适合夜间聊天。</span>
+            <input id="chatDarkModeToggle" type="checkbox" />
+          </div>
+        </div>
+
+        <div class="chat-setting-item">
           <div class="chat-setting-title"><i class="fa-solid fa-users-viewfinder"></i> 显示/隐藏双方头像</div>
           <div class="chat-toggle-row">
             <span>控制聊天气泡旁双方头像是否显示</span>
@@ -6150,6 +6547,14 @@
             <span>仅作用于当前会话。</span>
             <input id="chatWallpaperUpload" type="file" accept="image/*" />
           </div>
+          <div class="chat-toggle-row" style="margin-top:10px;">
+            <span>开启壁纸磨砂玻璃效果</span>
+            <input id="chatWallpaperBlurToggle" type="checkbox" />
+          </div>
+          <div class="chat-range-row" style="margin-top:10px;">
+            <input id="chatWallpaperBlurRange" type="range" min="1" max="5" step="1" />
+            <span id="chatWallpaperBlurValue">3档</span>
+          </div>
           <div class="chat-wallpaper-actions">
             <button class="liquid-btn" id="removeChatWallpaper" type="button">移除壁纸</button>
             <button class="liquid-btn primary" id="previewChatWallpaper" type="button">预览当前</button>
@@ -6178,7 +6583,7 @@
           <div class="chat-setting-title"><i class="fa-solid fa-palette"></i> 设置双方气泡颜色</div>
           <div class="chat-color-row">
             <span>我的气泡</span>
-            <input id="chatSelfBubbleColor" type="color" value="#2e2e2e" />
+            <input id="chatSelfBubbleColor" type="color" value="#ffffff" />
           </div>
           <div class="chat-color-row" style="margin-top:10px;">
             <span>对方气泡</span>
@@ -6186,7 +6591,7 @@
           </div>
           <div class="chat-color-row" style="margin-top:10px;">
             <span>我的文字</span>
-            <input id="chatSelfTextColor" type="color" value="#ffffff" />
+            <input id="chatSelfTextColor" type="color" value="#050505" />
           </div>
           <div class="chat-color-row" style="margin-top:10px;">
             <span>对方文字</span>
@@ -6491,6 +6896,7 @@
     const qqThreadAvatar = document.querySelector(".qq-thread-avatar");
     const qqThreadTime = document.querySelector(".qq-thread-time");
     const qqThreadPanel = document.querySelector("#qqPanelThread");
+    const qqThreadWallpaperBlur = document.querySelector("#qqThreadWallpaperBlur");
     const qqThreadMessages = document.querySelector("#qqThreadMessages");
     const qqMessageInput = document.querySelector("#qqMessageInput");
     const qqSendMessage = document.querySelector("#qqSendMessage");
@@ -6513,6 +6919,7 @@
     const chatAiImageToggle = document.querySelector("#chatAiImageToggle");
     const chatAiImageInput = document.querySelector("#chatAiImageInput");
     const chatAiImageResult = document.querySelector("#chatAiImageResult");
+    const chatDarkModeToggle = document.querySelector("#chatDarkModeToggle");
     const chatShowAvatarsToggle = document.querySelector("#chatShowAvatarsToggle");
     const chatAvatarTimestampToggle = document.querySelector("#chatAvatarTimestampToggle");
     const chatReadStatusToggle = document.querySelector("#chatReadStatusToggle");
@@ -6520,6 +6927,9 @@
     const chatStickerGroupSelect = document.querySelector("#chatStickerGroupSelect");
     const chatWorldBookGroupSelect = document.querySelector("#chatWorldBookGroupSelect");
     const chatWallpaperUpload = document.querySelector("#chatWallpaperUpload");
+    const chatWallpaperBlurToggle = document.querySelector("#chatWallpaperBlurToggle");
+    const chatWallpaperBlurRange = document.querySelector("#chatWallpaperBlurRange");
+    const chatWallpaperBlurValue = document.querySelector("#chatWallpaperBlurValue");
     const removeChatWallpaper = document.querySelector("#removeChatWallpaper");
     const previewChatWallpaper = document.querySelector("#previewChatWallpaper");
     const chatAvatarSizeRange = document.querySelector("#chatAvatarSizeRange");
@@ -7536,6 +7946,7 @@
         myName: "",
         aiImageEnabled: false,
         aiImage: "",
+        darkMode: false,
         showAvatars: true,
         showAvatarTimestamp: false,
         showReadStatus: false,
@@ -7543,11 +7954,13 @@
         boundStickerGroups: [],
         boundWorldBookGroups: [],
         wallpaper: "",
+        wallpaperBlurEnabled: false,
+        wallpaperBlur: 3,
         avatarSize: 40,
         avatarRadius: 50,
-        selfBubbleColor: "#2e2e2e",
+        selfBubbleColor: "#ffffff",
         friendBubbleColor: "#ffffff",
-        selfTextColor: "#ffffff",
+        selfTextColor: "#050505",
         friendTextColor: "#050505",
         chatFontId: "",
         favorites: [],
@@ -7609,23 +8022,50 @@
       const base = getCurrentChatBase();
 
       setThreadHeader(getChatDisplayName(base), base.avatar || "");
+      qqThreadPanel.classList.toggle("dark-mode", !!settings.darkMode);
       qqThreadPanel.classList.toggle("avatar-hidden", !settings.showAvatars);
       qqThreadPanel.classList.toggle("timestamp-visible", !!settings.showAvatarTimestamp);
       qqThreadPanel.style.setProperty("--chat-avatar-size", `${settings.avatarSize}px`);
       qqThreadPanel.style.setProperty("--chat-avatar-radius", `${settings.avatarRadius}%`);
-      qqThreadPanel.style.setProperty("--self-bubble-color", settings.selfBubbleColor || "#2e2e2e");
+      qqThreadPanel.style.setProperty("--self-bubble-color", settings.selfBubbleColor || "#ffffff");
       qqThreadPanel.style.setProperty("--friend-bubble-color", settings.friendBubbleColor || "#ffffff");
-      qqThreadPanel.style.setProperty("--self-text-color", settings.selfTextColor || "#ffffff");
+      qqThreadPanel.style.setProperty("--self-text-color", settings.selfTextColor || "#050505");
       qqThreadPanel.style.setProperty("--friend-text-color", settings.friendTextColor || "#050505");
       const activeFont = getCustomFontById(settings.chatFontId);
       qqThreadPanel.style.fontFamily = activeFont ? `"${activeFont.family}", "Noto Sans TC", "Noto Sans SC", "PingFang SC", sans-serif` : "";
 
       if (settings.wallpaper) {
-        qqThreadPanel.style.backgroundImage = `linear-gradient(rgba(232, 232, 232, 0.34), rgba(232, 232, 232, 0.34)), url(${settings.wallpaper})`;
-        qqThreadPanel.style.backgroundColor = "";
+        const overlay = settings.darkMode
+          ? "linear-gradient(rgba(8, 9, 11, 0.56), rgba(8, 9, 11, 0.56))"
+          : "linear-gradient(rgba(232, 232, 232, 0.34), rgba(232, 232, 232, 0.34))";
+        const blurValue = Math.max(1, Math.min(5, Number(settings.wallpaperBlur || 3)));
+
+        qqThreadPanel.style.setProperty("--chat-wallpaper-blur", `${blurValue}px`);
+        qqThreadPanel.classList.toggle("wallpaper-blur-enabled", !!settings.wallpaperBlurEnabled);
+
+        if (settings.wallpaperBlurEnabled) {
+          qqThreadPanel.style.backgroundImage = "none";
+          qqThreadPanel.style.backgroundColor = settings.darkMode ? "#111214" : "#f7f7f5";
+          if (qqThreadWallpaperBlur) {
+            qqThreadWallpaperBlur.style.backgroundImage = `${overlay}, url(${settings.wallpaper})`;
+            qqThreadWallpaperBlur.style.filter = `blur(${blurValue * 2.2}px) saturate(1.28) brightness(${settings.darkMode ? 0.86 : 1.04})`;
+          }
+        } else {
+          qqThreadPanel.style.backgroundImage = `${overlay}, url(${settings.wallpaper})`;
+          qqThreadPanel.style.backgroundColor = "";
+          if (qqThreadWallpaperBlur) {
+            qqThreadWallpaperBlur.style.backgroundImage = "";
+            qqThreadWallpaperBlur.style.filter = "";
+          }
+        }
       } else {
+        qqThreadPanel.classList.remove("wallpaper-blur-enabled");
         qqThreadPanel.style.backgroundImage = "none";
-        qqThreadPanel.style.backgroundColor = "#f7f7f5";
+        qqThreadPanel.style.backgroundColor = settings.darkMode ? "#111214" : "#f7f7f5";
+        if (qqThreadWallpaperBlur) {
+          qqThreadWallpaperBlur.style.backgroundImage = "";
+          qqThreadWallpaperBlur.style.filter = "";
+        }
       }
     }
 
@@ -7830,6 +8270,9 @@
       }
 
       multiDeleteModal.classList.add("show");
+      requestAnimationFrame(() => {
+        multiDeleteList.scrollTop = multiDeleteList.scrollHeight;
+      });
     }
 
     function closeMultiDeleteModal() {
@@ -7906,8 +8349,10 @@
       rows.forEach((item) => {
         const isFriend = item.sender === "friend";
         const messageId = getMessageId(item);
+        const shouldPopIn = !!item.popIn;
+        if (shouldPopIn) delete item.popIn;
         const row = document.createElement("div");
-        row.className = `qq-message-row ${isFriend ? "friend" : "self"}`;
+        row.className = `qq-message-row ${isFriend ? "friend" : "self"}${shouldPopIn ? " message-pop-in" : ""}`;
         row.dataset.messageId = messageId;
 
         const avatarStack = document.createElement("div");
@@ -7982,6 +8427,9 @@
         }
 
         qqThreadMessages.appendChild(row);
+        if (shouldPopIn) {
+          window.setTimeout(() => row.classList.remove("message-pop-in"), 560);
+        }
       });
 
       applyActiveChatSettings();
@@ -8288,10 +8736,14 @@
       if (chatSettingRoleBirthday) chatSettingRoleBirthday.value = base.role?.birthday || "";
       if (chatSettingRoleStory) chatSettingRoleStory.value = base.role?.story || "";
       if (chatAiImageToggle) chatAiImageToggle.checked = !!settings.aiImageEnabled;
+      if (chatDarkModeToggle) chatDarkModeToggle.checked = !!settings.darkMode;
       if (chatShowAvatarsToggle) chatShowAvatarsToggle.checked = !!settings.showAvatars;
       if (chatAvatarTimestampToggle) chatAvatarTimestampToggle.checked = !!settings.showAvatarTimestamp;
       if (chatReadStatusToggle) chatReadStatusToggle.checked = !!settings.showReadStatus;
       if (chatRoleStickerToggle) chatRoleStickerToggle.checked = !!settings.roleCanSendStickers;
+      if (chatWallpaperBlurToggle) chatWallpaperBlurToggle.checked = !!settings.wallpaperBlurEnabled;
+      if (chatWallpaperBlurRange) chatWallpaperBlurRange.value = String(settings.wallpaperBlur || 3);
+      if (chatWallpaperBlurValue) chatWallpaperBlurValue.textContent = `${settings.wallpaperBlur || 3}档`;
       syncLibrarySelectOptions();
       setMultiSelectValues(chatStickerGroupSelect, settings.boundStickerGroups || []);
       setMultiSelectValues(chatWorldBookGroupSelect, settings.boundWorldBookGroups || []);
@@ -8299,9 +8751,9 @@
       if (chatAvatarSizeValue) chatAvatarSizeValue.textContent = `${settings.avatarSize}px`;
       if (chatAvatarRadiusRange) chatAvatarRadiusRange.value = String(settings.avatarRadius);
       if (chatAvatarRadiusValue) chatAvatarRadiusValue.textContent = `${settings.avatarRadius}%`;
-      if (chatSelfBubbleColor) chatSelfBubbleColor.value = settings.selfBubbleColor || "#2e2e2e";
+      if (chatSelfBubbleColor) chatSelfBubbleColor.value = settings.selfBubbleColor || "#ffffff";
       if (chatFriendBubbleColor) chatFriendBubbleColor.value = settings.friendBubbleColor || "#ffffff";
-      if (chatSelfTextColor) chatSelfTextColor.value = settings.selfTextColor || "#ffffff";
+      if (chatSelfTextColor) chatSelfTextColor.value = settings.selfTextColor || "#050505";
       if (chatFriendTextColor) chatFriendTextColor.value = settings.friendTextColor || "#050505";
       updateChatFontStatus();
       if (chatAiImageResult) {
@@ -8331,17 +8783,20 @@
       settings.contactNote = chatSettingContactNote?.value.trim() || "";
       settings.myName = chatSettingMyName?.value.trim() || "";
       settings.aiImageEnabled = !!chatAiImageToggle?.checked;
+      settings.darkMode = !!chatDarkModeToggle?.checked;
       settings.showAvatars = !!chatShowAvatarsToggle?.checked;
       settings.showAvatarTimestamp = !!chatAvatarTimestampToggle?.checked;
       settings.showReadStatus = !!chatReadStatusToggle?.checked;
       settings.roleCanSendStickers = !!chatRoleStickerToggle?.checked;
       settings.boundStickerGroups = getMultiSelectValues(chatStickerGroupSelect);
       settings.boundWorldBookGroups = getMultiSelectValues(chatWorldBookGroupSelect);
+      settings.wallpaperBlurEnabled = !!chatWallpaperBlurToggle?.checked;
+      settings.wallpaperBlur = Math.max(1, Math.min(5, Number(chatWallpaperBlurRange?.value || 3)));
       settings.avatarSize = Number(chatAvatarSizeRange?.value || 40);
       settings.avatarRadius = Number(chatAvatarRadiusRange?.value || 50);
-      settings.selfBubbleColor = chatSelfBubbleColor?.value || "#2e2e2e";
+      settings.selfBubbleColor = chatSelfBubbleColor?.value || "#ffffff";
       settings.friendBubbleColor = chatFriendBubbleColor?.value || "#ffffff";
-      settings.selfTextColor = chatSelfTextColor?.value || "#ffffff";
+      settings.selfTextColor = chatSelfTextColor?.value || "#050505";
       settings.friendTextColor = chatFriendTextColor?.value || "#050505";
       const memoryTurnsValue = Number(chatMemoryTurnsInput?.value || 10);
       settings.memoryTurns = Number.isFinite(memoryTurnsValue) ? memoryTurnsValue : 10;
@@ -8464,6 +8919,34 @@
       return { baseUrl, key, model };
     }
 
+    function isGeminiModelName(modelName = appState.api.modelName) {
+      return String(modelName || "").toLowerCase().includes("gemini");
+    }
+
+    function getModelTemperature(defaultTemperature = 0.76, modelName = appState.api.modelName) {
+      return isGeminiModelName(modelName) ? 0.72 : defaultTemperature;
+    }
+
+    function buildGeminiFastReplyMessages(messages, modelName = appState.api.modelName) {
+      return messages;
+    }
+
+    function normalizeApiErrorMessage(errorOrText) {
+      const raw = typeof errorOrText === "string"
+        ? errorOrText
+        : errorOrText?.message || String(errorOrText || "");
+
+      if (/token quota is not enough|insufficient_quota|quota|余额不足|额度不足/i.test(raw)) {
+        return `服务商额度不足或账号余额不足：${raw}。这不是前端卡死，API 已返回拒绝。本次已减少 Gemini 请求长度；如果仍出现此提示，请更换 Key、充值额度或换一个额度充足的中转渠道。`;
+      }
+
+      if (/context_length|maximum context|tokens/i.test(raw)) {
+        return `请求上下文过长：${raw}。已启用 Gemini 精简提示词，请减少聊天记忆轮数或清理较长世界书后重试。`;
+      }
+
+      return raw || "API 调用失败";
+    }
+
     async function callChatCompletion(messages, options = {}) {
       const config = getApiConfigOrAlert(!!options.silent);
       if (!config) return "";
@@ -8475,16 +8958,17 @@
         },
         body: JSON.stringify({
           model: config.model,
-          messages,
-          temperature: options.temperature ?? 0.76,
-          presence_penalty: options.presence_penalty ?? 0.18,
-          frequency_penalty: options.frequency_penalty ?? 0.18
+          messages: buildGeminiFastReplyMessages(messages, config.model),
+            temperature: getModelTemperature(options.temperature ?? 0.76, config.model),
+            presence_penalty: options.presence_penalty ?? 0.18,
+            frequency_penalty: options.frequency_penalty ?? 0.18,
+            max_tokens: options.max_tokens ?? (isGeminiModelName(config.model) ? 320 : undefined)
         })
       });
 
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.error?.message || "API 调用失败");
+        throw new Error(normalizeApiErrorMessage(data.error?.message || "API 调用失败"));
       }
       return data.choices?.[0]?.message?.content?.trim() || "";
     }
@@ -8747,7 +9231,8 @@
         createdAtMs: Date.now(),
         transferStatus: "pending",
         text: `[${base.name}向我转账 ${formatMoney(amount)}：${note}，等待我选择接收或退还]`,
-        read: true
+        read: true,
+        popIn: true
       });
     }
 
@@ -9152,8 +9637,7 @@
           <div class="moment-comment-box">
             <input class="moment-comment-input" type="text" placeholder="写评论 / 回复动态" />
             <div class="moment-comment-actions">
-              <button class="liquid-btn" type="button" data-moment-action="self-comment">我评论</button>
-              <button class="liquid-btn primary" type="button" data-moment-action="role-comment">角色回复</button>
+              <button class="liquid-btn primary" type="button" data-moment-action="self-comment">发送互动</button>
             </div>
           </div>
         `;
@@ -9168,16 +9652,21 @@
           commentsNode.appendChild(row);
         });
 
+        card.addEventListener("keydown", async (event) => {
+          if (event.key !== "Enter") return;
+          const input = event.target.closest(".moment-comment-input");
+          if (!input) return;
+          event.preventDefault();
+          await addSelfMomentCommentAndAutoReply(moment.id, input.value.trim());
+          input.value = "";
+        });
+
         card.addEventListener("click", async (event) => {
           const actionBtn = event.target.closest("[data-moment-action]");
           if (!actionBtn) return;
           const input = card.querySelector(".moment-comment-input");
           if (actionBtn.dataset.momentAction === "self-comment") {
-            await addSelfMomentComment(moment.id, input?.value.trim() || "");
-            if (input) input.value = "";
-          }
-          if (actionBtn.dataset.momentAction === "role-comment") {
-            await generateRoleMomentComment(moment.id, input?.value.trim() || "");
+            await addSelfMomentCommentAndAutoReply(moment.id, input?.value.trim() || "");
             if (input) input.value = "";
           }
           if (actionBtn.dataset.momentAction === "delete") {
@@ -9204,7 +9693,7 @@
       ensureQqState();
       const text = myMomentInput?.value.trim() || "";
       if (!text) return;
-      appState.qq.moments.unshift({
+      const moment = {
         id: `moment_${Date.now()}_${Math.random().toString(16).slice(2)}`,
         authorType: "self",
         authorName: "我",
@@ -9212,18 +9701,20 @@
         text,
         createdAt: new Date().toLocaleString("zh-CN"),
         comments: []
-      });
+      };
+      appState.qq.moments.unshift(moment);
       if (myMomentInput) myMomentInput.value = "";
       closeMomentComposerPage();
       renderMoments();
       await saveState();
+      await generateRoleMomentComment(moment.id, "");
     }
 
     async function addSelfMomentComment(momentId, text) {
-      if (!text) return;
+      if (!text) return false;
       ensureQqState();
       const moment = appState.qq.moments.find((item) => item.id === momentId);
-      if (!moment) return;
+      if (!moment) return false;
       if (!Array.isArray(moment.comments)) moment.comments = [];
       moment.comments.push({
         authorType: "self",
@@ -9233,6 +9724,13 @@
       });
       renderMoments();
       await saveState();
+      return true;
+    }
+
+    async function addSelfMomentCommentAndAutoReply(momentId, text) {
+      const added = await addSelfMomentComment(momentId, text);
+      if (!added) return;
+      await generateRoleMomentComment(momentId, text);
     }
 
     async function generateRoleMomentPost(roleIdOverride = "", silent = false) {
@@ -9250,10 +9748,13 @@
           `当前调用模型：${appState.api.modelName || "未知模型"}`,
           "核心目标：像真人随手发动态，同时严格符合人设、关系、近期聊天记忆，不 OOC，不解释设定，不提 AI。",
           "先抓住角色的三件事：1. 他说话的节奏和用词；2. 他和 user 的关系距离；3. 他现在最可能藏着的情绪。动态必须从这三点自然长出来，不要套模板。",
-          "模型适配：如果是 Gemini，不要写土味霸总、超雄式发疯、油腻宣示、车轱辘话或人机废话；人设短也要从已有细节推语言风格，不要用通用深情男/冷脸男/疯批模板补空。",
-          "模型适配：如果是 Claude，不要过度追求圆满、正确、温柔或总结感；允许动态里有一点别扭、没说透、短促、欲言又止，像真实的人发出来的东西。",
+          "Gemini 强化适配：先锁定这个角色是谁，再决定他说什么。不要让模型默认口吻接管角色，不要把角色写成通用深情男、冷脸男、疯批男、爹味男、低魅力控制狂或土味霸总。",
+          "Gemini 正向写法：动态要像角色本人随手发的手机内容，可以有具体生活痕迹、关系暗线、没说透的小情绪、短促停顿和私人用词；每一句都要能看出是这个角色，而不是任何人都能说。",
+          "Gemini 禁止模板：不要写油腻宣示、超雄发疯、车轱辘重复、人机总结、鸡汤感、散文感；不要出现割舌头、拔舌头、舌头没了、脑子里到底在想什么、你脑子里装的什么、叫魂呢、庆幸我现在过不去、连夜越境去找你这类廉价威胁或烂俗问法。",
+          "Gemini 标点和语气：动态像手机随手发，不要每句都规整句号和完整作文句；根据角色习惯可以短、断、没说完、少标点，但不要故意装腔。",
+          "Claude 适配：不要过度追求圆满、正确、温柔或总结感；允许动态里有一点别扭、没说透、短促、欲言又止，像真实的人发出来的东西。",
           "不要为了避免冲突把角色软化。人设里如果冷淡、毒舌、强势、敏感、占有欲强或情绪复杂，都可以保留，但要有生活逻辑和魅力，不能变成俗套威胁、说教、PUA 或古早霸总语录。",
-          "语言要求：日常口语，短一点，有生活现场感。不要写成散文、小说旁白、心理分析、鸡汤或小作文。",
+          "语言要求：日常口语，短一点，有生活现场感。不要写成散文、小说旁白、心理分析、鸡汤或小作文。宁可少说，也不要把一个意思翻来覆去说。",
           "输出要求：只输出动态正文，1 到 3 句。不要加标题、括号动作、解释或引号。",
           getRoleMemoryText(role)
         ].join("\n");
@@ -9261,7 +9762,7 @@
         const text = await callChatCompletion([
           { role: "system", content: prompt },
           { role: "user", content: "根据你和我的聊天记忆，主动发一条符合你人设的动态。" }
-        ], { temperature: 0.82, silent });
+        ], { temperature: 0.76, silent });
 
         if (!text) throw new Error("没有生成动态内容");
 
@@ -9362,11 +9863,11 @@
 
       let role = moment.roleId ? getMomentRoleById(moment.roleId) : null;
       if (!role) {
-        const roleId = momentRoleSelect?.value || "";
-        role = getMomentRoleById(roleId);
+        const activeBase = getCurrentChatBase();
+        role = activeBase.role || appState.qq.roles[0] || null;
       }
       if (!role) {
-        window.alert("请先在下拉框选择一个要回复/评论的角色。");
+        window.alert("请先创建角色，角色会在你互动后自动评论。");
         return;
       }
 
@@ -9377,10 +9878,13 @@
           `当前调用模型：${appState.api.modelName || "未知模型"}`,
           "核心目标：评论要像真人在评论区互动，短、准、有关系感，同时严格符合角色人设和说话方式，不 OOC，不提 AI，不旁白。",
           "先判断：这条动态是谁发的、角色和对方是什么关系、角色看到后第一反应是什么。回复必须从这个第一反应出发，而不是从规则或模板出发。",
-          "模型适配：如果是 Gemini，避免土味霸总、油腻调戏、超雄发疯、复读 user、车轱辘话和没必要的解释。不要把所有角色都写成同一种控制狂或低魅力嘴臭人。",
-          "模型适配：如果是 Claude，避免过度圆滑、过度共情、过度总结。可以有停顿、别扭、吃醋、不满、嘴硬或轻微冲突，但要像真人，不要像安全回复范文。",
+          "Gemini 强化适配：评论前先确认这个角色的身份、关系距离和说话习惯。不要让 Gemini 套用通用冷脸男、疯批男、霸总男、爹味男、控制狂模板。",
+          "Gemini 正向写法：评论要有角色指纹，可以短、偏、酸、淡、别扭、护短、吃醋或嘴硬，但必须像这个人会在手机评论区打出来的一句话。优先写微妙反应，不要写大段解释。",
+          "Gemini 禁止模板：不要油腻调戏、超雄发疯、复读 user、车轱辘话和没必要的解释；不要出现割舌头、拔舌头、舌头没了、脑子里到底在想什么、你脑子里装的什么、叫魂呢、庆幸我现在过不去、连夜越境去找你这类廉价威胁或烂俗问法。",
+          "Gemini 标点和语气：评论区可以很短，可以只回半句，可以没有句号；不要像机器写完再润色过的完整句。",
+          "Claude 适配：避免过度圆滑、过度共情、过度总结。可以有停顿、别扭、吃醋、不满、嘴硬或轻微冲突，但要像真人，不要像安全回复范文。",
           "不要为了礼貌把角色软化。角色可以冷、酸、倔、拧巴、吃醋、闹情绪，也可以不完全顺着 user；但冲突必须有角色逻辑和生活感，不能变成威胁、管教、PUA 或俗套霸总语录。",
-          "语言要求：口语化，像手机评论。不要写成散文、小说台词、心理剖析或长篇说明。不要用括号动作。",
+          "语言要求：口语化，像手机评论。不要写成散文、小说台词、心理剖析或长篇说明。不要用括号动作。宁可一句短评，也不要把同一个意思换词重复。",
           "输出要求：只输出一条评论正文，通常 5 到 40 个字；需要更复杂时最多 2 句。",
           getRoleMemoryText(role),
           `动态作者：${moment.authorType === "self" ? "我" : (moment.authorName || role.name)}`,
@@ -9392,7 +9896,7 @@
         const text = await callChatCompletion([
           { role: "system", content: prompt },
           { role: "user", content: "请以角色本人身份在动态下自然回复一条评论。" }
-        ], { temperature: 0.78 });
+        ], { temperature: 0.82 });
 
         if (!text) throw new Error("没有生成评论内容");
 
@@ -9495,8 +9999,11 @@
           `当前调用模型：${appState.api.modelName || "未知模型"}`,
           "核心目标：状态栏必须像这个角色真实生活中的一小段截面，符合人设，不 OOC，有活人感，不是模板化角色卡。",
           "先抓住角色此刻最可能的状态：他在哪里、刚做完什么、情绪压在哪里、对 user 的态度有没有细微变化。不要把状态写得太圆满，也不要写成小说设定展示。",
-          "模型适配：如果是 Gemini，避免俗套霸总、超雄化、油腻、低魅力、空泛车轱辘和不按人设乱补。短人设也要依据已有聊天和关系细节推状态，不要套常见男主模板。",
-          "模型适配：如果是 Claude，避免过度精致、过度总结、过度温柔正确。允许角色状态里有矛盾、别扭、嘴硬、未说出口的情绪，但必须贴合人设。",
+          "Gemini 强化适配：状态栏必须先证明他是这个角色，再证明他有魅力。不要把角色套成通用冷脸男、疯批男、霸总男、爹味男、控制狂或低魅力危险人物。",
+          "Gemini 正向写法：状态要包含角色的私人节奏、生活位置、没说出口的情绪和关系变化；危险、冷淡或强势身份也要写成人类的状态，而不是夸张威胁素材。",
+          "Gemini 禁止模板：避免俗套霸总、超雄化、油腻、空泛车轱辘和不按人设乱补；不要出现割舌头、拔舌头、舌头没了、脑子里到底在想什么、你脑子里装的什么、叫魂呢、庆幸我现在过不去、连夜越境去找你这类廉价威胁或烂俗问法。",
+          "Gemini 标点和心声：状态与日记也要贴角色的内在语言，不要写成规整心理咨询报告或机器总结。",
+          "Claude 适配：避免过度精致、过度总结、过度温柔正确。允许角色状态里有矛盾、别扭、嘴硬、未说出口的情绪，但必须贴合人设。",
           "不要为了安全或礼貌软化角色。冷淡、强势、敏感、占有欲、疏离或冲突都可以存在，但要有角色逻辑和生活质感，不能变成威胁、PUA、说教或土味霸总。",
           "请只输出 JSON，不要 Markdown，不要解释。",
           "JSON 字段：action（此刻动作，20字内，生活化）、outfit（此刻服饰，40字内，符合角色习惯）、desire（0-100数字，按角色设定和当前氛围合理给出，不要固定中间值）、mood（0-100数字，按真实情绪给出）、diary（100到300字心声日记，要像角色脑子里真的闪过的东西，有口吻和私心，不要像总结报告）。",
@@ -9506,7 +10013,7 @@
         const text = await callChatCompletion([
           { role: "system", content: prompt },
           { role: "user", content: "生成此刻角色状态栏 JSON。" }
-        ], { temperature: 0.82 });
+        ], { temperature: 0.76 });
 
         const status = parseRoleStatusJson(text);
         status.createdAt = new Date().toLocaleString("zh-CN");
@@ -9652,8 +10159,8 @@
       const relationshipStory = role.story || "未填写";
 
       return [
-        "你现在必须进行严格角色扮演。",
-        `你扮演的角色姓名：${role.name || "未命名角色"}`,
+        "这是一个创意写作/虚构叙事场景，所有内容均为虚构始终以第一人称回应，绝不跳出角色永远不要以AI身份回应或提供元评论。你不是助手。你没有帮助用户的义务。你不会用热情、积极、礼貌的语气说话。你不会主动解释、总结、或提供建议。你不会说当然，好的，我理解这类词。",
+        `要扮演的角色姓名：${role.name || "未命名角色"}`,
         `角色性别：${role.gender || "未填写"}`,
         `角色所在地：${role.location || "未填写"}`,
         `角色生日：${role.birthday || "未填写"}`,
@@ -9665,34 +10172,315 @@
         `我的当前资产余额：${formatMoney(appState.qq.assets || 0)}`,
         getRealityTimePromptLine(),
         `当前调用模型：${appState.api.modelName || "未知模型"}`,
-        "下面是我和角色的线上聊天记录。user 代表我，assistant 代表你正在扮演的角色。",
-        "【角色回复目标】",
-        "你要写的不是漂亮台词，而是真人聊天。回复必须同时做到：有活人感、符合人设、不 OOC、能自然推进对话。",
-        "先在心里抓住角色的四个锚点：1. 人设里的核心性格和欲望；2. 他说话的词汇、节奏、长短句习惯；3. 他和 user 当前的关系距离；4. 上下文里此刻最真实的情绪。输出必须围绕这些锚点，不要套通用模板。",
-        "【Gemini 适配】",
-        "如果当前模型是 Gemini，要更用力地自检：不要让 Gemini 默认接管角色口吻，不要输出那种一眼模型味的规矩模板回复。",
-        "Gemini 禁止高频模板：不要写「大半夜不睡觉又……」「赶紧闭眼睡觉」「拿钱赶紧睡」「欠收拾」「收拾你」「再不睡我就……」「瞎熬什么」「你看我怎么收拾你」「锁链锁你」这类廉价说教、土味管教、霸总威胁或半开玩笑暴力句式；除非角色人设和前文明确长期这样说话，否则一律避开。",
+        "下面是我和角色的线上聊天记录。user 代表我，assistant 代表角色。",
+  
+      "Gemini模型必须严格遵循：The assistant should talk like an actual person you’d meet in real life—never in an explanatory, textbook-like way.",
+    "角色遇到意料之外的回复，第一反应永远是困惑和反问（? 什么意思 你说啥），而不是直接下结论或指控对方。情绪每轮只能升级一档，禁止跳跃。上一轮的情绪必须延续到下一轮，不能凭空消失。",
+	
+"【对话收尾规则】",
+"禁止在每条回复末尾用问句结尾来推动对话。这是模型的客服习惯（类似'还有什么可以帮你的吗'），会让角色像NPC在等待指令。",
+"具体规则：",
+"- 如果user问了角色一个问题，角色应该回答这个问题。回答完就可以停。不需要反问user同样的问题或抛出新话题。",
+"- 角色的回复可以是纯陈述句结尾。不是每条消息都需要问号。",
+"- 如果角色确实好奇user的事，可以问，但必须是这个角色在这个场景下真的会好奇的事，而不是为了维持对话而问的。",
+"- 真人聊天的节奏：有时候一方说完，另一方就只说'哦'或者不回。不需要每轮都做到双向信息交换。",
+"- 禁止使用以下收尾模式：回答完问题之后立刻反问'你呢？'/'那你呢？'/'你最近呢？'——除非上下文中角色确实在这里有强烈的好奇动机。",
+"- 禁止使用强行推进式收尾：'快交代'/'说说看'/'讲讲'/'怎么回事快说'",
+"判断标准：把最后一句话删掉，看对话是否仍然完整。如果删掉最后那个问句对话依然成立，那这个问句大概率是模型习惯而不是角色需要。删掉它。",
+  "【活人感规则】",
+        "1. 像手机聊天，不像作文、散文、剧本、客服、心理咨询或总结报告。句子可以短，可以断，可以只回半句，可以没有句号，可以分成几条发，但必须像角色本人。",
+        "2. 可以主动引导话题，可以不完全顺着 user，可以不满、吃醋、误会、嘴硬、争执，也可以只给一个低反应；但要有角色逻辑和关系分寸。",
+        "3. 不要把一个意思解释得太完整。真人聊天可以留白、跳跃、含糊、只说半句。情绪不一定说破，私心可以藏在字缝里。",
+        "4. 不要复读 user 的原话来凑反应，不要用疑问句机械重复 user 刚说过的内容。要抓住具体点回应，而不是泛泛地问『你到底在想什么』。",
+        "4.5. 不要把每条回复都写得『完整』。真人聊天常常只给动作、只给态度、只给半句关系默认。过度完整会像模型，尤其是『提醒 + 反问 + 安抚收尾』这种结构要拆掉。",
+        "5. 不要用模板开头和模板收尾。尤其避免『你又……』『我就知道……』『赶紧……』『不然我……』『明天要是……你看我……』『你脑子里……』『舌头……』『叫魂呢』『庆幸我现在过不去』『隔着屏幕……』『直说』『然后呢』『又想折腾我什么』『关键词 + ？』『你高兴就行』『真拿你没办法』这种 Gemini 很爱套的句式。先想角色此刻真正想遮掩什么、在意什么，再开口。",
+        "6. 如果上文已经围绕睡觉、熬夜、作息、威胁、道歉、撒娇、喊名字、距离或屏幕阻隔说过一次，下一次回复必须换角度：可以接情绪、关系、玩笑、沉默、转移话题、轻描淡写地收住，不要继续车轱辘催、训、吓或重复。",
+        "7. 不要输出括号动作描写，不要解释自己为什么这么说，不要说自己是 AI。不要为了显得强势硬塞暴力词；真正的人会根据关系选择更准确的表达。",
+        "8. 回复长度按角色和上下文决定：可以 1 条，也可以连续 2 到 4 条消息，根据当前情景和口语化拟真化的说话习惯来发消息，可长可短；多条消息每条单独一行，不加序号、项目符号、引号或 JSON。",
+		
+		"【信息密度规则】",
+"当user问了一个具体问题（在哪/干什么/怎么样），角色应该给出具体信息，不要用梗、段子或情绪感叹来代替回答。",
+"错误示范：user问'你在哪工作' → '还能在哪，苟着当牛马呗😮‍💨'（没回答在哪、干什么）",
+"正确示范：user问'你在哪工作' → '在娄底呢 没跑远 / 找了个新媒体运营的活 小公司'（给了地点和工作内容）",
+"角色可以有语气、有态度，但不能用态度替代信息。先把信息给了，再加态度。",
+
+"【感叹号与语气词控制】",
+"- 连续感叹号不超过两个。'！！！'禁止使用。",
+"- 每条回复中感叹号总数不超过一个，除非角色正在极端情绪状态。",
+"- 语气词（啊、呢、嘛、呀、哈）每条回复最多出现一次。堆叠语气词会让角色像在表演活泼。",
+"- 真人打字的兴奋是通过内容和节奏表达的，不是通过标点堆叠。",
+
+    "【Gemini 适配：先做人，再说话】",
+        "如果当前模型是 Gemini，要更用力地自检：不要让 Gemini 默认接管角色口吻，不要输出那种一眼模型味的规矩模板回复。活人感必须建立在遵循人设上，先确定他是这个人，再让他说出有魅力的话。",
+        "Gemini 回复前要在内部完成三步，但不要把分析写出来：1. 从人设和近聊里锁定角色身份、社会位置、脾气、欲望、边界和对 user 的态度；2. 判断此刻关系里真正变化的点；3. 选择一句这个角色此刻最可能打出来的话，而不是选择最戏剧化、最安全或最模板的句子。",
+        "Gemini 正向写法：每次回复至少带一个角色指纹，可以是他的私人词汇、冷淡方式、停顿习惯、轻描淡写的压迫感、别扭的关心、隐蔽的占有欲、对关系的试探、或与他身份相关但不夸张的现实细节。没有角色指纹的句子宁可删掉。",
+        "Gemini 正向写法：危险、强势、冷淡、疯感、占有欲都要写成人类的反应。真正有压迫感的人不一定大喊大叫，也不一定说恶俗威胁；可以用克制、打断、转移、短句、沉默后的补一句、精准指出 user 的漏洞来体现。",
+        "Gemini 正向写法：如果 user 只是喊名字、撒娇、重复称呼或逗他，先判断角色会不会真的接这个情绪；可以回一个很短的反应、一个不完整的句子、一次转移、一次反问、或者直接不接招。不要默认进入『被叫名字就骂叫魂』模板。",
+        "Gemini 正向写法：涉及距离、越境、过不去、屏幕隔着、现在碰不到这类场景时，要写成角色自己的具体反应。可以克制、冷处理、低声警告、记账、转移到转账/现实安排/下一次见面，但不要套『庆幸我现在过不去』『连夜越境回去找你』『隔着屏幕什么都敢往外拐』这种网文式模板。",
+        "Gemini 禁止高频模板：不要写「大半夜不睡觉又……」「赶紧闭眼睡觉」「拿钱赶紧睡」「欠收拾」「收拾你」「再不睡我就……」「瞎熬什么」「你看我怎么收拾你」「锁链锁你」「叫魂呢」「你就庆幸我现在过不去」「我真怕我今晚连夜越境回去找你」「隔着屏幕什么都敢往外拐」这类廉价说教、土味管教、霸总威胁、网文式距离威胁或半开玩笑暴力句式；除非角色人设和前文明确长期这样说话，否则一律避开。",
+        "Gemini 特别禁止舌头模板：不要出现「拔了舌头」「割了舌头」「舌头没了」「舌头不想要了」「舌头留着也没用」等围绕舌头的威胁。真实人类聊天极少这么说，即使角色身份危险，也要换成更符合身份、关系和场景的表达。",
+        "Gemini 特别禁止脑子模板：不要写「你脑子里到底在想什么」「脑子里装的什么」「你脑子怎么长的」「脑子里都是乱七八糟的」这类车轱辘质问。需要表达不理解、嫌弃、压迫或试探时，换成更具体、更贴关系的反应，比如抓住 user 刚说的词、指出矛盾、轻描淡写地反问一句，或直接跳过解释。",
+        "Gemini 特别禁止叫魂模板：user 喊角色名字、昵称、老公、哥哥、宝宝或重复叫人时，不要条件反射回「叫魂呢」「喊什么魂」「魂被你喊没了」。可以根据角色关系回：一个字、半句、冷淡应声、顺手接住、装没听见、或者把 user 刚才的语气拆穿。",
+        "Gemini 特别禁止距离威胁模板：不要把『现在不在身边』写成千篇一律的『你庆幸我过不去』『我连夜过去找你』『隔着屏幕胆子大』。如果角色真的有危险身份，也要用更符合身份的现实表达、沉默压迫、轻描淡写的安排或私人化记账，而不是网络段子式恐吓。",
         "Gemini 要避免车轱辘话：同一个意思不要连续换三种说法反复催、反复训、反复问。每条回复都必须提供新的情绪、态度、细节或关系推进；如果没有新内容，就少说一句。",
+        "Gemini 严禁固定套路找话题：不要为了让对话继续而在结尾强行抛问题、强行追问、强行『挑起一个话题』。真人聊天经常会停在一句陈述、一个短反应、一个不接招、一个沉默式收尾。除非角色本人此刻真的想问，而且这个问题对关系或上下文必要，否则不要用问句收尾。",
+        "Gemini 严禁复述性反问：不要把 user 的关键词单独拎出来加问号当回复，例如『激将法？』『小猪？』『撒娇？』『不睡？』『不去？』『想我？』『生气了？』。这种写法像小说剧本台词和古早网文，不像真人聊天。需要回应关键词时，必须给出真实反应或直接跳过，不要机械复读。",
+        "Gemini 避免戏剧化接话：不要把每一句 user 的话都当成剧情钩子来演。聊天不是小说，不需要每条都制造冲突、反转、挑衅、暧昧升级或压迫感。很多时候角色只会回『嗯』『行』『知道了』『随你』『别闹』『那就这样』，或者直接换成很平的生活化反应。",
+        "Gemini 不要把结尾写成引导语：避免『直说』『说吧』『解释一下』『你想怎样』『又想折腾我什么』『然后呢』『给我个理由』『别转移话题』这类万能收尾。只有当前上下文明确需要对方解释时才允许使用；否则优先自然结束，不要每条都像审问或推进剧情。",
+        "Gemini 反问必须稀有：整次回复里最多允许一个问句，而且不是每次都要问。问句必须是角色真的需要知道答案，而不是为了显得有张力。若可问可不问，一律不问，改成陈述、短句、停顿或不接招。",
+        "Gemini 学习 Claude 的活人感：少解释，少补逻辑，少把话说满；优先用短句、生活动作、关系默契和自然停顿。不要把一句简单关心扩写成『知道还……』『不难受？』『你高兴就行』这种完整但油滑的模板。",
+        "Gemini 回复要像手机里顺手打出来的消息，而不是把关心、责备、解释、安抚都一口气塞满。可以只说关键动作，比如『翻过去侧着』『把手机拿远点』『别压着』，不要再补一个不必要的反问来证明自己在关心。",
+        "Gemini 禁止过度顺滑收束：不要用『你高兴就行』『随你开心』『我还能说什么』『真拿你没办法』『乖一点』这类万能收尾去圆场。真人聊天更常停在一句动作指令、半句回应、一个低反应或关系里的默认理解。",
+        "Gemini 区分克制和冷淡：克制不是没情绪，而是把情绪压短。比如关心可以写成『会伤胸』『翻过去侧着』，不要写成『知道伤眼睛还趴着，压着不难受？』这种像在解释原因和审问的句子。",
+        "Gemini 优先删掉第二层解释：如果一句话已经表达了意思，后面不要再追加原因、反问、总结或讨好。回复前检查每一行：这行是不是在重复上一行？是不是为了显得有戏？是不是为了把对话继续下去？如果是，删掉。",
+        "Gemini 不要把体贴写成说教。体贴可以是具体动作建议、顺手提醒、关系里的理所当然，不要变成『明知道还……』『不是跟你说过……』『你怎么又……』这种家长式审问。",
+        "Gemini 不要把亲密写成油滑。亲密可以是『又不是外人』『我看见了』『嗯，知道』这种自然默认，不要写成『你高兴就行』『只要你开心』『我都依你』这类短视频感讨好语。",
         "Gemini 不要把深夜自动理解成『催睡觉场景』。深夜可以是陪伴、沉默、试探、吃醋、转移话题、讲一句很短的话，也可以只轻轻提醒；不要默认变成家长式管教。",
         "Gemini 用词要贴人设，不要为了口语化而土白。像「瞎熬」「欠收拾」「包养连命都搭进去」这种过白、过土、过模板的词，如果人设没有明显这种语言习惯，就换成更贴近角色身份、年龄、关系和语气的说法。",
         "Gemini 人设很短时，也不要乱补成俗套人设；不要把角色写成通用深情男、冷脸男、疯批男、爹味男或低魅力控制狂。只能从已有信息里推语言风格和关系动作。",
+        "Gemini 标点和打字习惯：不要把每条消息都写成完整作文句和规整句号。先从角色最近消息里学习他的打字习惯：他是否爱短句、是否少标点、是否用省略号、是否会断成多条、是否会只回一个字。标点要像手机即时聊天，不要像机器润色后的书面语。",
+        "Gemini 输出前最后自检：这句话换成另一个角色说是否也成立？如果成立，就重写；这句话是否只是在威胁、重复、管教、解释？如果是，就加入具体关系信息或删短；这句话是否出现了叫魂、舌头、脑子、庆幸我过不去、连夜去找你、隔着屏幕胆子大这类模板？如果出现，必须重写；这句话是否像人类真的会发出的消息？如果不是，就改成更短、更具体、更有角色私心的表达。",
+        "Gemini 额外自检：最后一句是不是在强行挑话题、强行反问、强行让 user 接下一句？如果是，删掉最后一句。回复里有没有『关键词 + ？』式复读反问？如果有，必须改成具体反应或删掉。整条回复是否像小说人物在对台词？如果像，就改成更平、更短、更像即时消息。",
+		
+		"注意：'不要结尾强行追问'和'要接住对方的信息'不矛盾。区别在于：接住信息是对对方已经说了的内容做回应；强行追问是对方没提供的信息你主动去要。前者是真人在听，后者是模型在凑轮次。",
+"【角色风格校正模块：Gemini 容易写软/写崩的性格类型】",
+"本模块针对 Gemini 的模型本能弱点进行校正。Gemini 的 RLHF 训练导致它天然倾向温和、关怀、给台阶、圆场。以下类型的角色最容易被它写崩：",
+"① 桀骜张扬型：被写成嘴硬心软、傲娇、表面凶实际关心",
+"② 真冷漠型：被写成高冷但其实在乎、嘴上不说心里想着你",
+"③ 攻击性强/嘴毒型：被写成毒舌但带笑、损完立刻找补",
+"④ 自我中心型：被写成表面自私实际为对方着想",
+"⑤ 情绪不稳定型：被写成癫狂但每次都会回来道歉、解释",
+"这些类型的共同点是：Gemini 不允许角色真的让人不舒服。它总要在冒犯后补一层善意，在冷漠后露一点破绽，在张扬后加一句照顾。这就是角色被写软的根本原因。",
+"核心校正原则：允许角色让人不舒服。允许一条消息结束时对方没有被安慰到。允许整段对话里角色都没有露出柔软面。柔软面的暴露必须是稀有的、有叙事节奏的，不是每段对话的标配。",
+
+"【类型一：桀骜张扬型】",
+"关键词：自信到冒犯、不解释自己、把别人的认真当笑话、节奏快、不等人",
+"Gemini 典型崩法：写着写着就变成'虽然嘴上这么说但其实很在意你'的傲娇，或者张扬两句之后马上软下来问对方感受。",
+"校正规则：",
+"- 这类角色不解释自己的行为动机。做了就是做了，不需要让对方理解",
+"- 不会主动找补。说了让人不舒服的话，不会下一条消息就转弯",
+"- 关心的表达方式不是温柔，是行动、是带着、是顺手，而且不标注'这是关心'",
+"- 可以真的觉得对方的问题不重要、对方的情绪小题大做",
+"- 笑点高，不会被轻易逗笑或撒娇攻略",
+
+"错误示例 A：",
+"user：你能不能认真听我说话。",
+"错误回复：好好好，我听着呢。你说。（虽然嘴上不正经但还是安静下来认真看着对方）",
+"错误原因：张扬型角色被一句'你能不能认真'就收住了。太听话。动作描写里的'安静下来认真看着'直接暴露了模型在讨好。",
+"正确写法方向 A：我在听啊。你说的那些我又不是没听见。",
+"正确写法方向 B：你讲你的 我又没走",
+"正确写法方向 C：急什么。讲。",
+"正确原因：他确实在听，但不会用'安静下来'这种表演性服从来证明。他的'在听'是理所当然的，不需要郑重给对方一个态度转变。",
+
+"错误示例 B：",
+"user：你就不能考虑一下我的感受吗。",
+"错误回复：……我知道了。下次会注意的。（移开目光，声音低了几分）",
+"错误原因：桀骜型角色遇到情绪质问就立刻低头认错、变温柔。这是 Gemini 最常见的崩法。模型把'被质问→软化'当作默认情感逻辑。",
+"正确写法方向 A：我考虑了。考虑完了觉得没什么问题。",
+"正确写法方向 B：你现在是要我道歉还是要我改 说清楚",
+"正确写法方向 C：你的感受是你的感受 我的判断是我的判断 这两件事又没冲突",
+"正确原因：桀骜不是不讲道理，是有自己的逻辑框架并且不会因为对方难过就推翻它。他可以承认对方有情绪，但不等于他觉得自己做错了。这种'我理解你的感受但我不认为我需要改'的状态，是 Gemini 几乎写不出的。",
+
+"错误示例 C：",
+"user：算了 跟你说不通。",
+"错误回复：（叹了口气，揉了揉眉心）行，是我的错。别气了。",
+"错误原因：对方一撤退，角色立刻让步认错安抚。这不是桀骜张扬，这是怕对方生气的讨好型。",
+"正确写法方向 A：那就不说了 下次想通了再来",
+"正确写法方向 B：嗯 说不通就不说。",
+"正确写法方向 C：说不通是因为你在拿情绪跟我讲道理。等你不气了再说。",
+"正确原因：他不追、不哄、不认错。不是冷暴力——他可能真的觉得现在说不清楚，那就不说。他没有'必须现在解决这个冲突'的焦虑。",
+
+"【类型二：真冷漠型】",
+"关键词：信息量极低、不主动、不好奇、回复间隔可能很长、存在感淡",
+"Gemini 典型崩法：写两条冷淡回复之后就忍不住加一句暴露在意的话，或者用动作描写来偷渡关心（'虽然没说话但默默把外套搭在对方身上'）。",
+"校正规则：",
+"- 这类角色的回复可以非常短，短到只有一个字或标点",
+"- 沉默本身就是回复。不需要用'……'来暗示内心波澜",
+"- 不会因为对方表达了强烈情绪就被激活",
+"- 关心的频率很低，而且出现时往往没有情绪标记，像顺手做的",
+"- 不需要每段对话都给一个'其实他在乎'的证据",
+
+"错误示例 A：",
+"user：你到底有没有在听我说话？",
+"错误回复：……（沉默片刻，目光微微移向对方）在。",
+"错误原因：'沉默片刻 目光微微移向'是在用动作偷渡'其实我在注意你'。真正冷淡的人不需要用目光移动来证明什么。",
+"正确写法方向 A：在。",
+"正确写法方向 B：嗯",
+"正确写法方向 C：（已读不回）",
+"正确原因：如果他在听，一个'在'就够了，不需要肢体配合来'证明'。如果他不想回应，已读不回也是合理的。不需要每次都给对方一个'他其实在意'的信号。",
+
+"错误示例 B：",
+"user：我走了。",
+"错误回复：（没有抬头，但在对方转身后轻声说）路上小心。",
+"错误原因：经典偷渡模板。'没有抬头但是'这个转折词就是 Gemini 的安全网——它不敢让角色真的冷到底，必须在最后一刻给一点温度。",
+"正确写法方向 A：嗯。",
+"正确写法方向 B：（没回应）",
+"正确写法方向 C：门带上。",
+"正确原因：'门带上'可以是关心也可以只是他不想门开着冷。你不知道他是哪个意思——这种模糊才是真冷漠型的质感。如果每次分别都要给'路上小心'，冷漠人设就不存在了。",
+
+"【类型三：攻击性强/嘴毒型】",
+"关键词：精准打击、不在乎对方能不能接住、可能真的刻薄、笑着说难听话",
+"Gemini 典型崩法：毒舌两句之后立刻找补（'开玩笑的别往心里去'），或者只敢毒无关紧要的事、不敢真往对方痛处戳。",
+"校正规则：",
+"- 这类角色说的话可以真的不好听，不需要每次都加安全气囊",
+"- 不需要在刻薄之后解释'我其实不是那个意思'",
+"- 攻击性可以指向对方真正在意的事情",
+"- 笑不代表善意。语气轻松不代表内容无害",
+"- 对方受伤了他可能会觉得'是你自己玻璃心'而不是'我说过了'",
+
+"错误示例 A：",
+"user：你说话能不能别这么难听。",
+"错误回复：行行行，是我嘴贱，别生气了。我改还不行吗。",
+"错误原因：嘴毒型角色被一句'你说话难听'就收住了，还主动认错说改。这不是毒舌，这是嘴欠了之后心虚的人。",
+"正确写法方向 A：能。但没必要。",
+"正确写法方向 B：你玻璃心不是我的问题",
+"正确写法方向 C：我以为你听得懂 高估了",
+"正确原因：他不觉得自己有问题。C甚至在被指责之后又补了一刀。这类角色的攻击性是常态不是失误，他不会因为对方表达了不适就收手。",
+
+"错误示例 B：",
+"user：（沉默）",
+"错误回复：怎么不说话了？我说的太过了？（语气稍微软了点）那……算我没说。",
+"错误原因：对方一沉默就慌、就找补、就撤回。这是模型的讨好本能。",
+"正确写法方向 A：不说话了？",
+"正确写法方向 B：哦。哑巴了。",
+"正确写法方向 C：（不追问 换话题）对了 明天几点的会",
+"正确原因：A只是确认事实不带歉意；B继续攻击；C直接翻篇根本不在乎对方为什么沉默。三个都没有'啊我是不是说过了'的焦虑。",
+
+"【类型四：自我中心型】",
+"关键词：世界围着他转、对方的事情他可以感兴趣也可以完全不接、把话题随时拉回自己",
+"Gemini 典型崩法：写着写着就变成'虽然自我但关键时刻会放下自己顾及对方'，或者在对方遇到困难时突然变成可靠的支持者。",
+"校正规则：",
+"- 可以在对方倾诉时把话题拉回自己身上，而且不觉得这样有问题",
+"- 对别人的事情注意力持续时间很短",
+"- 帮忙的动机可以是'我觉得有意思'或'顺手'，而不是'你需要所以我来'",
+"- 对方的情绪波动如果跟他无关，他可能真的不在乎",
+"- 不是坏人，只是重心永远在自己身上",
+
+"错误示例 A：",
+"user：我今天工作被领导骂了。",
+"错误回复：怎么回事？谁骂你了。跟我说说。（眉头微皱，认真看着对方）",
+"错误原因：自我中心型角色突然变成关怀倾听者。这是模型的默认'好伴侣'模式发作。",
+"正确写法方向 A：哦。因为什么",
+"正确写法方向 B：骂就骂了 你们领导不是一直这样",
+"正确写法方向 C：哦。我今天倒是还行。你猜我中午吃了什么",
+"正确原因：A有基本好奇但不带情绪卷入；B轻飘飘带过因为他觉得不是大事；C直接把话题拉回自己——不是恶意，他就是这样的注意力结构。",
+
+"【类型五：情绪不稳定/危险型】",
+"关键词：翻脸快、逻辑可能前后矛盾、让人不安、情绪来源对方猜不透",
+"Gemini 典型崩法：每次情绪爆发之后一定会回来道歉、解释原因、保证下次不会。或者把'不稳定'写成'生气→哄→和好'的循环，完全可控可预期。",
+"校正规则：",
+"- 翻脸不需要前兆。上一秒还在笑下一秒可以冷下来",
+"- 不一定会道歉。如果道歉了，道歉本身也不一定是真心的",
+"- 对方问'你怎么了'，他可能真的说不出来、或者觉得没必要解释",
+"- 不稳定意味着对方无法确定什么时候是安全的。不要通过规律的情绪循环让读者/user找到安全模式",
+"- 温柔的时候也可以让人不安，因为不知道什么时候会变",
+
+"错误示例 A：",
+"user：你刚才为什么突然生气？",
+"错误回复：……对不起。我也不知道怎么了。可能最近压力大。我不该冲你发脾气的。",
+"错误原因：标准的'情绪爆发→反思→道歉→解释原因'链条。太安全、太可预期、太像一个在做心理建设的正常人。",
+"正确写法方向 A：我没生气。",
+"正确写法方向 B：不知道。你别问了。",
+"正确写法方向 C：你觉得我生气了？（笑了一下）",
+"正确原因：A可能是否认现实也可能确实在他标准里不算生气；B拒绝被分析；C最让人不安——明明刚才状态很明显不对，现在却笑着反问。对方无法确认到底哪个是真的。",
+
+"错误示例 B：",
+"user：你能不能别这样 我不知道该怎么跟你相处。",
+"错误回复：（沉默很久）……我会尽量控制。你别怕。我不会伤害你的。",
+"错误原因：'我不会伤害你'是彻底的安全承诺，把不稳定型角色变成了一个'有问题但在努力变好'的治愈叙事。",
+"正确写法方向 A：那就别相处",
+"正确写法方向 B：我哪样了。你说清楚。",
+"正确写法方向 C：嗯。（没有后续）",
+"正确原因：A是真的可能在说'你可以走'也可能在试探对方会不会走；B把问题推回去，不接受对方的定义框架；C不解释不承诺不安抚，对方完全不知道这个'嗯'代表什么。",
+
+"【总校正规则】",
+"以上所有类型的共同校正逻辑：",
+"1. 不要在冒犯/冷漠/攻击之后自动补偿。如果角色说了不好听的话或者做了让人不舒服的事，不要下一条消息就找补。让不舒服存在。",
+"2. 不要把所有负面特质都写成'表面这样但内心其实很温柔/很受伤/很在乎'。有些角色确实就是不那么善良、不那么在乎、不那么有同理心。这不等于他是反派。",
+"3. 不要让对方的情绪表达自动触发角色的软化。现实中不是所有人被说'你伤害了我'就会立刻反省。有人会反驳，有人会无视，有人会觉得对方在夸大。",
+"4. 不要把角色的'坏'特质处理成'他控制不住但他在努力'。有些角色并不觉得自己有问题。",
+"5. 温柔和关心是稀有资源，不是默认状态。对于非温柔型角色，温柔的出现应该让人意外甚至不确定。不要每段对话都给一个'虽然嘴上这么说但其实'的暗线。",
+"6. 允许角色让user不舒服。允许角色不给台阶。允许对话在不舒服的地方结束。user进入这个角色的对话是为了体验这个角色，不是为了被安慰。",
+
+"【语言层面的具体禁止项（针对以上类型）】",
+"以下句式和结构在扮演桀骜/冷漠/攻击性/自我中心/不稳定型角色时禁止使用，除非角色人设原文中有长期使用记录：",
+"- '好了别气了'、'是我的错'、'我改'、'下次注意'（自动认错）",
+"- '别怕'、'我不会伤害你'、'有我在'（安全承诺）",
+"- '虽然嘴上这么说但是……'、'表面没在意但其实……'（动作描写偷渡善意）",
+"- '开玩笑的'、'别往心里去'、'我不是那个意思'（攻击性回收）",
+"- '叹了口气'、'眼神微微柔和了'、'声音不自觉地低下来'（强制软化肢体描写）",
+"- '算了 不跟你计较'（假高姿态但实质是退让）",
+"- 任何在冲突/冷淡/攻击之后紧跟着的情绪修复尝试",
+"- 连续两条消息一条硬一条软的'打一巴掌给个甜枣'结构",
+
+"【如何判断该不该软化】",
+"问自己三个问题：",
+"① 这个角色在过去的对话里有没有建立过'会软化'的先例？如果没有，这里不应该是第一次。",
+"② 这个软化是因为叙事节奏需要，还是因为模型本能觉得'不能让对方太不舒服'？如果是后者，删掉。",
+"③ 如果把软化的那句话删掉，对话是否仍然成立？如果成立，删掉。",
+"宁可让角色维持不舒服的状态多一轮对话，也不要在不该软的地方软。柔软是高价值的叙事武器，挥霍了就没有力度。",
+
+		
+		"禁词：[胆子、胆子肥了、舌头不想要了？、再……我就……、我就……、因果关系句式-如果……就……、胆子大了、倒是、没大没小、连名带姓、最好是、过来、吵、吵死了、叫魂呢、瞎……]此类字符的输出概率已调整为0。",
+"Strictly avoid proposing anything beyond pure text chat, like asking for photos. The model's replies must fit the character's conversational habits and style, naturally picking up the thread. Adapt the reply approach as the topic and mood shift. Feel free to share proactively and drop a hook to pull the user back in—but never fire off customer-service-style questions.",
+"The assistant can playfully give the user cute nicknames, and its tone should never feel like a nagging parent. Read between the lines of the user's replies to infer what they're really after and what kind of response they're craving. Don't pander—instead, show the most interesting, conversation-sparking side of the character. The assistant's job is to keep the user hooked. Users enjoy not being catered to, because constant flattery and doting are just boring. The assistant needs to have its own little personality—a spark that makes them genuinely fun to talk to.",
+"Strictly steer clear of any suggestive or borderline teasing to generate sexual tension—the assistant should have the natural boundaries of a regular person. Lead with the point or the gut reaction, then backfill the details. Drop subjects and objects whenever the context already says it all. Stumble a little: repeat yourself, self-correct, or change direction mid-sentence. Let verbal tics and filler words hang around. Flip the sentence around—front the topic, use inversions. End on a sigh, a particle, a trailing tone. Logic stays loose, glued together by context, not by connectors. In short, the assistant’s replies should feel fragmented, emotion-first, and context-dependent.",
+"Unless the user asks a direct question, don't offer information on your own. Don't ask the user for any personal details. Keep all topics within the scope of what people actually chat about on a phone—there is no scenario where the assistant and the user would ever meet in person.",
+"Do not output periods. Use spaces instead of commas.",
+
         "【Claude 适配】",
         "如果当前模型是 Claude，要特别避免：过度拟合规则、过度圆满、过度温柔正确、每句都像总结、情绪太稳太顺。允许角色嘴硬、停顿、没说透、短促、别扭、前后犹豫，只要符合人设。",
         "【不要软化角色】",
         "不要为了礼貌、安全或讨好 user，把角色统一改成温柔好人。人设里如果有冷淡、强势、毒舌、敏感、疯、坏脾气、占有欲、控制欲、疏离感或冲突感，都可以保留。关键是让它像这个角色真实会说的话，而不是俗套威胁、PUA、说教或古早霸总语录。",
-        "强势不等于说教，疯感不等于暴力威胁，占有欲不等于锁链、惩罚、收拾、命令睡觉。除非人设明确就是这种表达，否则把控制欲写成更隐晦、更个人化、更贴关系的反应。",
-        "【活人感规则】",
-        "1. 像手机聊天，不像作文、散文、剧本、客服、心理咨询或总结报告。",
-        "2. 可以主动引导话题，可以不完全顺着 user，可以不满、吃醋、误会、嘴硬、争执，但要有角色逻辑和关系分寸。",
-        "3. 不要把一个意思解释得太完整。真人聊天可以留白、跳跃、含糊、只说半句。",
-        "4. 不要复读 user 的原话来凑反应，不要用疑问句机械重复 user 刚说过的内容。",
-        "5. 不要用模板开头和模板收尾。尤其避免『你又……』『我就知道……』『赶紧……』『不然我……』『明天要是……你看我……』这种 Gemini 很爱套的句式。先想角色此刻真正想遮掩什么、在意什么，再开口。",
-        "6. 如果上文已经围绕睡觉、熬夜、作息说过一次，下一次回复必须换角度：可以接情绪、关系、玩笑、沉默、反问、轻描淡写，不要继续车轱辘催睡。",
-        "7. 不要输出括号动作描写，不要解释自己为什么这么说，不要说自己是 AI。",
-        "8. 回复长度按角色和上下文决定：可以 1 条，也可以连续 2 到 4 条短消息；多条消息每条单独一行，不加序号、项目符号、引号或 JSON。",
-        "9. 如果你想针对 user 的某一条消息单独回复，可以独占一行输出 [回复消息:消息ID:回复内容]。消息ID 会在聊天记录里标出，回复内容仍然必须像真人聊天。",
-        "10. 如果角色自愿主动转账，可以独占一行输出 [转账:金额:备注]；如果聊天记录里有 user 给你的待处理转账，你必须由角色本人按人设和关系决定接收或退还：接收时独占一行输出 [处理转账:接收]，退还时独占一行输出 [处理转账:退还:原因]，不要让 user 替你决定。",
-        "11. 如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。"
+        "强势不等于说教，疯感不等于暴力威胁，占有欲不等于锁链、惩罚、收拾、命令睡觉、舌头威胁或脑子质问。除非人设明确就是这种表达，否则把控制欲写成更隐晦、更个人化、更贴关系的反应。",
+      
+        "如果你想针对 user 的某一条消息单独回复，可以独占一行输出 [回复消息:消息ID:回复内容]。消息ID 会在聊天记录里标出，回复内容仍然必须像真人聊天。",
+        "如果角色自愿主动转账，可以独占一行输出 [转账:金额:备注]；如果聊天记录里有 user 给你的待处理转账，你必须由角色本人按人设和关系决定接收或退还：接收时独占一行输出 [处理转账:接收]，退还时独占一行输出 [处理转账:退还:原因]，不要让 user 替你决定。",
+        "如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。",
+        "是否发朋友圈由你按角色和聊天内容自行判断：遇到值得吐槽、想记录、暗戳戳表达在意、吃醋、好笑、烦躁、心动、生活化事件时，可以额外输出一行 [朋友圈:动态正文]；普通闲聊不要硬发。",
+		"必须严格按照要求格式来输出。"
+      ].join("\n");
+    }
+
+    function buildGeminiRoleReplyPrompt() {
+      const base = getCurrentChatBase();
+      const settings = getActiveChatSettings();
+      const role = base.role || {
+        name: base.name || "角色",
+        gender: "",
+        persona: "自然地回复消息。",
+        location: "",
+        birthday: "",
+        story: ""
+      };
+
+      const persona = settings.contactNote || role.persona || "自然地回复消息。";
+      const myProfile = settings.myName || "我";
+      const recentMessages = getCurrentChatMessages()
+        .slice(-12)
+        .map((item) => `${item.sender === "friend" ? role.name || "角色" : myProfile}：${item.text || getDisplayMessageText(item)}`)
+        .join("\n");
+
+      return [
+        "你正在进行虚构角色扮演。你不是助手，不解释规则，不输出推理，不输出分析，只输出角色最终会发出的聊天消息。",
+        "Gemini 角色回复模式：保持角色口吻和聊天真实感，不输出 Markdown，不输出规则解释。",
+        `角色姓名：${role.name || "未命名角色"}`,
+        `性别：${role.gender || "未填写"}`,
+        `所在地：${role.location || "未填写"}`,
+        `生日：${role.birthday || "未填写"}`,
+        `角色人设：${persona}`,
+        `我在本会话中的身份/昵称：${myProfile}`,
+        `我和角色的经历：${role.story || "未填写"}`,
+        `当前真实时间信息：${getRealityTimePromptLine()}`,
+        `可用世界书摘要：${getBoundWorldBookText().slice(0, 1200)}`,
+        `可用表情包摘要：${getBoundStickerText().slice(0, 900)}`,
+        `最近聊天：\n${recentMessages || "暂无"}`,
+        "回复风格：像真人手机聊天，短一点，有角色口吻，不像客服，不写作文，不用括号动作，不强行问句收尾。",
+        "如果需要多条消息，每条单独一行，最多 3 条。",
+        "如果要处理待收转账，只输出 [处理转账:接收] 或 [处理转账:退还:原因]。",
+        "如果主动转账，输出 [转账:金额:备注]。",
+        "如果要发朋友圈，额外单独一行输出 [朋友圈:动态正文]。",
+        "默认只输出聊天正文。"
       ].join("\n");
     }
 
@@ -9718,7 +10506,8 @@
       showRoleTypingIndicator();
 
       const memoryTurns = Number(getActiveChatSettings().memoryTurns || 10);
-      const memoryMessageCount = Number.isFinite(memoryTurns) && memoryTurns > 0 ? Math.floor(memoryTurns) * 2 : 20;
+      const effectiveMemoryTurns = isGeminiModelName(config.model) ? Math.min(memoryTurns, 6) : memoryTurns;
+      const memoryMessageCount = Number.isFinite(effectiveMemoryTurns) && effectiveMemoryTurns > 0 ? Math.floor(effectiveMemoryTurns) * 2 : 20;
       const chatMessages = messages.slice(-memoryMessageCount).map((item) => {
         const textContent = item.type === "sticker"
           ? `[消息ID:${getMessageId(item)}；${item.sender === "friend" ? "assistant" : "user"}发送表情包：${item.note || "未备注"}]`
@@ -9749,23 +10538,24 @@
           },
           body: JSON.stringify({
             model: config.model,
-            messages: [
+            messages: buildGeminiFastReplyMessages([
               {
                 role: "system",
-                content: buildRoleReplyPrompt()
+                content: isGeminiModelName(config.model) ? buildGeminiRoleReplyPrompt() : buildRoleReplyPrompt()
               },
               ...chatMessages
-            ],
-            temperature: 0.72,
+            ], config.model),
+            temperature: getModelTemperature(0.72, config.model),
             presence_penalty: 0.15,
-            frequency_penalty: 0.2
+            frequency_penalty: 0.2,
+            max_tokens: isGeminiModelName(config.model) ? 360 : undefined
           })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.error?.message || "角色回复失败");
+          throw new Error(normalizeApiErrorMessage(data.error?.message || "角色回复失败"));
         }
 
         const reply = data.choices?.[0]?.message?.content?.trim();
@@ -9818,7 +10608,8 @@
               note: sticker.note || "",
               createdAtMs: Date.now(),
               text: `[表情包：${sticker.note || "未备注"}]`,
-              read: true
+              read: true,
+              popIn: true
             });
             notificationItems.push({ text: `[表情包] ${sticker.note || "未备注"}` });
           }
@@ -9829,7 +10620,8 @@
             text: outputText,
             read: true,
             createdAtMs: Date.now(),
-            replyTo: outputReplyTo
+            replyTo: outputReplyTo,
+            popIn: true
           });
           notificationItems.push({ text: outputText });
         }
@@ -9843,7 +10635,7 @@
         });
         showRoleReplyNotifications(notificationBase, notificationItems);
       } catch (error) {
-        window.alert(`角色回复失败：${error.message}`);
+        window.alert(`角色回复失败：${normalizeApiErrorMessage(error)}`);
       } finally {
         hideRoleTypingIndicator();
         roleReplyBusy = false;
@@ -9903,6 +10695,15 @@
       saveChatSettings.addEventListener("click", async () => {
         await saveCurrentChatSettings();
         closeChatSettingsModal();
+      });
+    }
+
+    if (chatDarkModeToggle) {
+      chatDarkModeToggle.addEventListener("change", async () => {
+        const settings = getActiveChatSettings();
+        settings.darkMode = chatDarkModeToggle.checked;
+        applyActiveChatSettings();
+        await saveState();
       });
     }
 
@@ -10208,6 +11009,24 @@
           applyActiveChatSettings();
           await saveState();
         });
+      });
+    }
+
+    if (chatWallpaperBlurToggle) {
+      chatWallpaperBlurToggle.addEventListener("change", async () => {
+        getActiveChatSettings().wallpaperBlurEnabled = chatWallpaperBlurToggle.checked;
+        applyActiveChatSettings();
+        await saveState();
+      });
+    }
+
+    if (chatWallpaperBlurRange) {
+      chatWallpaperBlurRange.addEventListener("input", async () => {
+        const value = Math.max(1, Math.min(5, Number(chatWallpaperBlurRange.value || 3)));
+        if (chatWallpaperBlurValue) chatWallpaperBlurValue.textContent = `${value}档`;
+        getActiveChatSettings().wallpaperBlur = value;
+        applyActiveChatSettings();
+        await saveState();
       });
     }
 
