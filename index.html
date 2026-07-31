@@ -2897,6 +2897,35 @@
       -webkit-backdrop-filter: none;
     }
 
+    .qq-page.thread-mode .qq-thread-typing-text {
+      position: fixed !important;
+      left: 50% !important;
+      bottom: calc(58px + env(safe-area-inset-bottom)) !important;
+      z-index: 17 !important;
+      width: min(320px, calc(100vw - 76px));
+      margin: 0 !important;
+      transform: translate(-50%, 5px);
+    }
+
+    .qq-page.thread-mode .qq-thread-typing-text.show {
+      transform: translate(-50%, 0) !important;
+    }
+
+    .qq-page.thread-mode .qq-reply-preview {
+      position: fixed !important;
+      left: 50% !important;
+      bottom: calc(60px + env(safe-area-inset-bottom)) !important;
+      z-index: 18 !important;
+      width: min(calc(var(--phone-width, 390px) - 96px), calc(100vw - 108px));
+      margin: 0 !important;
+      transform: translateX(-50%) !important;
+      grid-column: auto !important;
+    }
+
+    .qq-page.thread-mode .qq-reply-preview.show {
+      display: flex !important;
+    }
+
     .qq-compose-input {
       width: 100%;
       min-height: 42px;
@@ -8924,7 +8953,7 @@
     }
 
     function getModelTemperature(defaultTemperature = 0.76, modelName = appState.api.modelName) {
-      return isGeminiModelName(modelName) ? 0.72 : defaultTemperature;
+      return isGeminiModelName(modelName) ? 0.3 : defaultTemperature;
     }
 
     function buildGeminiFastReplyMessages(messages, modelName = appState.api.modelName) {
