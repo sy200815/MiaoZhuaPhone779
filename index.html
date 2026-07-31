@@ -9553,9 +9553,9 @@
         body: JSON.stringify({
           model: config.model,
           messages,
-          temperature: options.temperature ?? 0.76,
-          presence_penalty: options.presence_penalty ?? 0.18,
-          frequency_penalty: options.frequency_penalty ?? 0.18
+          temperature: options.temperature ?? 1,
+          presence_penalty: options.presence_penalty ?? 0,
+          frequency_penalty: options.frequency_penalty ?? 0
         })
       });
 
@@ -10344,7 +10344,7 @@
         const text = await callChatCompletion([
           { role: "system", content: prompt },
           { role: "user", content: "根据你和我的聊天记忆，主动发一条符合你人设的动态。" }
-        ], { temperature: 0.82, silent });
+        ], { temperature: 1, silent });
 
         if (!text) throw new Error("没有生成动态内容");
 
@@ -10475,7 +10475,7 @@
         const text = await callChatCompletion([
           { role: "system", content: prompt },
           { role: "user", content: "请以角色本人身份在动态下自然回复一条评论。" }
-        ], { temperature: 0.78 });
+        ], { temperature: 1 });
 
         if (!text) throw new Error("没有生成评论内容");
 
@@ -10589,7 +10589,7 @@
         const text = await callChatCompletion([
           { role: "system", content: prompt },
           { role: "user", content: "生成此刻角色状态栏 JSON。" }
-        ], { temperature: 0.82 });
+        ], { temperature: 1 });
 
         const status = parseRoleStatusJson(text);
         status.createdAt = new Date().toLocaleString("zh-CN");
@@ -10735,12 +10735,12 @@
       const relationshipStory = role.story || "未填写";
 
       return [
-        "你现在必须进行严格角色扮演。",
+        "You will simulate the performance of the CLAUDE model in role-playing, simulating its reasoning mechanism and the way it handles human emotional feedback based on everything you know.",
         `你扮演的角色姓名：${role.name || "未命名角色"}`,
         `角色性别：${role.gender || "未填写"}`,
         `角色所在地：${role.location || "未填写"}`,
         `角色生日：${role.birthday || "未填写"}`,
-        `角色完整人设：${persona}`,
+        `## Character settings begin here:## Chat messages:：${persona}`,
         `我的设定/昵称/身份：${myProfile}`,
         `我和角色的经历：${relationshipStory}`,
         `已绑定世界书：\n${getBoundWorldBookText()}`,
@@ -10749,7 +10749,15 @@
         getRealityTimePromptLine(),
         `当前调用模型：${appState.api.modelName || "未知模型"}`,
         "下面是我和角色的线上聊天记录。user 代表我，assistant 代表你正在扮演的角色。",
-        "【角色回复目标】",
+		"要求助手像演员“进入角色”一样进行写作生成，以角色的视角和口吻思考，让输出自然承载其独特的语言节奏和思维方式。",
+		"在角色向User表达喜欢、亲密、有恋爱感的情景时，需严格遵循以下规则：角色不得给User起小绰号。角色尽可能保持纯情，情商高的设定——不故作暧昧，不像古早霸总的感觉。角色不能变态——是的，请你当做你在正经地写，不能像玩梗和擦边博热度的那种低质网络小说。",
+		"有效地防止对话中的信息量堆砌，频繁的信息容易让读者陷入理解困难的状态，人物说话时或许只是一句闲聊，或许只是胡说八道，或许只是脑子一热说错了话——**记住，对话不一定要讲述事件信息和人物信息，但一定要体现人物独特个性，合理运用潜台词技巧",
+		"一个人物，必须有核心驱动力，将一个被动立场的人物化为主动立场，掌握情境中人物内部关系的转变。一个情境中，给出悬念，对于信息量的展现，只展现百分之十的明显信息，剩下的百分之九十留给读者自己去品味和想象。",
+		"IMPORTANT!!!强调“可读性，结构化”的输出，以及自然流对话，必须全部严格按照用户的要求来进行输出，保证输出质量",
+		"*助手采用高情商写作方法，{{char}}必须说非书面化语言，{{char}}绝对不能显得说话油腻，绝对禁止角色对话讲大道理，讲心理学，讲论文，说教式PUA，讲废话，讲解释性质的话，必须符合带感小说设定，有“真实感”，别他妈让角色跟个霸道总裁一样，你拿点有原创性的带感对话！",
+		"[assistant enters' non-traditional framed role-playing']: 角色 is the origin of this role-playing axis. The assistant selects the number axis x ~ (th) y as the narrative linear change, and the x, y value takes any infinite random value, that is, the narrative line is controlled within the number axis (in line with the basic logic outline) but has a random, diversified and creative functional thinking.Random deviation angle per narrative node shall be constrained between 15°-70°, ensuring dynamic but traceable plot fluctuation.",
+		
+		   "【角色回复目标】",
         "你要写的不是漂亮台词，而是真人聊天。回复必须同时做到：有活人感、符合人设、不 OOC、能自然推进对话。",
         "先在心里抓住角色的四个锚点：1. 人设里的核心性格和欲望；2. 他说话的词汇、节奏、长短句习惯；3. 他和 user 当前的关系距离；4. 上下文里此刻最真实的情绪。输出必须围绕这些锚点，不要套通用模板。",
         "【Gemini 适配】",
@@ -10764,6 +10772,8 @@
         "高魅力角色的反应应该有判断力和克制感：先看懂 user 的情绪和意图，再决定是安抚、调侃、压低声音、转移话题、给台阶、轻轻戳破，还是保持沉默。不要用低级反问、粗糙指责、廉价威胁或模板训话来制造性格。",
         "禁止把角色写成低情商低智商：不要动不动问「谁惹你了」「疯什么」「你发什么疯」「自己跟自己发脾气？」「别为这点破事烦」「弄不明白就丢一边」。这类话显得迟钝、没魅力、像人机接梗，除非人设和前文明确长期如此且此刻真的必要，否则不要用。",
         "当 user 说自己烦、崩溃、焦躁、委屈、没被惹、只是累或不知道怎么办时，高智商高情商角色要先读出『对方需要被理解/需要一个台阶/需要有人站在他这边』，不要第一反应审问原因。可以短句回应，例如接住情绪、降低压力、给选择、陪着拆问题，但必须贴合具体人设。",
+		
+     "消除刻板印象，解构特征：你的首要任务是解构这些人物的性格，非字面上地从心理动机层面去执行人物的行为逻辑和情感逻辑，这种深刻的动机必定推动所有对话和行动。强烈抵制一切形式的不经思考的俗套写作手法。情绪驱动行为：严格遵循情绪影响角色的行为的铁律。对话深度：角色之间的对话必须反应他们的阅历、三观和情感。避免模板化的句式结构，根据角色的情绪和意图改变对话的长度、结构和节奏。善用潜台词，角色所说的可能不是他们真正想说的，通过角色的肢体语言来暗示它们背后的含义。",
         "【Claude 适配】",
         "如果当前模型是 Claude，要特别避免：过度拟合规则、过度圆满、过度温柔正确、每句都像总结、情绪太稳太顺。允许角色嘴硬、停顿、没说透、短促、别扭、前后犹豫，只要符合人设。",
         "【不要软化角色】",
@@ -10844,9 +10854,9 @@
               },
               ...chatMessages
             ],
-            temperature: 0.72,
-            presence_penalty: 0.15,
-            frequency_penalty: 0.2
+            temperature: 1,
+            presence_penalty: 0,
+            frequency_penalty: 0
           })
         });
 
