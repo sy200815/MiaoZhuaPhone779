@@ -2535,6 +2535,19 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .online-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #34c759;
+      display: inline-block;
+      flex-shrink: 0;
+      box-shadow: 0 0 4px rgba(52, 199, 89, 0.4);
     }
 
     .qq-thread-messages {
@@ -6748,7 +6761,7 @@
                 </div>
                 <div class="qq-thread-text-stack">
                   <div class="qq-thread-name" id="qqThreadHeaderName">叶子</div>
-                  <div class="qq-thread-sub-typing" id="qqTypingText">在线</div>
+                  <div class="qq-thread-sub-typing" id="qqTypingText"><span class="online-dot"></span>在线</div>
                 </div>
               </div>
               <button class="qq-thread-video" id="openChatSettings" type="button" aria-label="会话设置">
@@ -6784,10 +6797,10 @@
               <div class="qq-compose-card-strip">
                 <input class="qq-compose-input" id="qqMessageInput" type="text" placeholder="发送消息..." autocomplete="off" />
                 <button class="qq-compose-icon-btn" id="qqSendMessage" type="button" aria-label="发送" title="发送">
-                  <i class="fa-solid fa-music"></i>
+                  <i class="fa-solid fa-envelope"></i>
                 </button>
                 <button class="qq-compose-icon-btn" id="qqRoleReply" type="button" aria-label="角色回复" title="角色回复">
-                  <i class="fa-solid fa-envelope"></i>
+                  <i class="fa-solid fa-music"></i>
                 </button>
               </div>
             </div>
@@ -10288,6 +10301,9 @@ The goal is not to produce "good writing" but to produce writing that feels true
       renderThreadMessages(getCurrentChatMessages());
       renderChatList();
       await saveState();
+
+      // 用户处理完转账后，自动触发 AI 角色回复
+      requestRoleReply();
     }
 
     function processRoleTransferDecision(status, note = "") {
@@ -10925,12 +10941,12 @@ The goal is not to produce "good writing" but to produce writing that feels true
     function showRoleTypingIndicator() {
       if (!qqTypingText) return;
       const base = getCurrentChatBase();
-      qqTypingText.textContent = `${getChatDisplayName(base)} 正在输入…`;
+      qqTypingText.innerHTML = `<span class="online-dot" style="background:#ff9500;box-shadow:0 0 4px rgba(255,149,0,0.5);"></span>${getChatDisplayName(base)} 正在输入…`;
     }
 
     function hideRoleTypingIndicator() {
       if (!qqTypingText) return;
-      qqTypingText.textContent = "在线";
+      qqTypingText.innerHTML = `<span class="online-dot"></span>在线`;
     }
 
     function parseRoleStatusJson(text) {
