@@ -1119,11 +1119,10 @@
       background: #ffffff;
     }
 
+    /* Instagram 极简纯白风 QQ APP 重构 */
     .qq-page {
       padding: 0;
-      background:
-        radial-gradient(circle at 50% -12%, rgba(255, 255, 255, 0.98), transparent 30%),
-        linear-gradient(180deg, #f8f8f6 0%, #f1f1ef 56%, #ececea 100%);
+      background: #ffffff;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
@@ -1131,8 +1130,8 @@
     .qq-shell {
       height: 100dvh;
       border-radius: 0;
-      padding: 0 0 calc(6px + env(safe-area-inset-bottom));
-      background: transparent;
+      padding: 0;
+      background: #ffffff;
       border: 0;
       box-shadow: none;
       display: flex;
@@ -1140,12 +1139,6 @@
       overflow: hidden;
     }
 
-    .qq-hud {
-      padding: calc(2px + env(safe-area-inset-top)) 20px 12px;
-      color: #121212;
-      text-shadow: none;
-      flex-shrink: 0;
-    }
     .qq-hud {
       display: none !important;
     }
@@ -1157,434 +1150,360 @@
       flex-direction: column;
       min-height: 0;
       overflow: hidden;
+      background: #ffffff;
     }
 
     .qq-hero-head {
       display: grid;
-      grid-template-columns: 48px 1fr 48px;
+      grid-template-columns: 40px 1fr 40px;
       align-items: center;
-      padding: calc(10px + env(safe-area-inset-top)) 14px 8px;
-      margin-bottom: 2px;
+      padding: calc(10px + env(safe-area-inset-top)) 16px 8px;
+      margin-bottom: 0;
       flex-shrink: 0;
+      border-bottom: 1px solid #f4f4f4;
+      background: #ffffff;
+      z-index: 10;
     }
 
     .qq-back,
-    .qq-action-btn,
-    .qq-chat-float,
-    .qq-thread-back,
-    .qq-thread-video,
-    .qq-compose-round {
-      border: 0;
-      background: transparent;
+    .qq-create-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
       color: #111111;
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
+      font-size: 15px;
       display: grid;
       place-items: center;
+      transition: background 0.15s ease;
+      cursor: pointer;
+      flex-shrink: 0;
     }
 
-    .qq-back,
-    .qq-thread-back,
-    .qq-thread-video,
-    .qq-compose-round {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow:
-        0 10px 22px rgba(145, 145, 145, 0.16),
-        inset 0 1px 0 rgba(255, 255, 255, 0.95);
-      font-size: 18px;
-      flex-shrink: 0;
+    .qq-back:active,
+    .qq-create-btn:active {
+      background: #f0f0f0;
     }
 
     .qq-title-block {
       min-width: 0;
       text-align: center;
-      padding-top: 2px;
     }
 
     .qq-title-block h2 {
-      font-size: 21px;
-      line-height: 1.08;
-      color: #111111;
-      font-weight: 1000;
-      letter-spacing: -0.03em;
-    }
-
-    .qq-title-block h2 small {
-      font-size: 13px;
-      color: #5d5d5b;
-      font-weight: 1000;
-      margin-left: 4px;
+      font-size: 18px;
+      line-height: 1.2;
+      color: #000000;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .qq-title-block p {
-      margin-top: 5px;
-      color: #8a8a88;
-      font-size: 10px;
-      line-height: 1.28;
-      font-weight: 900;
-      letter-spacing: -0.01em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      display: none;
     }
 
     .qq-top-mark {
       justify-self: end;
     }
 
-    .qq-create-btn {
-      width: 34px;
-      height: 34px;
-      border: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.82);
-      color: #8f8f8d;
-      font-size: 18px;
-      display: grid;
-      place-items: center;
-      box-shadow:
-        0 8px 16px rgba(145, 145, 145, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.94);
-    }
-
+    /* 全页统一滚动主体结构 */
     .qq-main {
+      flex: 1;
       min-height: 0;
       display: flex;
-      flex: 1;
       flex-direction: column;
-      gap: 8px;
+      background: #ffffff;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: calc(84px + env(safe-area-inset-bottom));
+    }
+
+    .qq-main::-webkit-scrollbar {
+      display: none;
     }
 
     .qq-home-shell {
-      flex: 1;
-      min-height: 0;
-      border-radius: 26px 26px 0 0;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 248, 246, 0.93));
-      box-shadow:
-        0 -6px 14px rgba(255, 255, 255, 0.5),
-        0 0 0 1px rgba(255, 255, 255, 0.62);
-      padding: 10px 0 0;
+      border-radius: 0;
+      background: #ffffff;
+      box-shadow: none;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      min-height: 0;
     }
 
+    /* Ins 极简个人主页头部 Header 卡片 */
     .qq-banner-wrap {
-      padding: 0 10px;
+      padding: 14px 16px 10px;
+      background: #ffffff;
     }
 
     .qq-banner-card {
       position: relative;
-      border-radius: 22px;
-      padding: 10px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(244, 244, 242, 0.97));
-      border: 1px solid rgba(255, 255, 255, 0.92);
-      box-shadow:
-        0 10px 20px rgba(166, 166, 166, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.94);
-      overflow: hidden;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      overflow: visible;
     }
 
-    .qq-banner-topbar {
+    .ins-profile-header {
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .ins-avatar-box {
+      position: relative;
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      padding: 2px;
+      background: #ffffff;
+      border: 1.5px solid #111111;
+    }
+
+    .ins-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #fafafa;
+    }
+
+    .ins-stats-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      text-align: center;
+    }
+
+    .ins-stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ins-stat-num {
+      font-size: 16px;
+      font-weight: 700;
+      color: #000000;
+      line-height: 1.2;
+    }
+
+    .ins-stat-label {
+      font-size: 11px;
+      color: #8e8e93;
+      margin-top: 2px;
+      font-weight: 400;
+    }
+
+    .ins-bio-box {
+      margin-bottom: 12px;
+    }
+
+    .ins-bio-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #000000;
+      line-height: 1.3;
+    }
+
+    .ins-bio-text {
+      margin-top: 3px;
+      font-size: 11px;
+      color: #666666;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    /* Ins 极简超大圆角宽按键组 */
+    .ins-action-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .ins-wide-btn {
+      width: 100%;
+      min-height: 44px;
+      border-radius: 999px;
+      color: #000000;
+      background: #fafafa;
+      border: none;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .ins-wide-btn:active {
+      background: #f0f0f0;
+      transform: scale(0.985);
+    }
+
+    .ins-wide-btn.primary {
+      background: #000000;
+      color: #ffffff;
+    }
+
+    /* Ins 极浅粗灰色环饰 联系人头像快照 Highlights */
+    .ins-highlights-strip {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .ins-highlights-strip::-webkit-scrollbar {
       display: none;
+    }
+
+    .ins-highlight-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .ins-highlight-circle {
+      position: relative;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2.5px solid #e8e8e8; /* 极浅粗灰色圆环框 */
+      padding: 2px;
+      display: grid;
+      place-items: center;
+      transition: transform 0.15s ease;
+    }
+
+    .ins-highlight-item:active .ins-highlight-circle {
+      transform: scale(0.95);
+    }
+
+    .ins-highlight-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      background-color: #fafafa;
+    }
+
+    .ins-highlight-item span {
+      font-size: 10px;
+      color: #666666;
+      font-weight: 500;
+      max-width: 60px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+
+    /* Ins 搜索栏重构 */
+    .qq-search-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      margin: 4px 0 10px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
+      color: #111111;
+    }
+
+    .qq-search-bar i {
+      color: #8e8e93;
+      font-size: 13px;
+    }
+
+    .qq-search-input-field {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 12px;
+      color: #000000;
+      font-weight: 500;
+    }
+
+    .qq-search-input-field::placeholder {
+      color: #8e8e93;
     }
 
     .qq-home-tabs {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      align-items: end;
-      margin-bottom: 8px;
-      padding: 0 4px;
-      border-bottom: 1px solid rgba(215, 215, 213, 0.9);
+      margin-bottom: 0;
+      padding: 0;
+      border-bottom: 1px solid #f4f4f4;
+      border-top: 1px solid #f4f4f4;
     }
 
     .qq-home-tab {
       position: relative;
-      padding: 8px 0 8px;
-      color: #b0b0ae;
-      font-size: 10px;
-      font-weight: 1000;
+      padding: 12px 0;
+      color: #8e8e93;
+      font-size: 13px;
+      font-weight: 600;
       text-align: center;
-      letter-spacing: -0.01em;
+      cursor: pointer;
     }
 
     .qq-home-tab.active {
-      color: #121212;
-      font-size: 13px;
+      color: #000000;
+      font-weight: 700;
     }
 
     .qq-home-tab.active::after {
       content: "";
       position: absolute;
-      left: 50%;
-      bottom: -1px;
-      transform: translateX(-50%);
-      width: 44px;
-      height: 3px;
-      border-radius: 999px;
-      background: #121212;
-    }
-
-    .qq-search-bar {
-      display: grid;
-      grid-template-columns: 26px auto 1fr 24px;
-      align-items: center;
-      gap: 5px;
-      min-height: 38px;
-      margin: 0 2px 10px;
-      padding: 0 8px;
-      border-radius: 999px;
-      background: rgba(252, 252, 251, 0.94);
-      border: 1px solid rgba(255, 255, 255, 0.94);
-      box-shadow:
-        0 8px 16px rgba(180, 180, 180, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.95);
-      color: #232323;
-    }
-
-    .qq-search-gear,
-    .qq-search-moon {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: #171717;
-      font-size: 11px;
-    }
-
-    .qq-search-mode {
-      font-size: 9px;
-      font-weight: 1000;
-      white-space: nowrap;
-    }
-
-    .qq-search-input {
-      min-width: 0;
-      color: #6a6a68;
-      font-size: 9px;
-      font-weight: 900;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .qq-feature-card {
-      position: relative;
-      margin: 0 2px;
-      padding: 10px 10px 12px;
-      border-radius: 20px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(245, 245, 243, 0.95));
-      border: 1px solid rgba(255, 255, 255, 0.94);
-      box-shadow:
-        0 10px 18px rgba(150, 150, 150, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.96);
-    }
-
-    .qq-feature-top {
-      display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      gap: 8px;
-      align-items: start;
-    }
-
-    .qq-feature-art {
-      position: relative;
-      min-height: 118px;
-      border-radius: 18px;
-      overflow: hidden;
-      background: #ffffff;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .qq-feature-art::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 58% 52%, rgba(255, 255, 255, 0.22), transparent 24%),
-        linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.2));
-      pointer-events: none;
-    }
-
-    .qq-feature-song {
-      position: absolute;
-      left: 12px;
-      top: 12px;
-      z-index: 1;
-      color: #ffffff;
-    }
-
-    .qq-feature-song strong {
-      display: block;
-      font-size: 15px;
-      line-height: 1.1;
-      font-weight: 1000;
-    }
-
-    .qq-feature-song span {
-      display: block;
-      margin-top: 5px;
-      font-size: 9px;
-      font-weight: 900;
-      opacity: 0.86;
-    }
-
-    .qq-feature-side {
-      display: grid;
-      grid-template-rows: 70px auto;
-      gap: 8px;
-      min-width: 0;
-    }
-
-    .qq-cover-thumb {
-      border-radius: 16px;
-      background: #ffffff;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
-    .qq-lyric-list {
-      display: grid;
-      gap: 6px;
-      align-content: start;
-      padding: 2px 2px 0 2px;
-    }
-
-    .qq-lyric-list span {
-      color: #9f9f9d;
-      font-size: 9px;
-      font-weight: 1000;
-      line-height: 1.25;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .qq-player-bar {
-      width: 138px;
-      margin: -8px auto 0;
-      min-height: 40px;
-      padding: 4px;
-      border-radius: 999px;
-      background: rgba(242, 242, 240, 0.97);
-      border: 1px solid rgba(255, 255, 255, 0.96);
-      box-shadow:
-        0 10px 18px rgba(160, 160, 160, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.94);
-      display: grid;
-      grid-template-columns: 30px 30px 1fr 30px;
-      gap: 2px;
-      align-items: center;
-    }
-
-    .qq-player-btn {
-      height: 30px;
-      border: 0;
-      border-radius: 999px;
-      background: transparent;
-      color: #666666;
-      font-size: 11px;
-    }
-
-    .qq-player-btn.primary {
-      background: #ffffff;
-      color: #171717;
-      box-shadow: 0 5px 10px rgba(170, 170, 170, 0.12);
-    }
-
-    .qq-mode-switch {
-      display: none;
-    }
-
-    .qq-tab {
-      min-height: 44px;
-      padding: 0 13px;
-      border: 1px solid rgba(255, 255, 255, 0.88);
-      border-radius: 999px;
-      background: rgba(250, 250, 250, 0.82);
-      color: #111111;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 9px;
-      font-size: 13px;
-      font-weight: 1000;
-      box-shadow:
-        0 10px 20px rgba(128, 128, 128, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    }
-
-    .qq-tab i {
-      font-size: 14px;
-      transition: transform 0.18s ease;
-    }
-
-    .qq-tab.active {
-      background: rgba(255, 255, 255, 0.94);
-      color: #111111;
-      border-color: rgba(255, 255, 255, 0.96);
-    }
-
-    .qq-tab.active i {
-      transform: rotate(90deg);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: #000000;
+      border-radius: 0;
+      transform: none;
+      width: 100%;
     }
 
     .qq-panel {
       display: none;
-      min-height: 0;
-      flex: 1;
     }
 
     .qq-panel.active {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .qq-contacts-wrap {
-      padding: 0 10px 76px;
-    }
-
-    .qq-contacts-glass {
-      margin-top: 2px;
-      padding: 2px 0;
-      background: transparent;
-      border: 0;
-      box-shadow: none;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-    }
-
-    .qq-empty-panel,
-    .qq-thread-messages {
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 76px;
-    }
-
-    .qq-list::-webkit-scrollbar,
-    .qq-empty-panel::-webkit-scrollbar,
-    .qq-thread-messages::-webkit-scrollbar {
-      width: 0;
-      height: 0;
+      display: block;
     }
 
     .qq-list {
-      flex: 1;
-      min-height: 0;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 4px 12px 76px;
+      padding: 8px 16px 0;
     }
 
     .qq-chat-list {
       display: grid;
-      gap: 8px;
+      gap: 4px;
     }
 
     .qq-chat-row {
@@ -1592,37 +1511,27 @@
       border: 0;
       display: flex;
       align-items: center;
-      gap: 10px;
-      min-height: 58px;
-      padding: 10px 2px;
+      gap: 14px;
+      min-height: 64px;
+      padding: 10px 0;
       border-radius: 0;
       background: transparent;
       box-shadow: none;
-      border-bottom: 1px solid rgba(218, 218, 216, 0.72);
+      border-bottom: none;
       text-align: left;
-    }
-
-    .qq-chat-row:last-child {
-      border-bottom: 0;
+      cursor: pointer;
     }
 
     .qq-chat-avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 15px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
       flex-shrink: 0;
-      background:
-        radial-gradient(circle at 50% 54%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 37% 39%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 63% 39%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 30% 62%, #111111 0 7%, transparent 8%),
-        radial-gradient(circle at 70% 62%, #111111 0 7%, transparent 8%),
-        #f5f5f5;
-      border: 1px solid rgba(210, 210, 210, 0.72);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      background-color: #fafafa;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
     }
 
     .qq-chat-copy {
@@ -1632,9 +1541,10 @@
 
     .qq-chat-copy strong {
       display: block;
-      color: #111111;
-      font-size: 12px;
-      font-weight: 1000;
+      color: #000000;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1642,9 +1552,9 @@
 
     .qq-chat-copy p {
       margin-top: 3px;
-      color: #737373;
-      font-size: 10px;
-      font-weight: 900;
+      color: #8e8e93;
+      font-size: 11px;
+      font-weight: 400;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1657,264 +1567,244 @@
 
     .qq-chat-meta span {
       display: block;
-      color: #7c7c7c;
-      font-size: 9px;
-      font-weight: 1000;
-    }
-
-    .qq-chat-meta .qq-badge {
-      margin-top: 6px;
-    }
-
-    .qq-card,
-    .qq-contact-group {
-      width: 100%;
-      border: 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 56px;
-      padding: 10px 2px;
-      margin-bottom: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      border-bottom: 1px solid rgba(218, 218, 216, 0.72);
-      text-align: left;
-    }
-
-    .qq-contact-avatar,
-    .qq-thread-avatar,
-    .qq-compose-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      background:
-        radial-gradient(circle at 50% 54%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 37% 39%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 63% 39%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 30% 62%, #111111 0 7%, transparent 8%),
-        radial-gradient(circle at 70% 62%, #111111 0 7%, transparent 8%),
-        #f5f5f5;
-      border: 1px solid rgba(210, 210, 210, 0.72);
-      flex-shrink: 0;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    .qq-card-copy,
-    .qq-contact-copy {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .qq-card-copy strong,
-    .qq-contact-copy strong {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: #111111;
-      font-size: 12px;
-      font-weight: 1000;
-    }
-
-    .qq-card-copy p,
-    .qq-contact-copy p {
-      margin-top: 3px;
-      color: #737373;
+      color: #8e8e93;
       font-size: 10px;
-      font-weight: 900;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .qq-card-meta {
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .qq-card-meta span {
-      display: block;
-      color: #7c7c7c;
-      font-size: 9px;
-      font-weight: 1000;
+      font-weight: 400;
     }
 
     .qq-badge {
-      margin-top: 7px;
+      margin-top: 4px;
       min-width: 16px;
       height: 16px;
       padding: 0 5px;
       border-radius: 999px;
-      background: #111111;
+      background: #000000;
       color: #ffffff;
-      font-size: 8px;
-      font-weight: 1000;
+      font-size: 9px;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
       justify-content: center;
     }
 
-    .qq-contact-group {
-      justify-content: space-between;
-      min-height: 42px;
-      font-size: 13px;
-      font-weight: 1000;
-      color: #111111;
+    .qq-contacts-wrap {
+      padding: 12px 16px 80px;
     }
 
-    .qq-contact-list {
-      margin-bottom: 12px;
-    }
-
-    .qq-role-section {
-      margin-top: 2px;
+    .qq-contacts-glass {
+      padding: 0;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
     }
 
     .qq-group-manager {
       display: grid;
-      grid-template-columns: 1fr 82px;
-      gap: 8px;
-      padding: 8px 2px 12px;
-      border-bottom: 1px solid rgba(218, 218, 216, 0.72);
-      margin-bottom: 2px;
+      grid-template-columns: 1fr 90px;
+      gap: 10px;
+      padding: 0 0 14px;
+      border-bottom: 1px solid #f4f4f4;
+      margin-bottom: 10px;
     }
 
     .qq-group-manager input {
       min-width: 0;
-      height: 38px;
-      border: 1px solid rgba(232, 232, 230, 0.92);
+      height: 44px;
+      border: none;
       border-radius: 999px;
-      padding: 0 13px;
+      padding: 0 16px;
       outline: none;
-      background: rgba(255, 255, 255, 0.8);
-      color: #111111;
+      background: #fafafa;
+      color: #000000;
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 500;
     }
 
-    .qq-group-manager button,
-    .qq-role-mini-btn {
-      border: 0;
+    .qq-group-manager button {
+      border: none;
       border-radius: 999px;
-      color: #111111;
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid rgba(255, 255, 255, 0.92);
-      box-shadow:
-        0 8px 16px rgba(150, 150, 150, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.95);
-      font-size: 11px;
-      font-weight: 1000;
+      color: #ffffff;
+      background: #000000;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .qq-contact-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 40px;
+      padding: 8px 0;
+      font-size: 13px;
+      font-weight: 700;
+      color: #000000;
+      border-bottom: none;
     }
 
     .qq-group-block {
-      border-bottom: 1px solid rgba(218, 218, 216, 0.72);
+      border-bottom: 1px solid #f4f4f4;
     }
 
     .qq-group-block:last-child {
-      border-bottom: 0;
+      border-bottom: none;
     }
 
     .qq-group-head {
       width: 100%;
-      min-height: 46px;
-      padding: 10px 2px;
+      min-height: 48px;
+      padding: 12px 0;
       border: 0;
       background: transparent;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      color: #111111;
+      color: #000000;
       font-size: 13px;
-      font-weight: 1000;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .qq-contact-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+      background-color: #fafafa;
+    }
+
+    .qq-card {
+      width: 100%;
+      border: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 56px;
+      padding: 8px 0;
+      background: transparent;
+      box-shadow: none;
       text-align: left;
     }
 
-    .qq-group-head span:first-child {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    .qq-contact-copy {
+      flex: 1;
+      min-width: 0;
     }
 
-    .qq-group-head i {
-      transition: transform 0.18s ease;
-    }
-
-    .qq-group-block.open .qq-group-head i {
-      transform: rotate(90deg);
-    }
-
-    .qq-group-body {
-      display: none;
-      padding-bottom: 4px;
-    }
-
-    .qq-group-block.open .qq-group-body {
+    .qq-contact-copy strong {
       display: block;
-    }
-
-    .qq-group-empty {
-      padding: 8px 2px 14px;
-      color: #8a8a88;
-      font-size: 11px;
-      font-weight: 900;
-    }
-
-    .qq-role-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
+      color: #000000;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .qq-role-mini-btn {
-      min-width: 42px;
-      height: 28px;
-      padding: 0 9px;
+      min-height: 32px;
+      border-radius: 999px;
+      padding: 0 14px;
+      border: none;
+      background: #fafafa;
+      color: #000000;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
     }
 
     .qq-role-mini-btn.danger {
-      color: #b42318;
-      background: rgba(255, 245, 244, 0.88);
-      border-color: rgba(255, 210, 204, 0.95);
+      color: #ff3b30;
+      background: #fff5f5;
     }
 
     .qq-role-group-select {
-      height: 28px;
-      max-width: 86px;
-      border: 1px solid rgba(232, 232, 230, 0.92);
+      height: 32px;
+      border: none;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.84);
+      padding: 0 10px;
+      background: #fafafa;
       color: #666666;
-      font-size: 10px;
-      font-weight: 900;
+      font-size: 11px;
       outline: none;
     }
 
+    /* Ins 极简悬浮底栏 Navigation Bar */
+    .qq-bottom-bar {
+      position: fixed;
+      left: 50%;
+      bottom: calc(10px + env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      width: min(340px, calc(100vw - 32px));
+      min-height: 56px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #f4f4f4;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .qq-nav-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      color: #c7c7cc;
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .qq-nav-item span {
+      display: none;
+    }
+
+    .qq-nav-item.active {
+      color: #000000;
+    }
+
+    .qq-nav-dot {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #000000;
+    }
+
+    /* Ins 极简纯白朋友圈重构 */
     #qqPanelMoments.active {
       position: fixed;
       inset: 0;
       z-index: 8;
       display: flex;
       flex-direction: column;
-      background:
-        radial-gradient(circle at 50% -12%, rgba(255, 255, 255, 0.98), transparent 30%),
-        linear-gradient(180deg, #fbfbfa 0%, #f2f2f0 58%, #ececea 100%);
-      padding: env(safe-area-inset-top) 0 calc(8px + env(safe-area-inset-bottom));
+      background: #ffffff;
+      padding: env(safe-area-inset-top) 0 0 0;
     }
 
     .moments-page-head {
       flex-shrink: 0;
-      min-height: 72px;
-      padding: 12px 16px 10px;
+      min-height: 52px;
+      padding: 10px 16px;
       display: grid;
-      grid-template-columns: 44px 1fr 44px;
+      grid-template-columns: 40px 1fr 40px;
       align-items: center;
       gap: 10px;
+      border-bottom: 1px solid #f4f4f4;
+      background: #ffffff;
     }
 
     .moments-page-title {
@@ -1924,152 +1814,129 @@
 
     .moments-page-title strong {
       display: block;
-      color: #111111;
-      font-size: 20px;
-      line-height: 1.1;
-      font-weight: 1000;
+      color: #000000;
+      font-size: 17px;
+      font-weight: 700;
       letter-spacing: -0.02em;
-    }
-
-    .moments-page-title span {
-      display: block;
-      margin-top: 4px;
-      color: #8a8a88;
-      font-size: 10px;
-      font-weight: 900;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .moments-page-back,
     .moments-page-compose {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border: 0;
-      border-radius: 50%;
+      border-radius: 999px;
       display: grid;
       place-items: center;
-      color: #111111;
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      box-shadow:
-        0 10px 22px rgba(145, 145, 145, 0.14),
-        inset 0 1px 0 rgba(255, 255, 255, 0.96);
-      font-size: 17px;
+      color: #000000;
+      background: #fafafa;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .moments-page-back:active,
+    .moments-page-compose:active {
+      background: #f0f0f0;
     }
 
     .moments-profile {
-      margin: 0 12px 12px;
-      padding: 14px;
-      border-radius: 30px;
-      background:
-        radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.92), transparent 34%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(245, 245, 244, 0.54));
-      border: 1px solid rgba(255, 255, 255, 0.78);
-      box-shadow:
-        0 16px 32px rgba(150, 150, 150, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.86);
+      margin: 0;
+      padding: 16px 16px 14px;
+      background: #ffffff;
+      border-bottom: 1px solid #f4f4f4;
     }
 
     .moments-profile-top {
       display: grid;
-      grid-template-columns: 72px 1fr;
-      gap: 12px;
+      grid-template-columns: 74px 1fr;
+      gap: 16px;
       align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .moments-profile-avatar-box {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2.5px solid #e8e8e8;
+      padding: 2px;
+      display: grid;
+      place-items: center;
     }
 
     .moments-profile-avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 24px;
-      background:
-        radial-gradient(circle at 50% 54%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 37% 39%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 63% 39%, #111111 0 8%, transparent 9%),
-        #f5f5f5;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
       background-size: cover;
       background-position: center;
-      border: 1px solid rgba(255, 255, 255, 0.88);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    }
-
-    .moments-profile-copy strong {
-      display: block;
-      color: #111111;
-      font-size: 19px;
-      font-weight: 1000;
-      letter-spacing: -0.02em;
-    }
-
-    .moments-profile-copy span {
-      display: block;
-      margin-top: 5px;
-      color: #777777;
-      font-size: 11px;
-      line-height: 1.35;
-      font-weight: 900;
+      background-color: #fafafa;
     }
 
     .moments-stats {
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
       text-align: center;
     }
 
     .moments-stat {
-      padding: 9px 8px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.72);
-    }
-
-    .moments-stat b,
-    .moments-stat small {
-      display: block;
-    }
-
-    .moments-stat b {
-      color: #111111;
-      font-size: 15px;
-      font-weight: 1000;
-    }
-
-    .moments-stat small {
-      margin-top: 3px;
-      color: #888888;
-      font-size: 9px;
-      font-weight: 900;
-    }
-
-    .moments-toolbar {
-      margin: 0 12px 10px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
+      display: flex;
+      flex-direction: column;
       align-items: center;
     }
 
-    .moments-toolbar select {
-      min-width: 0;
-      height: 38px;
-      border: 1px solid rgba(238, 238, 238, 0.96);
-      border-radius: 999px;
-      padding: 0 13px;
-      background: rgba(255, 255, 255, 0.72);
-      color: #333333;
-      outline: none;
-      font-size: 11px;
-      font-weight: 900;
+    .moments-stat b {
+      color: #000000;
+      font-size: 16px;
+      font-weight: 700;
     }
 
-    .moments-auto-status {
-      color: #8a8a88;
-      font-size: 10px;
-      font-weight: 900;
-      white-space: nowrap;
+    .moments-stat small {
+      margin-top: 2px;
+      color: #8e8e93;
+      font-size: 11px;
+      font-weight: 400;
+    }
+
+    .moments-profile-copy {
+      margin-bottom: 12px;
+    }
+
+    .moments-profile-copy strong {
+      display: block;
+      color: #000000;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .moments-profile-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 4px;
+      color: #8e8e93;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .moments-profile-copy p {
+      margin-top: 4px;
+      color: #666666;
+      font-size: 11px;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    .moments-action-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
     }
 
     .qq-moments-wrap {
@@ -2077,12 +1944,143 @@
       min-height: 0;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 0 12px 14px;
+      padding: 12px 16px calc(30px + env(safe-area-inset-bottom));
+      background: #ffffff;
     }
 
     .qq-moments-wrap::-webkit-scrollbar {
       width: 0;
       height: 0;
+    }
+
+    /* Ins 极简白风 动态卡片 */
+    .moment-card {
+      border-radius: 0;
+      padding: 14px 0;
+      margin-bottom: 12px;
+      background: #ffffff;
+      border: none;
+      border-bottom: 1px solid #f4f4f4;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .moment-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .moment-avatar-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2.5px solid #e8e8e8;
+      padding: 2px;
+      flex-shrink: 0;
+    }
+
+    .moment-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      background-color: #fafafa;
+    }
+
+    .moment-author-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .moment-author-copy strong {
+      color: #000000;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .moment-author-copy small {
+      margin-top: 2px;
+      color: #8e8e93;
+      font-size: 10px;
+      font-weight: 400;
+    }
+
+    .moment-delete-btn {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: #8e8e93;
+      background: #fafafa;
+      cursor: pointer;
+    }
+
+    .moment-delete-btn:active {
+      background: #f0f0f0;
+    }
+
+    .moment-text {
+      color: #000000;
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 400;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 10px;
+    }
+
+    .moment-comments {
+      display: grid;
+      gap: 6px;
+      margin: 10px 0;
+    }
+
+    .moment-comment {
+      padding: 8px 12px;
+      border-radius: 14px;
+      color: #333333;
+      background: #fafafa;
+      border: none;
+      font-size: 11px;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    .moment-comment b {
+      color: #000000;
+      font-weight: 700;
+    }
+
+    .moment-comment-box {
+      margin-top: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .moment-comment-input {
+      width: 100%;
+      min-height: 40px;
+      border: none;
+      border-radius: 999px;
+      padding: 0 16px;
+      background: #fafafa;
+      color: #000000;
+      outline: none;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .moment-comment-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
 
     .moments-compose-page {
@@ -2091,10 +2089,8 @@
       z-index: 88;
       display: none;
       flex-direction: column;
-      padding: env(safe-area-inset-top) 14px calc(14px + env(safe-area-inset-bottom));
-      background:
-        radial-gradient(circle at 50% -12%, rgba(255, 255, 255, 0.98), transparent 30%),
-        linear-gradient(180deg, #fbfbfa 0%, #f2f2f0 58%, #ececea 100%);
+      padding: env(safe-area-inset-top) 0 calc(20px + env(safe-area-inset-bottom));
+      background: #ffffff;
     }
 
     .moments-compose-page.show {
@@ -2102,31 +2098,36 @@
     }
 
     .moments-compose-head {
-      min-height: 64px;
+      min-height: 52px;
+      padding: 10px 16px;
       display: grid;
-      grid-template-columns: 48px 1fr 58px;
+      grid-template-columns: 40px 1fr 40px;
       align-items: center;
       gap: 10px;
+      border-bottom: 1px solid #f4f4f4;
+      background: #ffffff;
+      flex-shrink: 0;
     }
 
     .moments-compose-head strong {
-      color: #111111;
+      color: #000000;
       text-align: center;
       font-size: 18px;
-      font-weight: 1000;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .moments-compose-card {
-      margin-top: 12px;
-      border-radius: 30px;
-      padding: 14px;
-      background:
-        radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.9), transparent 34%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 245, 244, 0.54));
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      box-shadow:
-        0 16px 32px rgba(150, 150, 150, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.84);
+      flex: 1;
+      margin: 16px;
+      border-radius: 24px;
+      padding: 18px;
+      background: #ffffff;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .moments-compose,
@@ -2156,27 +2157,47 @@
       margin-bottom: 10px;
     }
 
-    .moments-compose textarea,
-    .moments-compose-card textarea,
-    .moment-comment-input {
-      width: 100%;
-      border: 1px solid rgba(238, 238, 238, 0.96);
-      border-radius: 18px;
-      padding: 11px 12px;
-      background: rgba(255, 255, 255, 0.62);
-      color: #222222;
-      outline: none;
-      font-size: 12px;
-      font-weight: 900;
-      resize: vertical;
+    .moments-compose-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #000000;
+      font-size: 14px;
+      font-weight: 700;
     }
 
-    .moments-compose textarea,
+    .moments-compose-title i {
+      font-size: 16px;
+      color: #111111;
+    }
+
     .moments-compose-card textarea {
-      min-height: 72px;
+      width: 100%;
+      flex: 1;
+      min-height: 160px;
+      border: none;
+      border-radius: 20px;
+      padding: 16px;
+      background: #fafafa;
+      color: #000000;
+      outline: none;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.5;
+      resize: none;
     }
 
-    .moments-actions,
+    .moments-compose-card textarea::placeholder {
+      color: #8e8e93;
+    }
+
+    .moments-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
     .moment-comment-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2400,113 +2421,163 @@
       min-height: 0;
       flex: 1;
       padding: 0;
+      --chat-avatar-size: 30px;
+      --chat-avatar-radius: 10px;
+      --self-bubble-color: #d6ecfa;
+      --friend-bubble-color: #f0f2f5;
+      background: #fcfbf8;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background 0.2s ease;
     }
 
     .qq-thread-head {
-      display: grid;
-      grid-template-columns: 42px 1fr 42px;
-      gap: 8px;
+      display: flex;
       align-items: center;
-      margin-bottom: 8px;
-      padding-top: 0;
-      background: transparent !important;
-      border: 0 !important;
+      justify-content: space-between;
+      gap: 10px;
+      padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
+      background: linear-gradient(180deg, #ffffff 0%, #eef5fc 100%) !important;
+      border-bottom: 1.5px solid #e0e4eb !important;
       box-shadow: none !important;
+      z-index: 10;
     }
 
-    .qq-thread-person {
+    .qq-thread-back {
+      width: 34px;
+      height: 34px;
+      border: 0 !important;
+      border-radius: 0;
+      background: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      color: #6e5d53 !important;
+      font-size: 18px;
       display: grid;
-      justify-items: center;
-      gap: 4px;
+      place-items: center;
+      box-shadow: none !important;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .qq-thread-video {
+      width: 34px;
+      height: 34px;
+      border: 0 !important;
+      border-radius: 0;
+      background: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      color: #5a606a !important;
+      font-size: 18px;
+      display: grid;
+      place-items: center;
+      box-shadow: none !important;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .qq-thread-header-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
       min-width: 0;
+      margin-left: 2px;
+    }
+
+    .qq-thread-avatar-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 0 1px rgba(210, 225, 240, 0.6);
+      overflow: hidden;
+      flex-shrink: 0;
     }
 
     .qq-thread-avatar {
-      width: 48px;
-      height: 48px;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
-      opacity: 0.82;
-      filter: drop-shadow(0 8px 12px rgba(120, 120, 120, 0.1));
+      background-size: cover;
+      background-position: center;
+      background-color: #fafafa;
+    }
+
+    .qq-thread-text-stack {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
     }
 
     .qq-thread-name {
-      max-width: 170px;
-      min-height: 30px;
-      padding: 0 14px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.96);
-      color: #111111;
-      font-size: 14px;
-      font-weight: 1000;
-      box-shadow:
-        0 8px 16px rgba(125, 125, 125, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.96);
+      font-size: 14px !important;
+      font-weight: 700 !important;
+      color: #1a1c20 !important;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
     }
 
-    .qq-thread-time {
-      width: fit-content;
-      margin: 0 auto 12px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(226, 226, 224, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.68);
-      color: #666666;
+    .qq-thread-sub-typing {
       font-size: 11px;
-      font-weight: 1000;
-      box-shadow:
-        0 8px 16px rgba(145, 145, 145, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.58);
-      backdrop-filter: blur(14px) saturate(150%);
-      -webkit-backdrop-filter: blur(14px) saturate(150%);
-    }
-
-    .qq-thread-typing-text {
-      min-height: 18px;
-      margin: 0 4px 6px;
-      color: rgba(82, 82, 82, 0.72);
-      font-size: 11px;
-      font-weight: 1000;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(3px);
-      transition: opacity 0.18s ease, transform 0.18s ease;
-      pointer-events: none;
-    }
-
-    .qq-thread-typing-text.show {
-      opacity: 1;
-      transform: translateY(0);
+      color: #727c8a;
+      line-height: 1.2;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .qq-thread-messages {
       flex: 1;
       min-height: 0;
-      padding: 2px 0 8px;
+      overflow-y: auto;
+      padding: 10px 10px calc(58px + env(safe-area-inset-bottom)) 10px;
+      background: #fcfbf8;
     }
 
     .qq-message-row {
       display: flex;
-      margin-bottom: 16px;
+      align-items: flex-start;
+      gap: 0.6px;
+      margin-bottom: 3px;
     }
 
     .qq-message-row.self {
       justify-content: flex-end;
     }
 
+    .qq-message-avatar-stack {
+      margin: 0 1px;
+      flex-shrink: 0;
+    }
+
+    .qq-message-avatar {
+      width: var(--chat-avatar-size, 30px) !important;
+      height: var(--chat-avatar-size, 30px) !important;
+      border-radius: var(--chat-avatar-radius, 10px) !important;
+      background-size: cover;
+      background-position: center;
+    }
+
     .qq-message-bubble {
       position: relative;
       max-width: 74%;
-      padding: 7px 11px;
-      border-radius: 22px;
-      font-size: 14px;
-      line-height: 1.34;
-      font-weight: 900;
-      letter-spacing: 0.01em;
-      box-shadow: none;
+      padding: 8px 6px !important;
+      border-radius: 12px;
+      font-size: 13.5px;
+      line-height: 1.4;
+      font-weight: 500 !important;
+      color: #2d3035 !important;
       word-break: break-word;
       user-select: none;
       -webkit-user-select: none;
@@ -2515,9 +2586,10 @@
     }
 
     .qq-message-row.self .qq-message-bubble {
-      color: var(--self-text-color, #ffffff);
-      background: var(--self-bubble-color, #2e2e2e);
-      border-radius: 22px;
+      color: #2d3035 !important;
+      background: var(--self-bubble-color, #d6ecfa) !important;
+      border: none !important;
+      box-shadow: none !important;
     }
 
     .qq-message-row.self .qq-message-bubble::after {
@@ -2525,10 +2597,10 @@
     }
 
     .qq-message-row.friend .qq-message-bubble {
-      color: var(--friend-text-color, #050505);
-      background: var(--friend-bubble-color, rgba(255, 255, 255, 0.96));
-      border-radius: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.98);
+      color: #2d3035 !important;
+      background: var(--friend-bubble-color, #f0f2f5) !important;
+      border: 0.3px solid #dce0e6 !important;
+      box-shadow: none !important;
     }
 
     .qq-message-row.friend .qq-message-bubble::after {
@@ -2629,11 +2701,11 @@
     }
 
     .qq-page.thread-mode {
-      background: #f7f7f5 !important;
+      background: #ffffff !important;
     }
 
     .qq-page.thread-mode .qq-shell {
-      background: #f7f7f5 !important;
+      background: #ffffff !important;
       padding: 0 !important;
       margin: 0 auto !important;
       width: 100% !important;
@@ -2651,7 +2723,7 @@
       min-height: 0;
       border-radius: 0;
       padding: 0;
-      background: #f7f7f5 !important;
+      background: #ffffff !important;
       box-shadow: none !important;
     }
 
@@ -2661,12 +2733,12 @@
       z-index: 12;
       display: flex;
       flex-direction: column;
-      padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
+      padding: 0;
       margin: 0;
       width: 100%;
       height: 100dvh;
       overflow: hidden;
-      background-color: #f7f7f5 !important;
+      background-color: #ffffff;
       box-shadow: none !important;
       border: 0 !important;
     }
@@ -2678,127 +2750,129 @@
     .qq-page.thread-mode .qq-thread-head {
       position: relative;
       z-index: 2;
-      background: transparent !important;
-      padding: 8px 12px 4px 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #eef5fc 100%) !important;
+      border-bottom: 1.5px solid #e0e4eb !important;
+      padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
       margin-bottom: 0;
-    }
-
-    .qq-page.thread-mode .qq-thread-time {
-      position: relative;
-      z-index: 2;
-      background: rgba(226, 226, 224, 0.62) !important;
-    }
-
-    .qq-page.thread-mode .qq-thread-typing-text {
-      position: fixed;
-      left: 50%;
-      bottom: calc(58px + env(safe-area-inset-bottom));
-      z-index: 17;
-      width: min(320px, calc(100vw - 76px));
-      min-height: 22px;
-      margin: 0;
-      padding: 4px 12px;
-      border-radius: 999px;
-      transform: translate(-50%, 5px);
-      background: rgba(255, 255, 255, 0.82) !important;
-      border: 1px solid rgba(255, 255, 255, 0.94);
-      box-shadow: 0 8px 18px rgba(145, 145, 145, 0.12);
-      backdrop-filter: blur(18px) saturate(160%);
-      -webkit-backdrop-filter: blur(18px) saturate(160%);
-    }
-
-    .qq-page.thread-mode .qq-thread-typing-text.show {
-      transform: translate(-50%, 0);
     }
 
     .qq-page.thread-mode .qq-thread-messages {
       flex: 1;
       min-height: 0;
       overflow-y: auto;
-      padding: 18px 28px calc(74px + env(safe-area-inset-bottom)) 28px;
+      padding: 10px 10px calc(58px + env(safe-area-inset-bottom)) 10px;
+      background: #fcfbf8;
     }
 
     .qq-page.thread-mode .qq-thread-compose {
       position: fixed;
-      left: 50%;
-      bottom: calc(8px + env(safe-area-inset-bottom));
+      left: 0;
+      right: 0;
+      bottom: 0;
       z-index: 16;
-      width: min(var(--phone-width, 390px), 100vw);
-      transform: translateX(-50%);
-      grid-template-columns: 44px 1fr 44px 44px;
-      gap: 7px;
+      width: 100%;
+      max-width: var(--phone-width, 390px);
+      margin: 0 auto;
+      transform: none;
+      display: flex;
       align-items: center;
-      padding: 0 8px;
-      border-radius: 0;
-      background: transparent !important;
-      border: 0 !important;
+      justify-content: center;
+      gap: 10px;
+      padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+      background: #fcfbf8 !important;
+      border-top: none !important;
       box-shadow: none !important;
+    }
+
+    .qq-compose-heart-btn {
+      width: 34px;
+      height: 34px;
+      border: none !important;
+      background: transparent !important;
+      color: #52565c !important;
+      font-size: 20px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      box-shadow: none !important;
+    }
+
+    .qq-compose-card-strip {
+      flex: 1;
+      height: 38px;
+      border-radius: 6px;
+      background: #edf6fd;
+      border: 0.3px solid #dce0e6;
+      display: flex;
+      align-items: center;
+      padding: 0 8px 0 12px;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .qq-page.thread-mode .qq-compose-input {
+      flex: 1;
+      height: 100%;
+      min-height: 38px;
+      border: none !important;
+      background: transparent !important;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #2d3035;
       outline: none !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
+      box-shadow: none !important;
+      padding: 0;
+    }
+
+    .qq-compose-input {
+      width: 100%;
+      height: 100%;
+      min-height: 38px;
+      border: none;
+      background: transparent;
+      color: #2d3035;
+      font-size: 13.5px;
+      font-weight: 500;
+      box-shadow: none;
+      outline: none;
+    }
+
+    .qq-compose-input::placeholder {
+      color: #7b8490;
+      font-weight: 400;
+    }
+
+    .qq-compose-icon-btn {
+      width: 28px;
+      height: 28px;
+      border: none !important;
+      background: transparent !important;
+      color: #52565c !important;
+      font-size: 16px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      box-shadow: none !important;
     }
 
     .qq-page.thread-mode .qq-reply-preview {
       position: fixed;
       left: 50%;
-      bottom: calc(60px + env(safe-area-inset-bottom));
+      bottom: calc(48px + env(safe-area-inset-bottom));
       z-index: 18;
-      width: min(calc(var(--phone-width, 390px) - 96px), calc(100vw - 108px));
+      width: min(calc(var(--phone-width, 390px) - 32px), calc(100vw - 32px));
       margin: 0;
       transform: translateX(-50%);
-      grid-column: auto;
+      background: #edeef1;
+      border: none;
+      border-radius: 12px;
+      box-shadow: none;
     }
 
     .qq-page.thread-mode .qq-reply-preview.show {
       display: flex;
-    }
-
-    .qq-page.thread-mode .qq-compose-round {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.98);
-      box-shadow: 0 6px 14px rgba(145, 145, 145, 0.12);
-      color: #050505;
-      font-size: 19px;
-    }
-
-    .qq-page.thread-mode .qq-thread-compose::before,
-    .qq-page.thread-mode .qq-thread-compose::after {
-      display: none !important;
-      content: none !important;
-    }
-
-    .qq-page.thread-mode .qq-compose-input {
-      min-height: 44px;
-      border-radius: 999px;
-      padding: 0 16px;
-      background: rgba(255, 255, 255, 0.96);
-      border-color: rgba(255, 255, 255, 0.98);
-      box-shadow: 0 6px 14px rgba(145, 145, 145, 0.08);
-      font-size: 14px;
-      font-weight: 1000;
-    }
-
-    .qq-compose-input {
-      width: 100%;
-      min-height: 42px;
-      border-radius: 999px;
-      display: block;
-      padding: 0 14px;
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.94);
-      color: #333333;
-      font-size: 15px;
-      font-weight: 900;
-      box-shadow:
-        0 10px 18px rgba(128, 128, 128, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.92);
-      min-width: 0;
-      outline: none;
-      appearance: none;
-      -webkit-appearance: none;
     }
 
     .qq-compose-input::placeholder {
@@ -2981,17 +3055,17 @@
       margin-top: 6px;
     }
 
+    /* Ins 极简纯白风 创建角色弹窗 */
+    /* Ins 极简纯白风 创建角色弹窗 */
     .role-editor-modal {
       position: fixed;
       inset: 0;
       z-index: 65;
       display: none;
-      padding: env(safe-area-inset-top) 8px calc(10px + env(safe-area-inset-bottom));
-      background:
-        radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.88), transparent 30%),
-        rgba(232, 232, 232, 0.72);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      padding: 0;
+      background: #ffffff;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
 
     .role-editor-modal.show {
@@ -3000,21 +3074,15 @@
 
     .role-editor-card {
       width: 100%;
-      max-width: var(--phone-width, 390px);
-      height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 10px);
-      margin: 0 auto;
-      border-radius: 0;
-      padding: 16px 18px 18px;
+      max-width: 100%;
+      height: 100dvh;
+      margin: 0;
+      padding: calc(12px + env(safe-area-inset-top)) 20px calc(40px + env(safe-area-inset-bottom));
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.16));
-      border: 1px solid rgba(255, 255, 255, 0.42);
-      box-shadow:
-        0 18px 42px rgba(130, 130, 130, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.56);
-      backdrop-filter: blur(28px) saturate(160%);
-      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      background: #ffffff;
+      border: 0;
+      box-shadow: none;
     }
 
     .role-editor-card::-webkit-scrollbar {
@@ -3023,19 +3091,21 @@
     }
 
     .role-editor-head {
-      min-height: 62px;
+      min-height: 52px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #f4f4f4;
+      padding-bottom: 8px;
     }
 
     .role-editor-head h3 {
-      font-size: 22px;
-      color: #111111;
-      font-weight: 1000;
-      letter-spacing: 0.01em;
+      font-size: 18px;
+      color: #000000;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .role-editor-body {
@@ -3043,36 +3113,92 @@
       gap: 16px;
     }
 
-    .role-editor-body .field {
+    /* 头像居中上置区域 */
+    .ins-avatar-upload-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 8px;
+      margin: 4px 0 10px;
+    }
+
+    .role-preview-avatar {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #fafafa;
+      border: 2px solid #111111;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .role-preview-avatar:active {
+      transform: scale(0.96);
+    }
+
+    .role-preview-avatar-badge {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #000000;
+      color: #ffffff;
+      font-size: 11px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #ffffff;
+    }
+
+    .ins-avatar-hint {
+      font-size: 12px;
+      color: #000000;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .role-editor-body .field {
+      display: grid;
+      gap: 6px;
     }
 
     .role-editor-body label {
-      color: #7b858f;
+      color: #8e8e93;
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-left: 4px;
     }
 
     .role-editor-body textarea,
     .role-editor-body input,
     .role-editor-body select {
       width: 100%;
-      border: 1px solid rgba(238, 238, 238, 0.95);
-      border-radius: 18px;
-      padding: 12px 14px;
-      background: rgba(247, 247, 247, 0.72);
-      color: #35404a;
+      min-height: 48px;
+      border-radius: 999px;
+      color: #000000;
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
+      padding: 0 18px;
       font-size: 13px;
+      font-weight: 500;
       outline: none;
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        0 8px 16px rgba(180, 180, 180, 0.04);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
     }
 
     .role-editor-body textarea {
-      min-height: 92px;
+      border-radius: 20px;
+      padding: 14px 18px;
+      min-height: 160px;
+      line-height: 1.5;
       resize: vertical;
     }
 
@@ -3080,104 +3206,42 @@
     .role-io-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 2px;
+      gap: 10px;
+      margin-top: 10px;
     }
 
     .role-io-card {
-      padding: 12px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.42);
-      border: 1px solid rgba(255, 255, 255, 0.58);
-      box-shadow:
-        0 12px 24px rgba(150, 150, 150, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.62);
-      backdrop-filter: blur(24px) saturate(160%);
-      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
     }
 
     .role-io-card strong {
       display: block;
-      color: #111111;
+      color: #000000;
       font-size: 13px;
-      font-weight: 1000;
+      font-weight: 700;
     }
 
     .role-io-card span {
       display: block;
-      margin: 5px 0 10px;
-      color: #7b858f;
-      font-size: 10px;
+      margin: 4px 0 10px;
+      color: #8e8e93;
+      font-size: 11px;
       line-height: 1.45;
-      font-weight: 900;
-    }
-
-    .role-io-card input[type="file"] {
-      width: 100%;
-      margin-top: 8px;
-      padding: 9px;
-      border-radius: 16px;
-      background: rgba(247, 247, 247, 0.76);
-      border: 1px solid rgba(238, 238, 238, 0.95);
     }
 
     .role-io-result {
-      margin-top: 9px;
-      color: #7b858f;
-      font-size: 10px;
-      line-height: 1.45;
-      font-weight: 900;
+      margin-top: 8px;
+      color: #8e8e93;
+      font-size: 11px;
+      line-height: 1.4;
     }
 
     .role-preview {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.42);
-      border: 1px solid rgba(255, 255, 255, 0.58);
-      box-shadow:
-        0 12px 24px rgba(150, 150, 150, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.62);
-      backdrop-filter: blur(24px) saturate(160%);
-      -webkit-backdrop-filter: blur(24px) saturate(160%);
-    }
-
-    .role-preview-avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
-      flex-shrink: 0;
-      background:
-        radial-gradient(circle at 50% 54%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 37% 39%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 63% 39%, #111111 0 8%, transparent 9%),
-        radial-gradient(circle at 30% 62%, #111111 0 7%, transparent 8%),
-        radial-gradient(circle at 70% 62%, #111111 0 7%, transparent 8%),
-        #f5f5f5;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      box-shadow:
-        0 8px 18px rgba(150, 150, 150, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    }
-
-    .role-preview-copy strong {
-      display: block;
-      color: #2f3338;
-      font-size: 13px;
-      font-weight: 1000;
-    }
-
-    .role-preview-copy span {
-      display: block;
-      margin-top: 4px;
-      color: #8a939c;
-      font-size: 11px;
-      font-weight: 900;
+      display: none;
     }
 
     .qq-thread {
@@ -3228,7 +3292,7 @@
 
     .qq-message-timestamp {
       display: none;
-      color: rgba(82, 82, 82, 0.72);
+      color: #8c7e75;
       font-size: 10px;
       line-height: 1;
       font-weight: 800;
@@ -3253,20 +3317,19 @@
       display: none;
     }
 
-    .qq-read-status {
-      align-self: flex-end;
-      margin-bottom: 2px;
-      color: rgba(96, 96, 96, 0.72);
-      font-size: 9px;
-      font-weight: 1000;
-      white-space: nowrap;
-      line-height: 1;
-    }
+>>>>>>> REPLACE
+```
 
-    .qq-message-row.self .qq-read-status {
-      color: rgba(255, 255, 255, 0.72);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
-    }
+```
+<<<<<<< SEARCH
+        <div class="chat-setting-item">
+          <div class="chat-setting-title"><i class="fa-solid fa-check-double"></i> 已读标签功能</div>
+          <div class="chat-toggle-row">
+            <span>开启后在双方气泡旁显示已读/未读状态</span>
+            <input id="chatReadStatusToggle" type="checkbox" />
+          </div>
+        </div>
+=======
 
     .chat-role-grid {
       display: grid;
@@ -3560,12 +3623,10 @@
       inset: 0;
       z-index: 72;
       display: none;
-      padding: env(safe-area-inset-top) 10px calc(10px + env(safe-area-inset-bottom));
-      background:
-        radial-gradient(circle at 50% -8%, rgba(255, 255, 255, 0.9), transparent 30%),
-        rgba(232, 232, 232, 0.82);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      padding: 0;
+      background: #ffffff;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
 
     .font-manager-modal.show {
@@ -3575,20 +3636,15 @@
     .font-manager-card {
       width: 100%;
       max-width: var(--phone-width, 390px);
-      height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 10px);
+      height: 100dvh;
       margin: 0 auto;
       border-radius: 0;
-      padding: 16px 18px 18px;
+      padding: calc(12px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.18));
-      border: 1px solid rgba(255, 255, 255, 0.46);
-      box-shadow:
-        0 18px 42px rgba(130, 130, 130, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.62);
-      backdrop-filter: blur(30px) saturate(160%);
-      -webkit-backdrop-filter: blur(30px) saturate(160%);
+      background: #ffffff;
+      border: 0;
+      box-shadow: none;
     }
 
     .font-manager-card::-webkit-scrollbar {
@@ -3597,19 +3653,44 @@
     }
 
     .font-manager-head {
-      min-height: 62px;
-      display: flex;
+      min-height: 56px;
+      display: grid;
+      grid-template-columns: 40px 1fr 40px;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 18px;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f4f4f4;
     }
 
     .font-manager-head h3 {
+      color: #000000;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .font-manager-head .beautify-back,
+    .font-manager-head .beautify-action {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      font-size: 15px;
       color: #111111;
-      font-size: 22px;
-      font-weight: 1000;
-      letter-spacing: 0.01em;
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
+      display: grid;
+      place-items: center;
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+
+    .font-manager-head .beautify-back:active,
+    .font-manager-head .beautify-action:active {
+      background: #f0f0f0;
     }
 
     .font-manager-list {
@@ -3623,13 +3704,14 @@
       grid-template-columns: 1fr auto auto;
       gap: 8px;
       align-items: center;
-      padding: 12px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.58);
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      color: #222222;
-      font-size: 12px;
-      font-weight: 900;
+      padding: 14px 16px;
+      border-radius: 24px;
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
+      color: #000000;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .font-manager-item strong,
@@ -3639,21 +3721,70 @@
 
     .font-manager-item small {
       margin-top: 4px;
-      color: #888888;
-      font-size: 9px;
-      font-weight: 900;
+      color: #8e8e93;
+      font-size: 11px;
+      font-weight: 400;
+    }
+
+    .font-manager-item .qq-role-mini-btn {
+      min-height: 36px;
+      border-radius: 999px;
+      padding: 0 16px;
+      border: none;
+      background: #ffffff;
+      color: #000000;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .font-manager-item .qq-role-mini-btn.danger {
+      color: #ff3b30;
+      background: #fff5f5;
+      box-shadow: none;
     }
 
     .font-manager-preview {
       margin-top: 10px;
-      padding: 12px;
-      border-radius: 18px;
-      background: rgba(247, 247, 247, 0.82);
-      border: 1px solid rgba(238, 238, 238, 0.96);
-      color: #333333;
-      font-size: 14px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      color: #000000;
+      font-size: 13px;
       line-height: 1.5;
-      font-weight: 900;
+      font-weight: 500;
+    }
+
+    .font-manager-card .liquid-btn {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 999px;
+      color: #000000;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .font-manager-card .liquid-btn:active {
+      transform: scale(0.985);
+      background: #f0f0f0;
+    }
+
+    .font-manager-card .liquid-btn.primary {
+      color: #ffffff;
+      background: #000000;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
     }
 
     .chat-settings-modal,
@@ -3663,11 +3794,8 @@
       z-index: 70;
       display: none;
       padding: 0;
-      color: #0d0d0d;
-      background:
-        radial-gradient(circle at 18% 5%, rgba(255, 255, 255, 0.98), transparent 28%),
-        radial-gradient(circle at 84% 16%, rgba(0, 0, 0, 0.06), transparent 24%),
-        linear-gradient(155deg, #fbfbfa 0%, #f1f1ef 46%, #e8e8e6 78%, #ffffff 100%);
+      color: #000000;
+      background: #ffffff;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
@@ -3679,16 +3807,8 @@
 
     .chat-settings-modal::before,
     .chat-role-edit-modal::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(115deg, transparent 0 35%, rgba(255, 255, 255, 0.5) 36% 43%, transparent 44%),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.024) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(0, 0, 0, 0.016) 1px, transparent 1px);
-      background-size: 100% 100%, 44px 44px, 44px 44px;
-      opacity: 0.5;
+      display: none !important;
+      content: none !important;
     }
 
     .chat-settings-card,
@@ -3696,14 +3816,14 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: none;
+      max-width: var(--phone-width, 390px);
       height: 100dvh;
-      margin: 0;
+      margin: 0 auto;
       border-radius: 0;
-      padding: calc(8px + env(safe-area-inset-top)) 10px calc(54px + env(safe-area-inset-bottom));
+      padding: calc(12px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      background: transparent;
+      background: #ffffff;
       border: 0;
       box-shadow: none;
       backdrop-filter: none;
@@ -3718,104 +3838,95 @@
 
     .chat-settings-head,
     .chat-role-edit-head {
-      min-height: 68px;
+      min-height: 56px;
       display: grid;
-      grid-template-columns: 42px 1fr 42px;
+      grid-template-columns: 40px 1fr 40px;
       align-items: center;
-      gap: 10px;
-      margin: 0 0 12px;
+      gap: 12px;
+      margin: 0 0 16px;
       padding-bottom: 10px;
-      border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+      border-bottom: 1px solid #f4f4f4;
     }
 
     .chat-settings-head h3,
     .chat-role-edit-head h3 {
-      color: #0a0a0a;
+      color: #000000;
       text-align: center;
-      font-size: 23px;
-      line-height: 1;
-      font-weight: 1000;
-      letter-spacing: -0.04em;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.96);
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-shadow: none;
     }
 
     .chat-settings-head .beautify-back,
     .chat-settings-head .beautify-action,
     .chat-role-edit-head .beautify-back,
     .chat-role-edit-head .beautify-action {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      font-size: 14px;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      font-size: 15px;
       color: #111111;
-      background:
-        radial-gradient(circle at 34% 22%, rgba(255, 255, 255, 0.98), transparent 32%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(243, 243, 241, 0.88));
-      border: 1px solid rgba(255, 255, 255, 0.98);
-      box-shadow:
-        0 15px 30px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 1),
-        inset 0 -8px 16px rgba(0, 0, 0, 0.025);
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
+      display: grid;
+      place-items: center;
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+
+    .chat-settings-head .beautify-back:active,
+    .chat-settings-head .beautify-action:active,
+    .chat-role-edit-head .beautify-back:active,
+    .chat-role-edit-head .beautify-action:active {
+      background: #f0f0f0;
     }
 
     .chat-settings-head .beautify-action,
     .chat-role-edit-head .beautify-action {
       justify-self: end;
-      color: #ffffff;
-      background:
-        radial-gradient(circle at 32% 20%, rgba(255, 255, 255, 0.18), transparent 28%),
-        linear-gradient(180deg, #1c1c1c, #050505);
-      border-color: rgba(0, 0, 0, 0.94);
-      box-shadow:
-        0 16px 32px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      color: #111111;
+      background: #fafafa;
     }
 
     .chat-settings-list {
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
 
     .chat-setting-item {
       position: relative;
-      padding: 11px 12px;
+      padding: 14px 16px;
       border-radius: 24px;
-      background:
-        radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.98), transparent 34%),
-        linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(247, 247, 245, 0.8) 56%, rgba(225, 225, 222, 0.88));
-      border: 1px solid rgba(255, 255, 255, 0.98);
-      box-shadow:
-        0 16px 34px rgba(0, 0, 0, 0.07),
-        inset 0 1px 0 rgba(255, 255, 255, 1),
-        inset 0 -14px 24px rgba(0, 0, 0, 0.025);
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
     }
 
     .chat-setting-title {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: #0a0a0a;
-      font-size: 13px;
-      line-height: 1.2;
-      font-weight: 1000;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
+      gap: 10px;
+      color: #000000;
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
     }
 
     .chat-setting-title i {
-      width: 26px;
-      height: 26px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      color: rgba(255, 255, 255, 0.92);
-      background:
-        radial-gradient(circle at 50% 50%, #f7f7f7 0 5%, #252525 6% 8%, #050505 9% 12%, transparent 13%),
-        conic-gradient(from 20deg, #050505, #292929, #080808, #3a3a3a, #0b0b0b, #242424, #050505);
-      font-size: 10px;
-      box-shadow:
-        0 10px 18px rgba(0, 0, 0, 0.16),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      color: #111111;
+      background: #ffffff;
+      font-size: 13px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
       flex-shrink: 0;
     }
 
@@ -3829,19 +3940,20 @@
       align-items: center;
       color: inherit;
       text-align: left;
+      cursor: pointer;
     }
 
     .chat-role-edit-entry span {
       display: block;
       margin-top: 4px;
-      color: rgba(13, 13, 13, 0.48);
-      font-size: 10px;
-      line-height: 1.35;
-      font-weight: 900;
+      color: #8e8e93;
+      font-size: 11px;
+      line-height: 1.4;
+      font-weight: 400;
     }
 
     .chat-role-edit-entry > i {
-      color: rgba(17, 17, 17, 0.42);
+      color: #c7c7cc;
       font-size: 13px;
     }
 
@@ -3853,23 +3965,38 @@
     .chat-role-edit-card textarea,
     .chat-role-edit-card select {
       width: 100%;
-      border: 1px solid rgba(12, 12, 12, 0.08);
-      border-radius: 16px;
-      padding: 10px 11px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(241, 241, 239, 0.86));
-      color: #0b0b0b;
-      font-size: 11px;
-      font-weight: 900;
+      border: none;
+      border-radius: 999px;
+      padding: 0 16px;
+      min-height: 46px;
+      background: #ffffff;
+      color: #000000;
+      font-size: 13px;
+      font-weight: 500;
       outline: none;
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.96),
-        0 8px 16px rgba(0, 0, 0, 0.032);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
     }
 
     .chat-setting-item textarea {
-      min-height: 78px;
+      border-radius: 20px;
+      padding: 12px 16px;
+      min-height: 84px;
       resize: vertical;
+    }
+
+    .chat-role-edit-card textarea {
+      border-radius: 20px;
+      padding: 14px 16px;
+      min-height: 160px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .chat-role-edit-card select,
+    .chat-setting-item select {
+      border-radius: 20px;
+      padding: 10px 14px;
+      min-height: 46px;
     }
 
     .chat-toggle-row,
@@ -3879,36 +4006,37 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      color: #707070;
-      font-size: 11px;
-      font-weight: 900;
+      color: #333333;
+      font-size: 12px;
+      font-weight: 500;
     }
 
     .chat-toggle-row input {
-      width: 42px;
-      height: 24px;
-      accent-color: #111111;
+      width: 40px;
+      height: 22px;
+      accent-color: #000000;
     }
 
     .chat-range-row input[type="range"] {
       flex: 1;
-      accent-color: #111111;
+      accent-color: #000000;
     }
 
     .chat-range-row span {
       min-width: 48px;
       text-align: right;
-      color: #111111;
+      color: #000000;
       font-size: 12px;
-      font-weight: 1000;
+      font-weight: 700;
     }
 
     .chat-color-row input[type="color"] {
-      width: 42px;
-      height: 32px;
+      width: 40px;
+      height: 28px;
       border: 0;
       padding: 0;
       background: transparent;
+      cursor: pointer;
     }
 
     .chat-wallpaper-actions,
@@ -3916,368 +4044,408 @@
     .font-manager-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 10px;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .chat-settings-card .liquid-btn,
+    .chat-role-edit-card .liquid-btn,
+    .chat-favorites-open {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 999px;
+      color: #000000;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .chat-settings-card .liquid-btn:active,
+    .chat-role-edit-card .liquid-btn:active,
+    .chat-favorites-open:active {
+      transform: scale(0.985);
+      background: #f0f0f0;
+    }
+
+    .chat-settings-card .liquid-btn.primary,
+    .chat-role-edit-card .liquid-btn.primary {
+      color: #ffffff;
+      background: #000000;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .chat-settings-card .liquid-btn.primary:active,
+    .chat-role-edit-card .liquid-btn.primary:active {
+      background: #222222;
     }
 
     .chat-delete-contact {
       margin-top: 10px;
       width: 100%;
-      color: #b42318;
-      background: rgba(255, 244, 242, 0.92);
-      border-color: rgba(255, 205, 199, 0.95);
+      min-height: 48px;
+      border-radius: 999px;
+      color: #ff3b30;
+      background: #fff5f5;
+      border: none;
+      box-shadow: none;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .chat-delete-contact:active {
+      background: #ffe5e5;
     }
 
     .chat-ai-result,
     .chat-history-results {
-      margin-top: 9px;
-      padding: 10px 11px;
-      border-radius: 16px;
-      background: rgba(247, 247, 247, 0.82);
-      border: 1px solid rgba(238, 238, 238, 0.96);
-      color: #737373;
-      font-size: 11px;
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 20px;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      color: #666666;
+      font-size: 12px;
       line-height: 1.45;
-      font-weight: 900;
+      font-weight: 400;
     }
 
     .chat-history-results {
       display: grid;
       gap: 6px;
-      max-height: 150px;
+      max-height: 160px;
       overflow-y: auto;
     }
 
     .chat-history-hit {
-      padding: 8px 9px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.72);
-      color: #333333;
+      padding: 8px 12px;
+      border-radius: 14px;
+      background: #fafafa;
+      color: #111111;
     }
 
     .chat-history-hit small {
       display: block;
       margin-bottom: 3px;
-      color: #888888;
-      font-size: 9px;
-      font-weight: 1000;
+      color: #8e8e93;
+      font-size: 10px;
+      font-weight: 500;
     }
 
+    /* Instagram 极简纯白风 Settings Page 重构 */
     #settingsPage {
-      color: #0f0f0f;
-      background:
-        radial-gradient(circle at 18% 6%, rgba(255, 255, 255, 0.98), transparent 26%),
-        radial-gradient(circle at 82% 18%, rgba(0, 0, 0, 0.08), transparent 22%),
-        radial-gradient(circle at 18% 82%, rgba(255, 255, 255, 0.72), transparent 26%),
-        linear-gradient(155deg, #ffffff 0%, #f2f2f0 34%, #dededb 68%, #fafaf9 100%);
+      color: #111111;
+      background: #ffffff;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
 
-    #settingsPage::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(115deg, transparent 0 36%, rgba(255, 255, 255, 0.34) 37% 44%, transparent 45%),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.026) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(0, 0, 0, 0.018) 1px, transparent 1px);
-      background-size: 100% 100%, 42px 42px, 42px 42px;
-      opacity: 0.5;
-    }
-
+    #settingsPage::before,
     #settingsPage::after {
-      content: "";
-      position: fixed;
-      inset: auto 18px calc(20px + env(safe-area-inset-bottom)) 18px;
-      height: 150px;
-      pointer-events: none;
-      border-radius: 999px 999px 0 0;
-      background:
-        radial-gradient(ellipse at 50% 12%, rgba(255, 255, 255, 0.7), transparent 44%),
-        linear-gradient(180deg, rgba(18, 18, 18, 0.12), rgba(18, 18, 18, 0.02));
-      filter: blur(18px);
-      opacity: 0.48;
+      display: none !important;
+      content: none !important;
     }
 
     #settingsPage .beautify-shell {
       position: relative;
       border-radius: 0;
-      padding: 18px 18px 24px;
-      background: transparent;
+      padding: calc(12px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));
+      background: #ffffff;
       border: 0;
       box-shadow: none;
     }
 
     #settingsPage .beautify-head {
-      min-height: 92px;
-      margin: 0 0 22px;
-      padding: 0 0 16px;
+      min-height: 56px;
+      margin: 0 0 16px;
+      padding: 0 0 10px;
       display: grid;
-      grid-template-columns: 54px 1fr 54px;
-      align-items: end;
-      border-bottom: 1px solid rgba(15, 15, 15, 0.1);
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
+      border-bottom: 1px solid #f4f4f4;
     }
 
     #settingsPage .beautify-title {
       align-self: center;
+      text-align: center;
+      padding: 0;
     }
 
     #settingsPage .beautify-title::before {
-      content: "July 23 2026";
-      display: block;
-      margin-bottom: 8px;
-      color: rgba(17, 17, 17, 0.42);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
+      display: none;
     }
 
     #settingsPage .beautify-title h2 {
-      color: #0b0b0b;
-      font-size: 30px;
-      line-height: 0.95;
-      font-weight: 1000;
-      letter-spacing: -0.07em;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+      color: #000000;
+      font-size: 19px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-shadow: none;
     }
 
     #settingsPage .beautify-back,
     #settingsPage .beautify-action {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
       color: #111111;
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid rgba(255, 255, 255, 0.96);
-      box-shadow:
-        0 14px 30px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.98);
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
+      font-size: 15px;
+      display: grid;
+      place-items: center;
+      transition: background 0.15s ease;
+    }
+
+    #settingsPage .beautify-back:active,
+    #settingsPage .beautify-action:active {
+      background: #f0f0f0;
     }
 
     #settingsPage .beautify-action {
       justify-self: end;
-      color: #ffffff;
-      background: #111111;
-      border-color: #111111;
+      color: #111111;
+      background: #fafafa;
     }
 
     #settingsPage .setting-list {
-      gap: 14px;
+      display: grid;
+      gap: 12px;
     }
 
     #settingsPage .setting-group {
       position: relative;
-      border-radius: 30px;
-      background:
-        radial-gradient(circle at 12% 8%, rgba(255, 255, 255, 0.96), transparent 34%),
-        linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(244, 244, 242, 0.74) 58%, rgba(218, 218, 215, 0.86));
-      border: 1px solid rgba(255, 255, 255, 0.98);
-      box-shadow:
-        0 22px 48px rgba(0, 0, 0, 0.09),
-        inset 0 1px 0 rgba(255, 255, 255, 1),
-        inset 0 -18px 28px rgba(0, 0, 0, 0.025);
+      border-radius: 24px;
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
       overflow: hidden;
+      transition: background 0.2s ease;
+    }
+
+    #settingsPage .setting-group.open {
+      background: #f7f7f7;
     }
 
     #settingsPage .setting-group.open::before {
-      content: "";
-      position: absolute;
-      left: 22px;
-      right: 22px;
-      top: 0;
-      height: 5px;
-      border-radius: 0 0 999px 999px;
-      background:
-        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent),
-        #090909;
+      display: none;
     }
 
     #settingsPage .group-toggle {
-      padding: 18px 18px 16px;
+      width: 100%;
+      min-height: 64px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
     }
 
     #settingsPage .group-title {
-      gap: 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
     #settingsPage .group-icon {
       position: relative;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      color: rgba(255, 255, 255, 0.92);
-      background:
-        radial-gradient(circle at 50% 50%, #f5f5f5 0 5%, #262626 6% 8%, #050505 9% 12%, transparent 13%),
-        repeating-radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.14) 0 1px, rgba(0, 0, 0, 0.16) 2px 4px),
-        conic-gradient(from 18deg, #050505, #2a2a2a, #070707, #3a3a3a, #0b0b0b, #242424, #050505);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow:
-        0 14px 26px rgba(0, 0, 0, 0.22),
-        inset 0 1px 0 rgba(255, 255, 255, 0.22),
-        inset 0 -8px 16px rgba(0, 0, 0, 0.46);
-      overflow: hidden;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      color: #111111;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
     }
 
-    #settingsPage .group-icon::before {
-      content: "";
-      position: absolute;
-      inset: 5px;
-      border-radius: 50%;
-      background:
-        conic-gradient(from 80deg, rgba(255, 255, 255, 0.12), transparent 18%, rgba(255, 255, 255, 0.18), transparent 46%, rgba(255, 255, 255, 0.08), transparent 74%),
-        radial-gradient(circle at 34% 22%, rgba(255, 255, 255, 0.28), transparent 26%);
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
+    #settingsPage .group-icon::before,
     #settingsPage .group-icon::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      background:
-        radial-gradient(circle at 38% 30%, #ffffff, #d7d7d7 46%, #101010 48%, #050505 100%);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.28),
-        inset 0 1px 1px rgba(255, 255, 255, 0.8);
-      pointer-events: none;
+      display: none;
     }
 
     #settingsPage .group-icon i {
       position: relative;
       z-index: 1;
-      font-size: 13px;
-      text-shadow: 0 1px 8px rgba(255, 255, 255, 0.16);
-      transform: translateY(0.5px) scale(0.86);
+      font-size: 15px;
+      text-shadow: none;
+      transform: none;
     }
 
     #settingsPage .group-copy strong {
-      color: #0b0b0b;
+      color: #000000;
       font-size: 15px;
-      font-weight: 1000;
-      letter-spacing: -0.03em;
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
     #settingsPage .group-copy span {
       max-width: 240px;
-      color: rgba(17, 17, 17, 0.46);
-      font-size: 10px;
-      line-height: 1.45;
-      font-weight: 900;
+      margin-top: 3px;
+      color: #8e8e93;
+      font-size: 11px;
+      line-height: 1.4;
+      font-weight: 400;
     }
 
     #settingsPage .group-toggle i.fa-chevron-down {
-      color: rgba(17, 17, 17, 0.38);
+      position: static;
+      transform: none;
+      color: #c7c7cc;
+      font-size: 13px;
+      transition: transform 0.2s ease;
+    }
+
+    #settingsPage .setting-group.open .group-toggle i.fa-chevron-down {
+      transform: rotate(180deg);
     }
 
     #settingsPage .group-body {
       padding: 0 18px 18px;
-      border-top: 1px solid rgba(17, 17, 17, 0.07);
+      border-top: 1px solid #efefef;
     }
 
     #settingsPage .field-stack {
-      gap: 12px;
+      display: grid;
+      gap: 14px;
       margin-top: 16px;
     }
 
     #settingsPage .field label {
-      color: rgba(17, 17, 17, 0.52);
-      font-size: 10px;
-      letter-spacing: 0.04em;
+      color: #8e8e93;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
+      margin-left: 4px;
     }
 
     #settingsPage .field input,
     #settingsPage .field textarea,
     #settingsPage .field select,
     #settingsPage .upload-item input[type="file"] {
-      min-height: 44px;
+      width: 100%;
+      min-height: 48px;
       border-radius: 999px;
-      color: #0b0b0b;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(241, 241, 239, 0.86));
-      border: 1px solid rgba(12, 12, 12, 0.08);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.96),
-        inset 0 -8px 14px rgba(0, 0, 0, 0.025),
-        0 9px 18px rgba(0, 0, 0, 0.035);
-      font-weight: 900;
+      color: #000000;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      padding: 0 18px;
+      font-size: 13px;
+      font-weight: 500;
+      outline: none;
     }
 
     #settingsPage .field textarea {
       border-radius: 20px;
+      padding: 14px 18px;
+      min-height: 84px;
+      resize: vertical;
     }
 
     #settingsPage .chat-toggle-row {
       min-height: 52px;
-      padding: 11px 12px;
-      border-radius: 20px;
-      color: rgba(15, 15, 15, 0.58);
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(241, 241, 239, 0.78));
-      border: 1px solid rgba(12, 12, 12, 0.07);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      padding: 12px 16px;
+      border-radius: 999px;
+      color: #333333;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      font-weight: 500;
     }
 
     #settingsPage .chat-toggle-row input {
-      accent-color: #111111;
+      accent-color: #000000;
+      width: 40px;
+      height: 22px;
     }
 
     #settingsPage .inline-actions,
     #settingsPage .role-io-actions {
-      gap: 9px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
     }
 
+    /* Ins 极简超大圆角长条形宽按钮 */
     #settingsPage .liquid-btn {
-      min-height: 44px;
+      width: 100%;
+      min-height: 50px;
       border-radius: 999px;
-      color: #0b0b0b;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(239, 239, 237, 0.9));
-      border: 1px solid rgba(17, 17, 17, 0.09);
-      box-shadow:
-        0 13px 26px rgba(0, 0, 0, 0.065),
-        inset 0 1px 0 rgba(255, 255, 255, 0.98);
-      font-weight: 1000;
+      color: #000000;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    #settingsPage .liquid-btn:active {
+      transform: scale(0.985);
+      background: #f0f0f0;
     }
 
     #settingsPage .liquid-btn.primary {
       color: #ffffff;
-      background:
-        radial-gradient(circle at 30% 18%, rgba(255, 255, 255, 0.22), transparent 28%),
-        linear-gradient(180deg, #1f1f1f, #050505);
-      border-color: rgba(0, 0, 0, 0.92);
-      box-shadow:
-        0 14px 28px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      background: #000000;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    #settingsPage .liquid-btn.primary:active {
+      background: #222222;
     }
 
     #settingsPage .result-box,
     #settingsPage .upload-item {
-      border-radius: 24px;
-      color: rgba(15, 15, 15, 0.58);
-      background:
-        radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.9), transparent 34%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(238, 238, 236, 0.72));
-      border: 1px solid rgba(12, 12, 12, 0.065);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.88),
-        0 10px 22px rgba(0, 0, 0, 0.035);
+      border-radius: 20px;
+      color: #666666;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      padding: 14px 16px;
+      font-size: 12px;
+      line-height: 1.5;
     }
 
     #settingsPage .upload-item strong {
-      color: #111111;
+      color: #000000;
+      font-weight: 700;
     }
 
     #settingsPage .upload-item span {
-      color: rgba(17, 17, 17, 0.46);
+      color: #8e8e93;
     }
 
     #settingsPage .single-action {
@@ -4287,7 +4455,7 @@
     #settingsPage #apiResult,
     #settingsPage #settingsResult {
       position: relative;
-      padding-left: 42px;
+      padding-left: 38px;
     }
 
     #settingsPage #apiResult::before,
@@ -4295,13 +4463,11 @@
       content: "";
       position: absolute;
       left: 14px;
-      top: 14px;
-      width: 16px;
-      height: 16px;
+      top: 17px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background:
-        radial-gradient(circle at 50% 50%, #ffffff 0 28%, transparent 30%),
-        #111111;
+      background: #000000;
     }
 
     .beautify-page {
@@ -4788,7 +4954,6 @@
         #111111;
     }
 
-    #settingsPage .beautify-shell,
     #beautifyPage .beautify-shell {
       width: 100%;
       max-width: none;
@@ -4797,7 +4962,6 @@
       padding: calc(8px + env(safe-area-inset-top)) 10px calc(54px + env(safe-area-inset-bottom));
     }
 
-    #settingsPage .beautify-head,
     #beautifyPage .beautify-head {
       min-height: 68px;
       margin-bottom: 12px;
@@ -4805,27 +4969,22 @@
       grid-template-columns: 42px 1fr 42px;
     }
 
-    #settingsPage .beautify-title,
     #beautifyPage .beautify-title {
       padding-left: 0;
       text-align: center;
     }
 
-    #settingsPage .beautify-title::before,
     #beautifyPage .beautify-title::before {
       margin-bottom: 5px;
       font-size: 9px;
     }
 
-    #settingsPage .beautify-title h2,
     #beautifyPage .beautify-title h2 {
       font-size: 23px;
       line-height: 1;
       letter-spacing: -0.04em;
     }
 
-    #settingsPage .beautify-back,
-    #settingsPage .beautify-action,
     #beautifyPage .beautify-back,
     #beautifyPage .beautify-action {
       width: 38px;
@@ -4833,28 +4992,23 @@
       font-size: 14px;
     }
 
-    #settingsPage .setting-list,
     #beautifyPage .setting-list {
       gap: 10px;
     }
 
-    #settingsPage .setting-group,
     #beautifyPage .setting-group {
       border-radius: 24px;
     }
 
-    #settingsPage .group-toggle,
     #beautifyPage .group-toggle {
       min-height: 74px;
       padding: 13px 42px 12px 13px;
     }
 
-    #settingsPage .group-title,
     #beautifyPage .group-title {
       gap: 10px;
     }
 
-    #settingsPage .group-icon,
     #beautifyPage .group-icon {
       width: 40px;
       height: 40px;
@@ -4862,25 +5016,21 @@
       flex-shrink: 0;
     }
 
-    #settingsPage .group-icon::after,
     #beautifyPage .group-icon::after {
       width: 12px;
       height: 12px;
     }
 
-    #settingsPage .group-icon i,
     #beautifyPage .group-icon i {
       font-size: 11px;
     }
 
-    #settingsPage .group-copy strong,
     #beautifyPage .group-copy strong {
       font-size: 14px;
       line-height: 1.15;
       letter-spacing: -0.025em;
     }
 
-    #settingsPage .group-copy span,
     #beautifyPage .group-copy span {
       max-width: 190px;
       margin-top: 4px;
@@ -4888,7 +5038,6 @@
       line-height: 1.35;
     }
 
-    #settingsPage .group-toggle i.fa-chevron-down,
     #beautifyPage .group-toggle i.fa-chevron-down {
       right: 18px;
       top: 50%;
@@ -4896,7 +5045,6 @@
       color: rgba(17, 17, 17, 0.42);
     }
 
-    #settingsPage .setting-group.open .group-toggle i.fa-chevron-down,
     #beautifyPage .setting-group.open .group-toggle i.fa-chevron-down {
       transform: translateY(-50%) rotate(180deg);
     }
@@ -4909,12 +5057,10 @@
       border-radius: 12px;
     }
 
-    #settingsPage .group-body,
     #beautifyPage .group-body {
       padding: 0 13px 13px;
     }
 
-    #settingsPage .field-stack,
     #beautifyPage .field-stack,
     #beautifyPage .upload-grid,
     #beautifyPage .icon-editor-grid {
@@ -4922,32 +5068,18 @@
       margin-top: 10px;
     }
 
-    #settingsPage .field input,
-    #settingsPage .field textarea,
-    #settingsPage .field select,
-    #settingsPage .upload-item input[type="file"],
     #beautifyPage .upload-item input[type="file"],
     #beautifyPage .icon-editor input[type="file"],
-    #settingsPage .liquid-btn,
     #beautifyPage .liquid-btn {
       min-height: 38px;
       font-size: 11px;
     }
 
-    #settingsPage .upload-item,
-    #settingsPage .result-box,
     #beautifyPage .upload-item,
     #beautifyPage .icon-editor,
     #beautifyPage .result-box {
       border-radius: 20px;
       padding: 11px 12px;
-    }
-
-    #settingsPage .chat-toggle-row {
-      min-height: 44px;
-      padding: 9px 10px;
-      font-size: 10px;
-      line-height: 1.35;
     }
 
     #beautifyPage .icon-editor-grid {
@@ -4959,7 +5091,6 @@
     }
 
     @media (max-width: 370px) {
-      #settingsPage .beautify-shell,
       #beautifyPage .beautify-shell {
         width: 100%;
         max-width: none;
@@ -4967,17 +5098,16 @@
         padding-right: 8px;
       }
 
-      #settingsPage .group-copy span,
       #beautifyPage .group-copy span {
         max-width: 165px;
       }
 
-      #settingsPage .group-toggle,
       #beautifyPage .group-toggle {
         padding-right: 36px;
       }
     }
 
+    /* Instagram 极简纯白风 Card Page 重构 */
     .card-page {
       position: fixed;
       inset: 0;
@@ -4985,10 +5115,9 @@
       display: none;
       padding: 0;
       color: #111111;
-      background:
-        radial-gradient(circle at 54% 8%, rgba(255, 255, 255, 0.92), transparent 28%),
-        radial-gradient(circle at 25% 42%, rgba(196, 220, 190, 0.72), transparent 30%),
-        linear-gradient(180deg, #dfe5e3 0%, #f4f4f1 48%, #161814 100%);
+      background: #ffffff;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       overflow: hidden;
     }
 
@@ -4996,18 +5125,10 @@
       display: block;
     }
 
-    .card-page::before {
-      content: "";
-      position: absolute;
-      inset: 38% -18% -8%;
-      background:
-        radial-gradient(ellipse at 42% 20%, rgba(190, 220, 92, 0.58), transparent 38%),
-        linear-gradient(145deg, rgba(30, 40, 28, 0.12), rgba(0, 0, 0, 0.78)),
-        linear-gradient(14deg, transparent 0 34%, rgba(80, 92, 72, 0.6) 35% 43%, transparent 44%),
-        linear-gradient(-9deg, transparent 0 50%, rgba(110, 130, 84, 0.5) 51% 58%, transparent 59%);
-      border-radius: 48% 52% 0 0 / 26% 30% 0 0;
-      filter: blur(0.2px);
-      pointer-events: none;
+    .card-page::before,
+    .card-page::after {
+      display: none !important;
+      content: none !important;
     }
 
     .card-shell {
@@ -5017,7 +5138,7 @@
       max-width: var(--phone-width, 390px);
       height: 100dvh;
       margin: 0 auto;
-      padding: env(safe-area-inset-top) 14px calc(12px + env(safe-area-inset-bottom));
+      padding: calc(12px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
@@ -5028,44 +5149,43 @@
     }
 
     .card-hud {
-      color: rgba(255, 255, 255, 0.96);
-      padding: 2px 6px 16px;
+      display: none !important;
     }
 
     .card-head {
       display: grid;
-      grid-template-columns: 48px 1fr 48px;
+      grid-template-columns: 40px 1fr 40px;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 72px;
-    }
-
-    .card-back,
-    .card-add,
-    .card-mini-btn {
-      border: 1px solid rgba(255, 255, 255, 0.42);
-      background: rgba(255, 255, 255, 0.24);
-      color: #111111;
-      backdrop-filter: blur(26px) saturate(180%);
-      -webkit-backdrop-filter: blur(26px) saturate(180%);
-      box-shadow:
-        0 12px 28px rgba(45, 50, 48, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.54);
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f4f4f4;
     }
 
     .card-back,
     .card-add {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      color: #111111;
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
+      font-size: 15px;
       display: grid;
       place-items: center;
-      font-size: 18px;
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+
+    .card-back:active,
+    .card-add:active {
+      background: #f0f0f0;
     }
 
     .card-add {
       justify-self: end;
-      font-size: 24px;
+      font-size: 18px;
     }
 
     .card-title {
@@ -5075,17 +5195,18 @@
 
     .card-title strong {
       display: block;
+      color: #000000;
       font-size: 18px;
-      font-weight: 1000;
+      font-weight: 700;
       letter-spacing: -0.02em;
     }
 
     .card-title span {
       display: block;
-      margin-top: 4px;
-      color: rgba(30, 32, 30, 0.62);
+      margin-top: 3px;
+      color: #8e8e93;
       font-size: 10px;
-      font-weight: 900;
+      font-weight: 400;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -5093,54 +5214,51 @@
 
     .card-profile {
       display: grid;
-      grid-template-columns: 98px 1fr;
-      gap: 14px;
+      grid-template-columns: 84px 1fr;
+      gap: 16px;
       align-items: center;
-      margin: 0 10px 28px;
+      margin: 0 0 18px;
+      padding: 16px;
+      border-radius: 24px;
+      background: #fafafa;
     }
 
     .card-profile-cover {
-      height: 86px;
+      height: 84px;
       border-radius: 20px;
-      background:
-        radial-gradient(circle at 35% 24%, rgba(220, 255, 114, 0.8), transparent 28%),
-        linear-gradient(145deg, #2d342d, #a9b690);
+      background: #ffffff;
       background-size: cover;
       background-position: center;
-      box-shadow: 0 14px 24px rgba(18, 20, 18, 0.18);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      cursor: pointer;
     }
 
     .card-profile-copy strong {
       display: block;
-      color: #151515;
-      font-size: 22px;
-      line-height: 1.1;
-      font-weight: 1000;
-      letter-spacing: -0.03em;
+      color: #000000;
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .card-profile-copy p {
-      margin-top: 9px;
-      color: rgba(20, 20, 20, 0.62);
-      font-size: 12px;
-      line-height: 1.45;
-      font-weight: 900;
+      margin-top: 6px;
+      color: #8e8e93;
+      font-size: 11px;
+      line-height: 1.4;
+      font-weight: 400;
     }
 
     .asset-glass {
-      margin: 0 4px 18px;
-      border-radius: 34px;
+      margin: 0 0 16px;
+      border-radius: 24px;
       padding: 18px;
-      background:
-        radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.58), transparent 34%),
-        linear-gradient(145deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.12) 56%, rgba(35, 40, 36, 0.18));
-      border: 1px solid rgba(255, 255, 255, 0.38);
-      box-shadow:
-        0 22px 44px rgba(28, 32, 28, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.58),
-        inset 0 -20px 34px rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(34px) saturate(190%);
-      -webkit-backdrop-filter: blur(34px) saturate(190%);
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
 
     .asset-top {
@@ -5148,97 +5266,117 @@
       justify-content: space-between;
       gap: 12px;
       align-items: flex-start;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .asset-top span {
-      color: rgba(20, 20, 20, 0.58);
+      color: #8e8e93;
       font-size: 11px;
-      font-weight: 1000;
+      font-weight: 600;
     }
 
     .asset-amount {
-      color: #111111;
-      font-size: 34px;
-      line-height: 1;
-      font-weight: 1000;
+      color: #000000;
+      font-size: 32px;
+      line-height: 1.1;
+      font-weight: 700;
       letter-spacing: -0.04em;
+      margin-top: 4px;
     }
 
     .asset-actions,
     .card-form-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 9px;
+      gap: 10px;
     }
 
+    /* Ins 极简超大圆角宽按钮 */
     .card-mini-btn {
-      min-height: 42px;
+      width: 100%;
+      min-height: 48px;
       border-radius: 999px;
-      color: #111111;
-      font-size: 12px;
-      font-weight: 1000;
+      color: #000000;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .card-mini-btn:active {
+      transform: scale(0.985);
+      background: #f0f0f0;
     }
 
     .card-menu {
       display: grid;
-      gap: 12px;
-      margin: 0 4px 22px;
+      gap: 10px;
+      margin: 0 0 18px;
     }
 
     .card-menu-row {
       width: 100%;
-      min-height: 60px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
+      min-height: 62px;
+      border: none;
       border-radius: 999px;
-      padding: 0 18px;
+      padding: 0 20px;
       display: grid;
-      grid-template-columns: 30px 1fr auto;
+      grid-template-columns: 24px 1fr auto;
       align-items: center;
       gap: 12px;
-      color: #ffffff;
-      background:
-        radial-gradient(circle at 12% 50%, rgba(216, 255, 105, 0.24), transparent 24%),
-        linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(34, 36, 34, 0.32));
-      box-shadow:
-        0 16px 34px rgba(0, 0, 0, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.36);
-      backdrop-filter: blur(32px) saturate(190%);
-      -webkit-backdrop-filter: blur(32px) saturate(190%);
+      color: #000000;
+      background: #fafafa;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       text-align: left;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .card-menu-row:active {
+      transform: scale(0.985);
+      background: #f0f0f0;
     }
 
     .card-menu-row i {
-      font-size: 17px;
-      opacity: 0.9;
+      font-size: 16px;
+      color: #111111;
     }
 
     .card-menu-row strong {
       display: block;
       font-size: 14px;
-      font-weight: 1000;
-      letter-spacing: 0.02em;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #000000;
     }
 
     .card-menu-row small {
       display: block;
-      margin-top: 3px;
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 9px;
-      font-weight: 900;
+      margin-top: 2px;
+      color: #8e8e93;
+      font-size: 10px;
+      font-weight: 400;
     }
 
     .card-panel {
       display: none;
-      margin: 0 4px 18px;
-      border-radius: 28px;
-      padding: 14px;
+      margin: 0 0 18px;
+      border-radius: 24px;
+      padding: 18px;
       color: #111111;
-      background: rgba(255, 255, 255, 0.68);
-      border: 1px solid rgba(255, 255, 255, 0.76);
-      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
-      backdrop-filter: blur(28px) saturate(170%);
-      -webkit-backdrop-filter: blur(28px) saturate(170%);
+      background: #fafafa;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
 
     .card-panel.show {
@@ -5250,69 +5388,82 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .card-panel-head strong {
-      font-size: 15px;
-      font-weight: 1000;
+      font-size: 16px;
+      font-weight: 700;
+      color: #000000;
+    }
+
+    .card-panel-head .card-mini-btn {
+      width: auto;
+      min-height: 36px;
+      padding: 0 18px;
+      font-size: 11px;
     }
 
     .card-form {
       display: grid;
-      gap: 9px;
+      gap: 12px;
     }
 
     .card-form input,
     .card-form textarea,
     .card-form select {
       width: 100%;
-      min-height: 40px;
-      border: 1px solid rgba(238, 238, 238, 0.96);
-      border-radius: 16px;
-      padding: 10px 12px;
+      min-height: 48px;
+      border: none;
+      border-radius: 999px;
+      padding: 0 18px;
       outline: none;
-      color: #222222;
-      background: rgba(255, 255, 255, 0.72);
-      font-size: 12px;
-      font-weight: 900;
+      color: #000000;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      font-size: 13px;
+      font-weight: 500;
     }
 
     .card-form textarea {
-      min-height: 72px;
+      border-radius: 20px;
+      padding: 14px 18px;
+      min-height: 84px;
       resize: vertical;
     }
 
     .library-list,
     .bill-list {
       display: grid;
-      gap: 8px;
-      max-height: 260px;
+      gap: 10px;
+      max-height: 280px;
       overflow-y: auto;
       padding-right: 2px;
+      margin-top: 12px;
     }
 
     .library-item,
     .bill-item {
-      padding: 10px 11px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.74);
-      color: #222222;
-      font-size: 11px;
-      font-weight: 900;
-      line-height: 1.45;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      color: #333333;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.5;
       word-break: break-word;
     }
 
     .library-item img {
-      width: 58px;
-      height: 58px;
-      border-radius: 14px;
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
       object-fit: cover;
       display: block;
-      margin-bottom: 6px;
-      background: #f4f4f4;
+      margin-bottom: 8px;
+      background: #f7f7f7;
     }
 
     .qq-message-bubble.media-message {
@@ -6122,11 +6273,6 @@
         <div class="album-footer" aria-hidden="true"></div>
       </section>
 
-      <a class="app app-stack" href="javascript:void(0)" id="beautifyApp">
-        <span class="app-icon" id="iconBeauty"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
-        <span>美化</span>
-      </a>
-
       <a class="app app-stack" href="javascript:void(0)" id="cardApp">
         <span class="app-icon" id="iconTodo2"><i class="fa-regular fa-id-card"></i></span>
         <span>名片</span>
@@ -6166,21 +6312,22 @@
           <i class="fa-solid fa-chevron-left"></i>
         </button>
         <div class="beautify-title">
-          <h2>设置</h2>
+          <h2>Settings</h2>
         </div>
-        <button class="beautify-action" aria-label="更多操作">
-          <i class="fa-solid fa-sliders"></i>
+        <button class="beautify-action" aria-label="设置选项">
+          <i class="fa-solid fa-ellipsis"></i>
         </button>
       </header>
 
       <section class="setting-list">
+        <!-- API 设置 -->
         <article class="setting-group open">
           <button class="group-toggle" type="button">
             <div class="group-title">
-              <span class="group-icon"><i class="fa-solid fa-link"></i></span>
+              <span class="group-icon"><i class="fa-solid fa-sliders"></i></span>
               <div class="group-copy">
-                <strong>API 设置</strong>
-                <span>配置模型接口地址、API Key，并测试连接状态。</span>
+                <strong>API 模型接口</strong>
+                <span>配置模型 Endpoint、API Key 及交互参数</span>
               </div>
             </div>
             <i class="fa-solid fa-chevron-down"></i>
@@ -6206,11 +6353,11 @@
                 <input id="modelName" type="text" placeholder="可手动输入模型名称" />
               </div>
               <div class="chat-toggle-row">
-                <span>全局 API 识图：开启后，聊天图片与表情包会以低清图像发送给模型识别，尽量节省 tokens。</span>
+                <span>全局 API 识图 (智能省 Token)</span>
                 <input id="globalVisionToggle" type="checkbox" />
               </div>
               <div class="chat-toggle-row">
-                <span>现实时间感知：开启后，角色回复会知道当前真实年份、日期、星期与具体时间。</span>
+                <span>现实时间感知 (精确日期/时间)</span>
                 <input id="realTimeAwarenessToggle" type="checkbox" />
               </div>
               <div class="inline-actions">
@@ -6224,31 +6371,144 @@
           </div>
         </article>
 
+        <!-- 桌面与组件外观美化 (文件接口全部隐藏，由超大圆角宽按钮触发) -->
         <article class="setting-group">
           <button class="group-toggle" type="button">
             <div class="group-title">
-              <span class="group-icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
+              <span class="group-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
               <div class="group-copy">
-                <strong>主屏幕全屏模式</strong>
-                <span>安卓 Chrome / Edge 添加到主屏幕、iOS Safari 添加到主屏幕后，会以独立应用样式打开并尽量隐藏浏览器地址栏。</span>
+                <strong>桌面与组件美化</strong>
+                <span>自定义背景、头像、天气卡及音乐封面图片</span>
               </div>
             </div>
             <i class="fa-solid fa-chevron-down"></i>
           </button>
           <div class="group-body">
-            <div class="result-box">
-              已内置 PWA Manifest 与 iOS Web App 配置。请在浏览器菜单中选择「添加到主屏幕」；从桌面图标进入时会自动进入全屏/独立应用显示。清除页面缓存不会删除你的应用数据。
+            <div class="field-stack">
+              <div class="upload-item">
+                <strong>桌面背景图</strong>
+                <span>高留白、浅色、简约家居或风景效果最佳</span>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerBgUpload" type="button">选择背景图片</button>
+                  <input id="bgUpload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+              <div class="upload-item">
+                <strong>桌面头像图</strong>
+                <span>建议使用正方形图片，系统自动裁剪为圆形</span>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerAvatarUpload" type="button">选择头像图片</button>
+                  <input id="avatarUpload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+              <div class="upload-item">
+                <strong>天气挂件图片 1</strong>
+                <span>替换天气卡片中第 1 张图标卡</span>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerAlbumUpload" type="button">上传天气图片 1</button>
+                  <input id="albumUpload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+              <div class="upload-item">
+                <strong>天气挂件图片 2</strong>
+                <span>替换天气卡片中第 2 张图标卡</span>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerMemoryUpload" type="button">上传天气图片 2</button>
+                  <input id="memoryUpload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+              <div class="upload-item">
+                <strong>天气挂件图片 3</strong>
+                <span>替换天气卡片中第 3 张图标卡</span>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerMemoryRightUpload" type="button">上传天气图片 3</button>
+                  <input id="memoryRightUpload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+              <div class="upload-item">
+                <strong>音乐组件封面</strong>
+                <span>替换桌面播放器小组件的图片封面</span>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerMemoryLeftUpload" type="button">上传音乐封面</button>
+                  <input id="memoryLeftUpload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+              <div class="upload-item">
+                <strong>底部共享大卡图片 1</strong>
+                <span>替换底部玻璃卡片的第一张预览图</span>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerMidThumbOneUpload" type="button">上传大卡图 1</button>
+                  <input id="midThumbOneUpload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+              <div class="upload-item">
+                <strong>底部共享大卡图片 2</strong>
+                <span>替换底部玻璃卡片的第二张预览图</span>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerMidThumbTwoUpload" type="button">上传大卡图 2</button>
+                  <input id="midThumbTwoUpload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
             </div>
           </div>
         </article>
 
+        <!-- 应用图标与美化方案 -->
+        <article class="setting-group">
+          <button class="group-toggle" type="button">
+            <div class="group-title">
+              <span class="group-icon"><i class="fa-solid fa-icons"></i></span>
+              <div class="group-copy">
+                <strong>应用图标与方案</strong>
+                <span>替换单个应用图标，导出或导入完整美化方案</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="group-body">
+            <div class="field-stack">
+              <div class="upload-item">
+                <strong>「设置」图标</strong>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerIconSettingsUpload" type="button">替换设置图标</button>
+                  <input id="iconSettingsUpload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+              <div class="upload-item">
+                <strong>「QQ」图标</strong>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerIconTodo1Upload" type="button">替换 QQ 图标</button>
+                  <input id="iconTodo1Upload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+              <div class="upload-item">
+                <strong>「名片」图标</strong>
+                <div class="single-action">
+                  <button class="liquid-btn" id="triggerIconTodo2Upload" type="button">替换名片图标</button>
+                  <input id="iconTodo2Upload" type="file" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+
+              <div class="inline-actions" style="margin-top:14px;">
+                <button class="liquid-btn" id="exportThemeBtn" type="button">导出美化方案</button>
+                <button class="liquid-btn primary" id="triggerImportTheme" type="button">导入美化方案</button>
+                <input id="importThemeInput" type="file" accept="application/json" style="display:none;" />
+              </div>
+              <div class="result-box" id="beautifyResult">
+                这里会显示导入和导出美化配置的结果。
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 界面渲染与模式 -->
         <article class="setting-group">
           <button class="group-toggle" type="button">
             <div class="group-title">
               <span class="group-icon"><i class="fa-solid fa-expand"></i></span>
               <div class="group-copy">
-                <strong>界面渲染大小</strong>
-                <span>按设备屏幕差异调节整体界面宽度，避免安卓与 iOS 渲染大小不一致。</span>
+                <strong>界面渲染与缩放</strong>
+                <span>缩放桌面容器大小及全屏显示指南</span>
               </div>
             </div>
             <i class="fa-solid fa-chevron-down"></i>
@@ -6258,216 +6518,47 @@
               <div class="field">
                 <label for="layoutSizeSelect">界面大小档位</label>
                 <select id="layoutSizeSelect">
-                  <option value="small">小</option>
-                  <option value="default">默认</option>
-                  <option value="large">大</option>
+                  <option value="small">小 (360px)</option>
+                  <option value="default">默认 (390px)</option>
+                  <option value="large">大 (430px)</option>
                 </select>
               </div>
               <div class="result-box">
                 默认档接近 iOS 390px 视觉宽度；小档适合窄屏或显示过大的安卓机；大档适合宽屏设备。
               </div>
+              <div class="result-box">
+                系统已内置 PWA Manifest。在手机浏览器菜单中选择「添加到主屏幕」，即可隐藏浏览器地址栏以独立 App 全屏运行。
+              </div>
             </div>
           </div>
         </article>
 
+        <!-- 数据管理与备份 -->
         <article class="setting-group">
           <button class="group-toggle" type="button">
             <div class="group-title">
               <span class="group-icon"><i class="fa-solid fa-database"></i></span>
               <div class="group-copy">
-                <strong>应用数据管理</strong>
-                <span>导出当前应用全部数据，或重置本地保存内容。</span>
+                <strong>数据管理与备份</strong>
+                <span>轻松备份、导入及恢复所有本地角色与应用状态</span>
               </div>
             </div>
             <i class="fa-solid fa-chevron-down"></i>
           </button>
           <div class="group-body">
-            <div class="inline-actions" style="margin-top:12px;">
-              <button class="liquid-btn" id="exportAppDataBtn" type="button">导出应用数据</button>
-              <button class="liquid-btn primary" id="clearPageCacheBtn" type="button">清除页面缓存</button>
+            <div class="inline-actions" style="margin-top:14px;">
+              <button class="liquid-btn" id="exportAppDataBtn" type="button">导出数据备份</button>
+              <button class="liquid-btn" id="clearPageCacheBtn" type="button">清除页面缓存</button>
             </div>
-            <div class="upload-grid">
-              <div class="upload-item">
-                <strong>导入应用数据</strong>
-                <span>导入之前导出的完整应用数据，会恢复角色、聊天、朋友圈、名片、设置与美化内容。</span>
-                <input id="importAppDataInput" type="file" accept="application/json" />
-              </div>
+            <div class="single-action" style="margin-top:10px;">
+              <button class="liquid-btn primary" id="triggerImportAppData" type="button">导入备份 JSON 文件</button>
+              <input id="importAppDataInput" type="file" accept="application/json" style="display:none;" />
             </div>
-            <div class="single-action">
-              <button class="liquid-btn primary" id="resetAppBtn" type="button">重置应用</button>
+            <div class="single-action" style="margin-top:10px;">
+              <button class="liquid-btn" id="resetAppBtn" type="button" style="color:#ff3b30;">重置整个应用</button>
             </div>
-            <div class="result-box" id="settingsResult">
+            <div class="result-box" id="settingsResult" style="margin-top:12px;">
               这里会显示导出应用数据和重置应用的结果。
-            </div>
-          </div>
-        </article>
-      </section>
-    </div>
-  </section>
-
-  <section class="beautify-page" id="beautifyPage" aria-label="美化应用页面">
-    <div class="beautify-shell">
-      <header class="beautify-head">
-        <button class="beautify-back" id="closeBeautify" aria-label="返回桌面">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <div class="beautify-title">
-          <h2>美化</h2>
-        </div>
-        <button class="beautify-action" aria-label="更多操作">
-          <i class="fa-solid fa-sliders"></i>
-        </button>
-      </header>
-
-      <section class="setting-list">
-        <article class="setting-group open">
-          <button class="group-toggle" type="button">
-            <div class="group-title">
-              <span class="group-icon"><i class="fa-regular fa-image"></i></span>
-              <div class="group-copy">
-                <strong>桌面背景</strong>
-                <span>上传偏留白、浅灰白、柔和质感的背景图。</span>
-              </div>
-            </div>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="group-body">
-            <div class="upload-grid">
-              <div class="upload-item">
-                <strong>设置背景图</strong>
-                <span>建议使用高留白、淡色、简约居家场景照片。</span>
-                <input id="bgUpload" type="file" accept="image/*" />
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="setting-group">
-          <button class="group-toggle" type="button">
-            <div class="group-title">
-              <span class="group-icon"><i class="fa-regular fa-circle-user"></i></span>
-              <div class="group-copy">
-                <strong>头像区域</strong>
-                <span>设置头像和顶部展示内容。</span>
-              </div>
-            </div>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="group-body">
-            <div class="upload-grid">
-              <div class="upload-item">
-                <strong>上传头像图</strong>
-                <span>建议使用方形图片，系统会自动裁切为圆形显示。</span>
-                <input id="avatarUpload" type="file" accept="image/*" />
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="setting-group">
-          <button class="group-toggle" type="button">
-            <div class="group-title">
-              <span class="group-icon"><i class="fa-solid fa-photo-film"></i></span>
-              <div class="group-copy">
-                <strong>图片组件美化</strong>
-                <span>替换桌面中天气图标卡、音乐封面和中部图片内容。</span>
-              </div>
-            </div>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="group-body">
-            <div class="upload-grid">
-              <div class="upload-item">
-                <strong>天气卡 1</strong>
-                <span>替换天气组件第一个图标卡。</span>
-                <input id="albumUpload" type="file" accept="image/*" />
-              </div>
-              <div class="upload-item">
-                <strong>天气卡 2</strong>
-                <span>替换天气组件第二个图标卡。</span>
-                <input id="memoryUpload" type="file" accept="image/*" />
-              </div>
-              <div class="upload-item">
-                <strong>音乐封面</strong>
-                <span>替换右侧音乐卡片封面。</span>
-                <input id="memoryLeftUpload" type="file" accept="image/*" />
-              </div>
-              <div class="upload-item">
-                <strong>天气卡 3</strong>
-                <span>替换天气组件第三个图标卡。</span>
-                <input id="memoryRightUpload" type="file" accept="image/*" />
-              </div>
-              <div class="upload-item">
-                <strong>底部大卡图片 1</strong>
-                <span>替换底部共享液态玻璃卡片里的第一张图片。</span>
-                <input id="midThumbOneUpload" type="file" accept="image/*" />
-              </div>
-              <div class="upload-item">
-                <strong>底部大卡图片 2</strong>
-                <span>替换底部共享液态玻璃卡片里的第二张图片。</span>
-                <input id="midThumbTwoUpload" type="file" accept="image/*" />
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="setting-group">
-          <button class="group-toggle" type="button">
-            <div class="group-title">
-              <span class="group-icon"><i class="fa-solid fa-table-cells-large"></i></span>
-              <div class="group-copy">
-                <strong>应用图标替换</strong>
-                <span>给桌面上所有可见应用单独设置图片图标。</span>
-              </div>
-            </div>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="group-body">
-            <div class="icon-editor-grid">
-              <div class="icon-editor">
-                <b>设置</b>
-                <input id="iconSettingsUpload" type="file" accept="image/*" />
-              </div>
-              <div class="icon-editor">
-                <b>美化</b>
-                <input id="iconBeautyUpload" type="file" accept="image/*" />
-              </div>
-              <div class="icon-editor">
-                <b>QQ</b>
-                <input id="iconTodo1Upload" type="file" accept="image/*" />
-              </div>
-              <div class="icon-editor">
-                <b>日历</b>
-                <input id="iconTodo2Upload" type="file" accept="image/*" />
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="setting-group">
-          <button class="group-toggle" type="button">
-            <div class="group-title">
-              <span class="group-icon"><i class="fa-solid fa-file-export"></i></span>
-              <div class="group-copy">
-                <strong>配置管理</strong>
-                <span>导出当前桌面美化配置，或导入已保存的桌面方案。</span>
-              </div>
-            </div>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="group-body">
-            <div class="single-action">
-              <button class="liquid-btn" id="exportThemeBtn" type="button">导出美化配置</button>
-            </div>
-            <div class="upload-grid">
-              <div class="upload-item">
-                <strong>导入美化配置</strong>
-                <span>导入之前导出的桌面配置文件，恢复背景、图片和图标设置。</span>
-                <input id="importThemeInput" type="file" accept="application/json" />
-              </div>
-            </div>
-            <div class="result-box" id="beautifyResult">
-              这里会显示导入和导出美化配置的结果。
             </div>
           </div>
         </article>
@@ -6496,8 +6587,7 @@
             <i class="fa-solid fa-chevron-left"></i>
           </button>
           <div class="qq-title-block">
-            <h2 id="qqHomeTitle" class="qq-home-editable">猫爪信箱</h2>
-            <p id="qqHomeSubtitle" class="qq-home-editable">把对话、歌单灵感和常用联系人收进轻雾卡片</p>
+            <h2 id="qqHomeTitle" class="qq-home-editable">catpaw_studio</h2>
           </div>
           <div class="qq-top-mark">
             <button class="qq-create-btn" id="openRoleEditor" type="button" aria-label="创建角色">
@@ -6509,68 +6599,64 @@
         <div class="qq-main">
           <div class="qq-home-shell">
             <div class="qq-banner-wrap">
-              <section class="qq-banner-card" aria-label="QQ 主页推荐卡">
-                <div class="qq-banner-topbar" aria-hidden="true"></div>
-
-                <div class="qq-home-tabs" aria-label="主页分类">
-                  <div class="qq-home-tab active">灵感页</div>
-                  <div class="qq-home-tab">会话页</div>
-                </div>
-
-                <div class="qq-search-bar" aria-label="搜索与快捷操作">
-                  <span class="qq-search-gear"><i class="fa-solid fa-sliders"></i></span>
-                  <span class="qq-search-mode">快捷检索</span>
-                  <span class="qq-search-input"><i class="fa-solid fa-magnifying-glass"></i> 搜索歌名、联系人或聊天标签</span>
-                  <span class="qq-search-moon"><i class="fa-regular fa-star"></i></span>
-                </div>
-
-                <section class="qq-feature-card" aria-label="QQ 今日卡片">
-                    <div class="qq-feature-top">
-                      <div class="qq-feature-art qq-image-editable" id="qqFeatureArt">
-                        <div class="qq-feature-song">
-                          <strong id="qqFeatureTitle" class="qq-home-editable">晚风备忘</strong>
-                          <span id="qqFeatureSubtitle" class="qq-home-editable">今日共享片段</span>
-                        </div>
-                      </div>
-
-                      <div class="qq-feature-side">
-                        <div class="qq-cover-thumb qq-image-editable" id="qqCoverThumb"></div>
-                        <div class="qq-lyric-list">
-                          <span id="qqLyricLine1" class="qq-home-editable">置顶联系人 · 1 位在线</span>
-                          <span id="qqLyricLine2" class="qq-home-editable">共享歌单 · 可一键转聊天</span>
-                          <span id="qqLyricLine3" class="qq-home-editable">常用入口 · 更适合单手操作</span>
-                        </div>
-                      </div>
-                    </div>
-
-                  <div class="qq-player-bar" aria-label="播放控制">
-                    <button class="qq-player-btn" type="button" aria-label="循环">
-                      <i class="fa-solid fa-repeat"></i>
-                    </button>
-                    <button class="qq-player-btn" type="button" aria-label="上一首">
-                      <i class="fa-solid fa-backward-step"></i>
-                    </button>
-                    <button class="qq-player-btn primary" type="button" aria-label="播放">
-                      <i class="fa-solid fa-play"></i>
-                    </button>
-                    <button class="qq-player-btn" type="button" aria-label="下一首">
-                      <i class="fa-solid fa-forward-step"></i>
-                    </button>
+              <section class="qq-banner-card" aria-label="Ins 个人主页面板">
+                <!-- Ins 个人主页 Header 信息栏 -->
+                <div class="ins-profile-header">
+                  <div class="ins-avatar-box">
+                    <div class="ins-avatar-img" id="insUserAvatar"></div>
                   </div>
-                </section>
+                  <div class="ins-stats-row">
+                    <div class="ins-stat-item">
+                      <span class="ins-stat-num" id="insChatCountNum">0</span>
+                      <span class="ins-stat-label">消息</span>
+                    </div>
+                    <div class="ins-stat-item">
+                      <span class="ins-stat-num" id="insRoleCountNum">0</span>
+                      <span class="ins-stat-label">角色</span>
+                    </div>
+                    <div class="ins-stat-item">
+                      <span class="ins-stat-num" id="insMemoryCountNum">52</span>
+                      <span class="ins-stat-label">记忆</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Ins 个人 Bio 签名区 -->
+                <div class="ins-bio-box">
+                  <div class="ins-bio-name" id="qqFeatureTitle">CatPaw Studio ✦</div>
+                  <div class="ins-bio-text qq-home-editable" id="qqHomeSubtitle">把对话、歌单灵感和常用联系人收进极简透明卡片。</div>
+                </div>
+
+                <!-- Ins 超大圆角宽按钮按键组 -->
+                <div class="ins-action-buttons">
+                  <button class="ins-wide-btn" id="triggerOpenRoleEditor" type="button">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>新建角色</span>
+                  </button>
+                  <button class="ins-wide-btn primary" id="triggerOpenCardApp" type="button">
+                    <i class="fa-regular fa-id-card"></i>
+                    <span>我的名片</span>
+                  </button>
+                </div>
+
+                <!-- Ins 最近联系人头像快照 Story Highlights (带粗极浅灰环装饰) -->
+                <div class="ins-highlights-strip" id="insHighlightsStrip">
+                  <!-- 动态由 JS 渲染联系人头像 -->
+                </div>
+
+                <!-- Ins 风格快捷搜索栏 -->
+                <div class="qq-search-bar" aria-label="搜索特定联系人">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input class="qq-search-input-field" id="qqContactSearchInput" type="text" placeholder="搜索特定联系人或消息历史..." />
+                </div>
+
+                <!-- 消息 / 好友 Tab 栏 -->
+                <div class="qq-home-tabs" aria-label="主页分类">
+                  <div class="qq-home-tab active" data-panel-trigger="qqPanelChats">消息列表</div>
+                  <div class="qq-home-tab" data-panel-trigger="qqPanelContacts">好友列表</div>
+                </div>
               </section>
             </div>
-
-            <nav class="qq-mode-switch" aria-label="QQ 页面切换">
-              <button class="qq-tab active" type="button" data-panel="qqPanelChats">
-                <i class="fa-solid fa-chevron-right"></i>
-                <span>聊天列表</span>
-              </button>
-              <button class="qq-tab" type="button" data-panel="qqPanelContacts">
-                <i class="fa-solid fa-chevron-right"></i>
-                <span>联系人</span>
-              </button>
-            </nav>
 
             <section class="qq-panel active" id="qqPanelChats">
               <div class="qq-list">
@@ -6606,35 +6692,45 @@
                   <i class="fa-solid fa-chevron-left"></i>
                 </button>
                 <div class="moments-page-title">
-                  <strong>朋友圈</strong>
-                  <span>像主页一样浏览角色的生活动态</span>
+                  <strong id="momentsPageTitleText" class="qq-home-editable">朋友圈</strong>
                 </div>
                 <button class="moments-page-compose" id="openMomentComposer" type="button" aria-label="发布动态">
                   <i class="fa-solid fa-plus"></i>
                 </button>
               </header>
 
-              <section class="moments-profile" aria-label="朋友圈主页">
+              <section class="moments-profile" aria-label="朋友圈 Ins 个人主页 Header">
                 <div class="moments-profile-top">
-                  <div class="moments-profile-avatar" id="momentsProfileAvatar" aria-hidden="true"></div>
-                  <div class="moments-profile-copy">
-                    <strong id="momentsHomeTitle" class="qq-home-editable">CatPaw Moments</strong>
-                    <span id="momentsHomeSubtitle" class="qq-home-editable">自动收集角色像真人一样随机发布的碎片，也可以进入发布页写自己的动态。</span>
+                  <div class="moments-profile-avatar-box">
+                    <div class="moments-profile-avatar" id="momentsProfileAvatar"></div>
+                  </div>
+                  <div class="moments-stats">
+                    <div class="moments-stat"><b id="momentsPostCount">0</b><small>动态</small></div>
+                    <div class="moments-stat"><b id="momentsRoleCount">0</b><small>角色</small></div>
+                    <div class="moments-stat"><b id="momentsInteractionCount">0</b><small>互动</small></div>
                   </div>
                 </div>
-                <div class="moments-stats">
-                  <div class="moments-stat"><b id="momentsPostCount">0</b><small>动态</small></div>
-                  <div class="moments-stat"><b id="momentsRoleCount">0</b><small>角色</small></div>
-                  <div class="moments-stat"><b>AI</b><small>自动更新</small></div>
+
+                <div class="moments-profile-copy">
+                  <strong id="momentsHomeTitle" class="qq-home-editable">CatPaw Moments</strong>
+                  <div class="moments-profile-email qq-home-editable" id="momentsHomeEmail">
+                    <i class="fa-regular fa-envelope"></i>
+                    <span>contact@catpaw.moments</span>
+                  </div>
+                  <p id="momentsHomeSubtitle" class="qq-home-editable">自动收集角色像真人一样随机发布的碎片，也可以进入发布页写自己的动态。</p>
+                </div>
+
+                <div class="moments-action-btns">
+                  <button class="ins-wide-btn" id="triggerOpenMomentComposer" type="button">
+                    <i class="fa-solid fa-pen"></i>
+                    <span>发布我的动态</span>
+                  </button>
+                  <button class="ins-wide-btn primary" id="refreshMoments" type="button">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>刷新朋友圈</span>
+                  </button>
                 </div>
               </section>
-
-              <div class="moments-toolbar">
-                <select id="momentRoleSelect">
-                  <option value="">选择评论互动角色</option>
-                </select>
-                <span class="moments-auto-status" id="momentsAutoStatus">角色会自动发动态</span>
-              </div>
 
               <div class="qq-moments-wrap">
                 <div id="momentsList"></div>
@@ -6646,24 +6742,25 @@
               <button class="qq-thread-back" id="qqThreadBack" type="button" aria-label="返回聊天列表">
                 <i class="fa-solid fa-chevron-left"></i>
               </button>
-              <div class="qq-thread-person">
-                <div class="qq-thread-avatar" aria-hidden="true"></div>
-                <div class="qq-thread-name">叶子 <i class="fa-solid fa-chevron-right"></i></div>
+              <div class="qq-thread-header-info">
+                <div class="qq-thread-avatar-box">
+                  <div class="qq-thread-avatar" id="qqThreadHeaderAvatar"></div>
+                </div>
+                <div class="qq-thread-text-stack">
+                  <div class="qq-thread-name" id="qqThreadHeaderName">叶子</div>
+                  <div class="qq-thread-sub-typing" id="qqTypingText">在线</div>
+                </div>
               </div>
               <button class="qq-thread-video" id="openChatSettings" type="button" aria-label="会话设置">
                 <i class="fa-solid fa-bars"></i>
               </button>
             </div>
 
-            <div class="qq-thread-time">夜 8:22</div>
-
-              <div class="qq-thread-messages" id="qqThreadMessages"></div>
-
-            <div class="qq-thread-typing-text" id="qqTypingText">对方正在输入中...</div>
+            <div class="qq-thread-messages" id="qqThreadMessages"></div>
 
             <div class="qq-thread-compose">
-              <button class="qq-compose-round" id="openAttachMenu" type="button" aria-label="更多功能">
-                <i class="fa-solid fa-paperclip"></i>
+              <button class="qq-compose-heart-btn" id="openAttachMenu" type="button" aria-label="爱心功能菜单">
+                <i class="fa-solid fa-heart"></i>
               </button>
               <div class="qq-attach-menu" id="qqAttachMenu" aria-label="更多功能菜单">
                 <div class="qq-attach-menu-inner">
@@ -6678,40 +6775,37 @@
                   </div>
                 </div>
               </div>
-          <div class="qq-reply-preview" id="qqReplyPreview">
-            <span>正在回复这条消息</span>
-            <button class="qq-reply-cancel" id="cancelReplyMessage" type="button" aria-label="取消回复">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <input class="qq-compose-input" id="qqMessageInput" type="text" placeholder="그에게 메시지를 보내려면 클릭하세요!" autocomplete="off" />
-          <button class="qq-compose-round" id="qqRoleReply" type="button" aria-label="角色回复">
-            <i class="fa-solid fa-reply"></i>
-          </button>
-          <button class="qq-compose-round" id="qqSendMessage" type="button" aria-label="发送">
-            <i class="fa-solid fa-paper-plane"></i>
-          </button>
+              <div class="qq-reply-preview" id="qqReplyPreview">
+                <span>正在回复这条消息</span>
+                <button class="qq-reply-cancel" id="cancelReplyMessage" type="button" aria-label="取消回复">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <div class="qq-compose-card-strip">
+                <input class="qq-compose-input" id="qqMessageInput" type="text" placeholder="发送消息..." autocomplete="off" />
+                <button class="qq-compose-icon-btn" id="qqSendMessage" type="button" aria-label="发送" title="发送">
+                  <i class="fa-solid fa-music"></i>
+                </button>
+                <button class="qq-compose-icon-btn" id="qqRoleReply" type="button" aria-label="角色回复" title="角色回复">
+                  <i class="fa-solid fa-envelope"></i>
+                </button>
+              </div>
             </div>
           </section>
 
           <div class="qq-bottom-bar" aria-label="QQ 底部操作">
-            <div class="qq-nav-item active">
+            <div class="qq-nav-item active" data-nav-target="chats">
               <span class="qq-nav-dot"></span>
-              <i class="fa-regular fa-message"></i>
-              <span>消息</span>
+              <i class="fa-solid fa-paper-plane"></i>
             </div>
-            <div class="qq-nav-item">
+            <div class="qq-nav-item" data-nav-target="contacts">
+              <i class="fa-solid fa-user-group"></i>
+            </div>
+            <div class="qq-nav-item" data-nav-target="moments">
+              <i class="fa-regular fa-compass"></i>
+            </div>
+            <div class="qq-nav-item" data-nav-target="card">
               <i class="fa-regular fa-user"></i>
-              <span>好友</span>
-            </div>
-            <div class="qq-nav-item">
-              <span class="qq-nav-dot"></span>
-              <i class="fa-solid fa-circle-notch"></i>
-              <span>动态</span>
-            </div>
-            <div class="qq-nav-item">
-              <i class="fa-regular fa-id-card"></i>
-              <span>卡片</span>
             </div>
           </div>
         </div>
@@ -6724,18 +6818,23 @@
       <button class="moments-page-back" id="closeMomentComposer" type="button" aria-label="返回朋友圈">
         <i class="fa-solid fa-chevron-left"></i>
       </button>
-      <strong>发朋友圈</strong>
-      <button class="liquid-btn primary" id="postMyMoment" type="button">发布</button>
+      <strong>发动态</strong>
+      <div></div>
     </div>
     <div class="moments-compose-card">
       <div class="moments-compose-title">
         <i class="fa-regular fa-images"></i>
         <span>写一条我的动态</span>
       </div>
-      <textarea id="myMomentInput" placeholder="分享此刻想说的话。角色会在朋友圈里自然评论互动。"></textarea>
+      <textarea id="myMomentInput" placeholder="分享此刻想说的话。角色会在朋友圈里自然评论互动..."></textarea>
       <div class="moments-actions">
-        <button class="liquid-btn" id="cancelMomentComposer" type="button">取消</button>
-        <button class="liquid-btn" id="refreshMoments" type="button">刷新朋友圈</button>
+        <button class="ins-wide-btn primary" id="postMyMoment" type="button">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>发布动态</span>
+        </button>
+        <button class="ins-wide-btn" id="cancelMomentComposer" type="button">
+          <span>取消</span>
+        </button>
       </div>
     </div>
   </section>
@@ -6823,8 +6922,10 @@
           <input id="stickerGroupInput" type="text" placeholder="表情包分组，例如：撒娇 / 生气 / 日常" />
           <input id="stickerUrlInput" type="text" placeholder="图床链接，可粘贴图片 URL" />
           <input id="stickerNoteInput" type="text" placeholder="备注，例如：猫猫点头，表示同意" />
-          <input id="stickerFileInput" type="file" accept="image/*" />
-          <input id="stickerImportInput" type="file" accept=".txt,.doc,.docx,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+          <button class="card-mini-btn" id="triggerStickerFile" type="button">选择本地表情图片</button>
+          <input id="stickerFileInput" type="file" accept="image/*" style="display:none;" />
+          <button class="card-mini-btn" id="triggerStickerImport" type="button">选择 TXT / Word 批量文档</button>
+          <input id="stickerImportInput" type="file" accept=".txt,.doc,.docx,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none;" />
           <div class="card-form-actions">
             <button class="card-mini-btn" id="addStickerBtn" type="button">添加表情</button>
             <button class="card-mini-btn" id="importStickerBtn" type="button">识别导入文件</button>
@@ -6980,74 +7081,83 @@
   <section class="role-editor-modal" id="roleEditorModal" aria-label="创建角色弹窗">
     <div class="role-editor-card">
       <div class="role-editor-head">
-        <button class="beautify-back" id="closeRoleEditor" type="button" aria-label="返回">
+        <button class="qq-back" id="closeRoleEditor" type="button" aria-label="返回">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
-        <h3>创建角色</h3>
-        <button class="beautify-action" id="cancelRoleEditor" type="button" aria-label="关闭">
+        <h3>新建角色</h3>
+        <button class="qq-create-btn" id="cancelRoleEditor" type="button" aria-label="关闭">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
       <div class="role-editor-body">
+        <!-- 居中头像上传区 -->
+        <div class="ins-avatar-upload-section">
+          <div class="role-preview-avatar" id="rolePreviewAvatar" aria-label="选择头像">
+            <span class="role-preview-avatar-badge"><i class="fa-solid fa-camera"></i></span>
+          </div>
+          <span class="ins-avatar-hint" id="triggerRoleAvatarUpload">点击上传角色头像</span>
+          <input id="roleAvatarInput" type="file" accept="image/*" style="display:none;" />
+        </div>
+
         <div class="role-io-card">
-          <strong>导入角色文件</strong>
-          <span>导入保存过的人设文件后，会直接创建为新角色。聊天记录、账单、收藏和状态记忆不会随角色文件导入。</span>
-          <div class="single-action">
-            <button class="liquid-btn primary" type="button" onclick="document.querySelector('#importRolesInput')?.click()">导入角色文件</button>
+          <strong>导入角色配置文件</strong>
+          <span>支持直接导入 JSON 格式的人设卡片文件。</span>
+          <div class="single-action" style="margin-top:8px;">
+            <button class="ins-wide-btn" type="button" onclick="document.querySelector('#importRolesInput')?.click()">
+              <i class="fa-solid fa-file-import"></i>
+              <span>选择 JSON 文件</span>
+            </button>
           </div>
-          <input id="importRolesInput" type="file" accept="application/json" />
-          <div class="role-io-result" id="roleImportResult">支持单个角色 JSON 或包含 roles 数组的角色包。</div>
+          <input id="importRolesInput" type="file" accept="application/json" style="display:none;" />
+          <div class="role-io-result" id="roleImportResult">支持单角色 JSON 或包含 roles 的角色包。</div>
         </div>
-        <div class="field">
-          <label for="roleAvatarInput">角色头像</label>
-          <input id="roleAvatarInput" type="file" accept="image/*" />
-        </div>
-        <div class="role-preview">
-          <div class="role-preview-avatar" id="rolePreviewAvatar" aria-hidden="true"></div>
-          <div class="role-preview-copy">
-            <strong id="rolePreviewName">未命名角色</strong>
-            <span id="rolePreviewMeta">未设置性别</span>
-          </div>
-        </div>
+
         <div class="field">
           <label for="roleNameInput">角色名称</label>
           <input id="roleNameInput" type="text" placeholder="请输入角色名称" />
         </div>
+
         <div class="field">
           <label for="roleGenderInput">角色性别</label>
           <select id="roleGenderInput">
-            <option value="">请选择</option>
+            <option value="">请选择性别</option>
             <option value="男">男</option>
             <option value="女">女</option>
             <option value="非二元">非二元</option>
             <option value="保密">保密</option>
           </select>
         </div>
+
         <div class="field">
           <label for="roleGroupInput">角色分组</label>
           <select id="roleGroupInput">
             <option value="未分组">未分组</option>
           </select>
         </div>
+
         <div class="field">
           <label for="rolePersonaInput">角色详细人设</label>
           <textarea id="rolePersonaInput" placeholder="请输入角色的人设、性格、说话方式等"></textarea>
         </div>
+
         <div class="field">
           <label for="roleLocationInput">角色所在地（选填）</label>
           <input id="roleLocationInput" type="text" placeholder="例如：杭州 / 东京" />
         </div>
+
         <div class="field">
           <label for="roleBirthdayInput">角色生日（选填）</label>
           <input id="roleBirthdayInput" type="text" placeholder="例如：03-21" />
         </div>
+
         <div class="field">
           <label for="roleStoryInput">我和角色的经历（选填）</label>
-          <textarea id="roleStoryInput" placeholder="可以填写相识经过、共同经历等"></textarea>
+          <textarea id="roleStoryInput" placeholder="可填写相识经过、共同经历等"></textarea>
         </div>
+
         <div class="role-editor-actions">
-          <button class="liquid-btn" id="cancelRoleEditor" type="button">取消</button>
-          <button class="liquid-btn primary" id="saveRoleEditor" type="button">创建</button>
+          <button class="ins-wide-btn" id="cancelRoleEditorBtn" type="button">取消</button>
+          <button class="ins-wide-btn primary" id="saveRoleEditor" type="button">完成创建</button>
         </div>
       </div>
     </div>
@@ -7096,7 +7206,10 @@
             <div class="upload-item">
               <strong>上传感知图片</strong>
               <span>图片会保存到本地会话设置中，不会自动发送。</span>
-              <input id="chatAiImageInput" type="file" accept="image/*" />
+              <div class="single-action" style="margin-top:8px;">
+                <button class="liquid-btn" id="triggerChatAiImage" type="button">选择感知图片</button>
+                <input id="chatAiImageInput" type="file" accept="image/*" style="display:none;" />
+              </div>
             </div>
           </div>
           <div class="chat-ai-result" id="chatAiImageResult">尚未上传感知图片。</div>
@@ -7115,14 +7228,6 @@
           <div class="chat-toggle-row">
             <span>开启后，每条消息头像下方显示发送时刻，格式为 07:58:23。</span>
             <input id="chatAvatarTimestampToggle" type="checkbox" />
-          </div>
-        </div>
-
-        <div class="chat-setting-item">
-          <div class="chat-setting-title"><i class="fa-solid fa-check-double"></i> 已读标签功能</div>
-          <div class="chat-toggle-row">
-            <span>开启后在双方气泡旁显示已读/未读状态</span>
-            <input id="chatReadStatusToggle" type="checkbox" />
           </div>
         </div>
 
@@ -7148,7 +7253,10 @@
           <div class="upload-item">
             <strong>上传壁纸</strong>
             <span>仅作用于当前会话。</span>
-            <input id="chatWallpaperUpload" type="file" accept="image/*" />
+            <div class="single-action" style="margin-top:8px;">
+              <button class="liquid-btn" id="triggerChatWallpaper" type="button">选择壁纸图片</button>
+              <input id="chatWallpaperUpload" type="file" accept="image/*" style="display:none;" />
+            </div>
           </div>
           <div class="chat-wallpaper-actions">
             <button class="liquid-btn" id="removeChatWallpaper" type="button">移除壁纸</button>
@@ -7178,19 +7286,19 @@
           <div class="chat-setting-title"><i class="fa-solid fa-palette"></i> 设置双方气泡颜色</div>
           <div class="chat-color-row">
             <span>我的气泡</span>
-            <input id="chatSelfBubbleColor" type="color" value="#2e2e2e" />
+            <input id="chatSelfBubbleColor" type="color" value="#d6ecfa" />
           </div>
           <div class="chat-color-row" style="margin-top:10px;">
             <span>对方气泡</span>
-            <input id="chatFriendBubbleColor" type="color" value="#ffffff" />
+            <input id="chatFriendBubbleColor" type="color" value="#f0f2f5" />
           </div>
           <div class="chat-color-row" style="margin-top:10px;">
             <span>我的文字</span>
-            <input id="chatSelfTextColor" type="color" value="#ffffff" />
+            <input id="chatSelfTextColor" type="color" value="#2d3035" />
           </div>
           <div class="chat-color-row" style="margin-top:10px;">
             <span>对方文字</span>
-            <input id="chatFriendTextColor" type="color" value="#050505" />
+            <input id="chatFriendTextColor" type="color" value="#2d3035" />
           </div>
         </div>
 
@@ -7275,7 +7383,10 @@
           <div class="upload-item">
             <strong>头像图片</strong>
             <span>仅修改当前联系人头像，会同步聊天列表、状态卡与对话头像。</span>
-            <input id="chatRoleAvatarInput" type="file" accept="image/*" />
+            <div class="single-action" style="margin-top:8px;">
+              <button class="liquid-btn" id="triggerChatRoleAvatar" type="button">上传新头像</button>
+              <input id="chatRoleAvatarInput" type="file" accept="image/*" style="display:none;" />
+            </div>
           </div>
         </div>
 
@@ -7601,16 +7712,13 @@ The goal is not to produce "good writing" but to produce writing that feels true
     const dateText = document.querySelector("#dateText");
     const notePill = document.querySelector("#notePill");
     const settingsApp = document.querySelector("#settingsApp");
-    const beautifyApp = document.querySelector("#beautifyApp");
     const settingsPage = document.querySelector("#settingsPage");
-    const beautifyPage = document.querySelector("#beautifyPage");
     const qqPage = document.querySelector("#qqPage");
     const qqApp = document.querySelector("#qqApp");
     const cardPage = document.querySelector("#cardPage");
     const cardApp = document.querySelector("#cardApp");
     const closeCardPage = document.querySelector("#closeCardPage");
     const closeSettings = document.querySelector("#closeSettings");
-    const closeBeautify = document.querySelector("#closeBeautify");
     const closeQqPage = document.querySelector("#closeQqPage");
     const apiResult = document.querySelector("#apiResult");
     const settingsResult = document.querySelector("#settingsResult");
@@ -7792,9 +7900,12 @@ The goal is not to produce "good writing" but to produce writing that feels true
     const momentsProfileAvatar = document.querySelector("#momentsProfileAvatar");
     const momentsPostCount = document.querySelector("#momentsPostCount");
     const momentsRoleCount = document.querySelector("#momentsRoleCount");
-    const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
+    const momentsInteractionCount = document.querySelector("#momentsInteractionCount");
     const momentsHomeTitle = document.querySelector("#momentsHomeTitle");
+    const momentsHomeEmail = document.querySelector("#momentsHomeEmail");
     const momentsHomeSubtitle = document.querySelector("#momentsHomeSubtitle");
+    const momentsPageTitleText = document.querySelector("#momentsPageTitleText");
+    const triggerOpenMomentComposer = document.querySelector("#triggerOpenMomentComposer");
     const textEditorModal = document.querySelector("#textEditorModal");
     const textEditorTitle = document.querySelector("#textEditorTitle");
     const textEditorLabel = document.querySelector("#textEditorLabel");
@@ -7920,7 +8031,9 @@ The goal is not to produce "good writing" but to produce writing that feels true
         qqLyricLine3: "常用入口 · 更适合单手操作",
         qqFeatureArtImage: "",
         qqCoverThumbImage: "",
+        momentsPageTitle: "朋友圈",
         momentsHomeTitle: "CatPaw Moments",
+        momentsHomeEmail: "contact@catpaw.moments",
         momentsHomeSubtitle: "自动收集角色像真人一样随机发布的碎片，也可以进入发布页写自己的动态。",
         cardPageTitle: "我的猫爪名片",
         cardPageSubtitle: "资产、表情包与世界书都在这里整理",
@@ -8242,7 +8355,12 @@ The goal is not to produce "good writing" but to produce writing that feels true
       if (qqLyricLine1) qqLyricLine1.textContent = appState.theme.qqLyricLine1 || "";
       if (qqLyricLine2) qqLyricLine2.textContent = appState.theme.qqLyricLine2 || "";
       if (qqLyricLine3) qqLyricLine3.textContent = appState.theme.qqLyricLine3 || "";
+      if (momentsPageTitleText) momentsPageTitleText.textContent = appState.theme.momentsPageTitle || "朋友圈";
       if (momentsHomeTitle) momentsHomeTitle.textContent = appState.theme.momentsHomeTitle || "CatPaw Moments";
+      if (momentsHomeEmail) {
+        const emailSpan = momentsHomeEmail.querySelector("span");
+        if (emailSpan) emailSpan.textContent = appState.theme.momentsHomeEmail || "contact@catpaw.moments";
+      }
       if (momentsHomeSubtitle) momentsHomeSubtitle.textContent = appState.theme.momentsHomeSubtitle || "自动收集角色像真人一样随机发布的碎片，也可以进入发布页写自己的动态。";
       if (cardPageTitle) cardPageTitle.textContent = appState.theme.cardPageTitle || "我的猫爪名片";
       if (cardPageSubtitle) cardPageSubtitle.textContent = appState.theme.cardPageSubtitle || "资产、表情包与世界书都在这里整理";
@@ -8278,10 +8396,6 @@ The goal is not to produce "good writing" but to produce writing that feels true
       settingsApp.addEventListener("click", () => settingsPage.classList.add("show"));
     }
 
-    if (beautifyApp && beautifyPage) {
-      beautifyApp.addEventListener("click", () => beautifyPage.classList.add("show"));
-    }
-
     if (qqApp && qqPage) {
       qqApp.addEventListener("click", () => qqPage.classList.add("show"));
     }
@@ -8299,10 +8413,6 @@ The goal is not to produce "good writing" but to produce writing that feels true
 
     if (closeSettings && settingsPage) {
       closeSettings.addEventListener("click", () => settingsPage.classList.remove("show"));
-    }
-
-    if (closeBeautify && beautifyPage) {
-      closeBeautify.addEventListener("click", () => beautifyPage.classList.remove("show"));
     }
 
     if (closeQqPage && qqPage) {
@@ -8334,26 +8444,67 @@ The goal is not to produce "good writing" but to produce writing that feels true
 
     const qqNavItems = document.querySelectorAll(".qq-nav-item");
 
+    // Ins 主页风格中的搜索与按钮交互绑定
+    const triggerOpenRoleEditor = document.querySelector("#triggerOpenRoleEditor");
+    const triggerOpenCardApp = document.querySelector("#triggerOpenCardApp");
+    const qqContactSearchInput = document.querySelector("#qqContactSearchInput");
+    const qqHomeTabsTriggers = document.querySelectorAll(".qq-home-tab[data-panel-trigger]");
+
+    if (triggerOpenRoleEditor) {
+      triggerOpenRoleEditor.addEventListener("click", openRoleEditorModal);
+    }
+    if (triggerOpenCardApp) {
+      triggerOpenCardApp.addEventListener("click", () => {
+        renderCardPage();
+        if (cardPage) cardPage.classList.add("show");
+      });
+    }
+    if (qqHomeTabsTriggers.length) {
+      qqHomeTabsTriggers.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          qqHomeTabsTriggers.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          const targetPanel = tab.dataset.panelTrigger;
+          if (targetPanel) showQqPanel(targetPanel);
+        });
+      });
+    }
+    if (qqContactSearchInput) {
+      qqContactSearchInput.addEventListener("input", () => {
+        const keyword = qqContactSearchInput.value.trim().toLowerCase();
+        const chatRows = document.querySelectorAll(".qq-chat-row");
+        chatRows.forEach((row) => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = text.includes(keyword) ? "" : "none";
+        });
+      });
+    }
+
     if (qqNavItems.length) {
-      qqNavItems.forEach((item, index) => {
+      qqNavItems.forEach((item) => {
         item.addEventListener("click", () => {
           qqNavItems.forEach((nav) => nav.classList.remove("active"));
           item.classList.add("active");
 
-          if (index === 0) {
+          const target = item.dataset.navTarget;
+          if (target === "chats") {
             showQqPanel("qqPanelChats");
-          }
-
-          if (index === 1) {
+            const tabBtn = document.querySelector('[data-panel-trigger="qqPanelChats"]');
+            if (tabBtn) {
+              qqHomeTabsTriggers.forEach((t) => t.classList.remove("active"));
+              tabBtn.classList.add("active");
+            }
+          } else if (target === "contacts") {
             showQqPanel("qqPanelContacts");
-          }
-
-          if (index === 2) {
+            const tabBtn = document.querySelector('[data-panel-trigger="qqPanelContacts"]');
+            if (tabBtn) {
+              qqHomeTabsTriggers.forEach((t) => t.classList.remove("active"));
+              tabBtn.classList.add("active");
+            }
+          } else if (target === "moments") {
             showQqPanel("qqPanelMoments");
             renderMoments();
-          }
-
-          if (index === 3) {
+          } else if (target === "card") {
             renderCardPage();
             if (cardPage) cardPage.classList.add("show");
           }
@@ -8550,6 +8701,34 @@ The goal is not to produce "good writing" but to produce writing that feels true
     bindSingleImageUpload("memoryRightUpload", "memoryRightImage", (src) => applyCoverImage(memoryRightCard, memoryRightFallback, src), beautifyResult, "天气卡 3 已保存。");
     bindSingleImageUpload("midThumbOneUpload", "midThumbOneImage", (src) => applyCoverImage(midThumbOne, null, src), beautifyResult, "底部大卡图片 1 已保存。");
     bindSingleImageUpload("midThumbTwoUpload", "midThumbTwoImage", (src) => applyCoverImage(midThumbTwo, null, src), beautifyResult, "底部大卡图片 2 已保存。");
+
+    // 大圆角长条按键触发隐藏的文件 input[type=file]
+    const fileTriggerMap = [
+      { btnId: "triggerBgUpload", inputId: "bgUpload" },
+      { btnId: "triggerAvatarUpload", inputId: "avatarUpload" },
+      { btnId: "triggerAlbumUpload", inputId: "albumUpload" },
+      { btnId: "triggerMemoryUpload", inputId: "memoryUpload" },
+      { btnId: "triggerMemoryRightUpload", inputId: "memoryRightUpload" },
+      { btnId: "triggerMemoryLeftUpload", inputId: "memoryLeftUpload" },
+      { btnId: "triggerMidThumbOneUpload", inputId: "midThumbOneUpload" },
+      { btnId: "triggerMidThumbTwoUpload", inputId: "midThumbTwoUpload" },
+      { btnId: "triggerIconSettingsUpload", inputId: "iconSettingsUpload" },
+      { btnId: "triggerIconTodo1Upload", inputId: "iconTodo1Upload" },
+      { btnId: "triggerIconTodo2Upload", inputId: "iconTodo2Upload" },
+      { btnId: "triggerImportTheme", inputId: "importThemeInput" },
+      { btnId: "triggerImportAppData", inputId: "importAppDataInput" },
+      { btnId: "triggerChatAiImage", inputId: "chatAiImageInput" },
+      { btnId: "triggerChatWallpaper", inputId: "chatWallpaperUpload" },
+      { btnId: "triggerChatRoleAvatar", inputId: "chatRoleAvatarInput" }
+    ];
+
+    fileTriggerMap.forEach(({ btnId, inputId }) => {
+      const btn = document.querySelector(`#${btnId}`);
+      const input = document.querySelector(`#${inputId}`);
+      if (btn && input) {
+        btn.addEventListener("click", () => input.click());
+      }
+    });
 
     function bindQqEditableText(element, config) {
       if (!element) return;
@@ -8749,12 +8928,12 @@ The goal is not to produce "good writing" but to produce writing that feels true
         boundStickerGroups: [],
         boundWorldBookGroups: [],
         wallpaper: "",
-        avatarSize: 40,
-        avatarRadius: 50,
-        selfBubbleColor: "#2e2e2e",
-        friendBubbleColor: "#ffffff",
-        selfTextColor: "#ffffff",
-        friendTextColor: "#050505",
+        avatarSize: 30,
+        avatarRadius: 10,
+        selfBubbleColor: "#d6ecfa",
+        friendBubbleColor: "#f0f2f5",
+        selfTextColor: "#2d3035",
+        friendTextColor: "#2d3035",
         chatFontId: "",
         favorites: [],
         statusHistory: [],
@@ -8819,27 +8998,42 @@ The goal is not to produce "good writing" but to produce writing that feels true
       qqThreadPanel.classList.toggle("timestamp-visible", !!settings.showAvatarTimestamp);
       qqThreadPanel.style.setProperty("--chat-avatar-size", `${settings.avatarSize}px`);
       qqThreadPanel.style.setProperty("--chat-avatar-radius", `${settings.avatarRadius}%`);
-      qqThreadPanel.style.setProperty("--self-bubble-color", settings.selfBubbleColor || "#2e2e2e");
-      qqThreadPanel.style.setProperty("--friend-bubble-color", settings.friendBubbleColor || "#ffffff");
-      qqThreadPanel.style.setProperty("--self-text-color", settings.selfTextColor || "#ffffff");
-      qqThreadPanel.style.setProperty("--friend-text-color", settings.friendTextColor || "#050505");
+      qqThreadPanel.style.setProperty("--self-bubble-color", (settings.selfBubbleColor && settings.selfBubbleColor !== "#2e2e2e" && settings.selfBubbleColor !== "#a0e0fc") ? settings.selfBubbleColor : "#d6ecfa");
+      qqThreadPanel.style.setProperty("--friend-bubble-color", settings.friendBubbleColor || "#f0f2f5");
+      qqThreadPanel.style.setProperty("--self-text-color", settings.selfTextColor || "#2d3035");
+      qqThreadPanel.style.setProperty("--friend-text-color", settings.friendTextColor || "#2d3035");
       const activeFont = getCustomFontById(settings.chatFontId);
       qqThreadPanel.style.fontFamily = activeFont ? `"${activeFont.family}", "Noto Sans TC", "Noto Sans SC", "PingFang SC", sans-serif` : "";
 
+      const threadMessages = document.querySelector("#qqThreadMessages");
       if (settings.wallpaper) {
-        qqThreadPanel.style.backgroundImage = `linear-gradient(rgba(232, 232, 232, 0.34), rgba(232, 232, 232, 0.34)), url(${settings.wallpaper})`;
-        qqThreadPanel.style.backgroundColor = "";
+        qqThreadPanel.style.setProperty("background-image", `url(${settings.wallpaper})`, "important");
+        qqThreadPanel.style.setProperty("background-size", "cover", "important");
+        qqThreadPanel.style.setProperty("background-position", "center", "important");
+        qqThreadPanel.style.setProperty("background-repeat", "no-repeat", "important");
+        if (threadMessages) {
+          threadMessages.style.setProperty("background", "transparent", "important");
+        }
       } else {
-        qqThreadPanel.style.backgroundImage = "none";
-        qqThreadPanel.style.backgroundColor = "#f7f7f5";
+        qqThreadPanel.style.removeProperty("background-image");
+        qqThreadPanel.style.removeProperty("background-size");
+        qqThreadPanel.style.removeProperty("background-position");
+        qqThreadPanel.style.removeProperty("background-repeat");
+        if (threadMessages) {
+          threadMessages.style.removeProperty("background");
+        }
       }
     }
 
     function setThreadHeader(name, avatar) {
-      if (qqThreadName) {
-        qqThreadName.innerHTML = `${name || "叶子"} <i class="fa-solid fa-chevron-right"></i>`;
+      const headerName = document.querySelector("#qqThreadHeaderName");
+      if (headerName) {
+        headerName.textContent = name || "叶子";
       }
-      setAvatarElementImage(qqThreadAvatar, avatar || "");
+      const headerAvatar = document.querySelector("#qqThreadHeaderAvatar");
+      if (headerAvatar) {
+        setAvatarElementImage(headerAvatar, avatar || "");
+      }
     }
 
     function getMessageId(item) {
@@ -9169,20 +9363,12 @@ The goal is not to produce "good writing" but to produce writing that feels true
           bubble.appendChild(content);
         }
 
-        const status = document.createElement("span");
-        status.className = "qq-read-status";
-        status.textContent = isFriend
-          ? (item.read === false ? "未读" : "已读")
-          : (item.read ? "已读" : "未读");
-
         bindMessageLongPress(bubble, messageId);
 
         if (isFriend) {
           row.appendChild(avatarStack);
           row.appendChild(bubble);
-          if (settings.showReadStatus) row.appendChild(status);
         } else {
-          if (settings.showReadStatus) row.appendChild(status);
           row.appendChild(bubble);
           row.appendChild(avatarStack);
         }
@@ -9259,6 +9445,51 @@ The goal is not to produce "good writing" but to produce writing that feels true
       return button;
     }
 
+    function renderInsHighlights() {
+      const highlightsStrip = document.querySelector("#insHighlightsStrip");
+      if (!highlightsStrip) return;
+      ensureQqState();
+      highlightsStrip.innerHTML = "";
+
+      const roles = Array.isArray(appState.qq?.roles) ? appState.qq.roles : [];
+
+      if (!roles.length) {
+        highlightsStrip.innerHTML = `
+          <div class="ins-highlight-item">
+            <div class="ins-highlight-circle"><div class="ins-highlight-avatar"></div></div>
+            <span>暂无联系人</span>
+          </div>
+        `;
+        return;
+      }
+
+      roles.forEach((role) => {
+        const item = document.createElement("div");
+        item.className = "ins-highlight-item";
+        item.innerHTML = `
+          <div class="ins-highlight-circle">
+            <div class="ins-highlight-avatar"></div>
+          </div>
+          <span>${role.name || "角色"}</span>
+        `;
+
+        const avatarNode = item.querySelector(".ins-highlight-avatar");
+        setAvatarElementImage(avatarNode, role.avatar || "");
+
+        item.addEventListener("click", () => {
+          if (!Array.isArray(role.messages)) role.messages = [];
+          appState.qq.activeChatId = role.id || role.name || "default";
+          chatHistoryVisibleCounts.set(appState.qq.activeChatId, 25);
+          applyActiveChatSettings();
+          renderThreadMessages(role.messages);
+          showQqPanel("qqPanelThread");
+          saveState();
+        });
+
+        highlightsStrip.appendChild(item);
+      });
+    }
+
     function renderChatList() {
       if (!qqChatList) return;
       qqChatList.innerHTML = "";
@@ -9308,16 +9539,6 @@ The goal is not to produce "good writing" but to produce writing that feels true
           option.value = groupName;
           option.textContent = groupName;
           roleGroupInput.appendChild(option);
-        });
-      }
-
-      if (momentRoleSelect) {
-        momentRoleSelect.innerHTML = '<option value="">选择角色生成动态</option>';
-        appState.qq.roles.forEach((role) => {
-          const option = document.createElement("option");
-          option.value = getRoleId(role);
-          option.textContent = role.name || "未命名角色";
-          momentRoleSelect.appendChild(option);
         });
       }
     }
@@ -9439,7 +9660,6 @@ The goal is not to produce "good writing" but to produce writing that feels true
             <div class="qq-contact-avatar" aria-hidden="true"></div>
             <div class="qq-contact-copy">
               <strong>${role.name || "未命名角色"} <i class="fa-solid ${genderIcon} qq-gender"></i></strong>
-              <p>${role.persona || "已创建角色名片"}</p>
             </div>
             <div class="qq-role-actions">
               <select class="qq-role-group-select" aria-label="移动分组">${options}</select>
@@ -9471,7 +9691,17 @@ The goal is not to produce "good writing" but to produce writing that feels true
 
       if (qqSpecialCount) qqSpecialCount.textContent = String(groups.length);
       if (qqAllCount) qqAllCount.textContent = String(roles.length);
+
+      // Ins 个人主页 Header 动态数据更新
+      const insUserAvatar = document.querySelector("#insUserAvatar");
+      const insChatCountNum = document.querySelector("#insChatCountNum");
+      const insRoleCountNum = document.querySelector("#insRoleCountNum");
+      if (insUserAvatar) setAvatarElementImage(insUserAvatar, appState.theme.avatarImage || "");
+      if (insChatCountNum) insChatCountNum.textContent = String(roles.reduce((acc, r) => acc + (r.messages?.length || 0), 0));
+      if (insRoleCountNum) insRoleCountNum.textContent = String(roles.length);
+
       setAvatarElementImage(defaultContactAvatar, "");
+      renderInsHighlights();
       renderChatList();
       renderMoments();
       renderCardPage();
@@ -10163,12 +10393,24 @@ The goal is not to produce "good writing" but to produce writing that feels true
     }
 
     function parseRoleReplyReferenceCommand(text) {
-      const match = String(text || "").match(/^\s*[\[【]?\s*(?:回复消息|引用回复|针对消息)\s*[:：]\s*(msg_[^:：\]】\s]+)\s*[:：]\s*([\s\S]+?)\s*[\]】]?\s*$/);
-      if (!match) return null;
-      return {
-        replyTo: match[1],
-        text: match[2]?.trim() || ""
-      };
+      const match = String(text || "").match(/^\s*[\[【]?\s*(?:回复消息|引用回复|针对消息)\s*[:：]\s*(msg_[^:：\]】\s]+)\s*[:：]\s*([\s\S]+?)\s*[\]】]?\s*$/i);
+      if (match) {
+        return {
+          replyTo: match[1],
+          text: cleanRoleReplyText(match[2])
+        };
+      }
+
+      // 兼容非标准引用格式，例如 "引用：msg_123 没惹你..."
+      const altMatch = String(text || "").match(/(?:引用|针对消息)\s*[:：]\s*(msg_[a-zA-Z0-9_]+)[\s;；:]+([\s\S]+)/i);
+      if (altMatch) {
+        return {
+          replyTo: altMatch[1],
+          text: cleanRoleReplyText(altMatch[2])
+        };
+      }
+
+      return null;
     }
 
     function cleanRoleReplyText(text) {
@@ -10176,36 +10418,30 @@ The goal is not to produce "good writing" but to produce writing that feels true
 
       if (!line) return "";
 
-      const metadataContentReg = /[\[【]?\s*(?:消息\s*)?ID\s*[:：]\s*msg_[^;；\]】\s]+[;；]\s*发送方\s*[:：]\s*(?:assistant|user|角色|对方|我)[;；]\s*内容\s*[:：]\s*([\s\S]*?)(?=(?:[\[【]?\s*(?:消息\s*)?ID\s*[:：]\s*msg_)|[\]】]\s*$|$)/gi;
-      const metadataContents = Array.from(line.matchAll(metadataContentReg))
-        .map((match) => String(match[1] || "").replace(/^[\s\[【]+|[\s\]】]+$/g, "").trim())
-        .filter(Boolean);
-
-      if (metadataContents.length) {
-        return metadataContents.map((item) => cleanRoleReplyText(item)).filter(Boolean).join("\n");
-      }
-
-      const quoteContentMatch = line.match(/^[\s\[【]*(?:引用|回复|针对|引用回复|回复引用)\s*[:：][\s\S]*?[;；]\s*内容\s*[:：]\s*([\s\S]+?)[\]】\s]*$/i);
-      if (quoteContentMatch) {
-        return cleanRoleReplyText(quoteContentMatch[1]);
-      }
-
+      // 1. 如果是标准的命令格式（转账、处理转账、朋友圈等），保留原样供后续解析
       if (/^\s*[\[【]?\s*(?:回复消息|引用回复|针对消息|转账|处理转账|转账处理|收款决定|朋友圈|动态)\s*[:：]/.test(line)) {
         return line;
       }
 
+      // 2. 剥离类似 "引用：我：没谁惹我；内容：没惹你..." 或 "引用：xxx 内容：xxx" 的泄漏标记
+      const inlineQuoteMatch = line.match(/(?:引用|回复|针对)\s*[:：][\s\S]*?(?:[;；\n]|\s+)\s*内容\s*[:：]\s*([\s\S]+)/i);
+      if (inlineQuoteMatch && inlineQuoteMatch[1]) {
+        line = inlineQuoteMatch[1].trim();
+      }
+
+      // 3. 剥离上下文注入的格式碎片（如复读用户文本后遗留的右方括号 ']'，例如 "老公给我亲亲...]隔着屏幕..."）
+      line = line.replace(/^[^\[\]\n\r]*[\]】]\s*/, "");
+
+      // 4. 清理残存的 ID/发送方 等元数据标记
+      const metadataContentReg = /[\[【]?\s*(?:消息\s*)?ID\s*[:：]\s*msg_[^;；\]】\s]+[;；]?\s*(?:发送方\s*[:：]\s*(?:assistant|user|角色|对方|我)[;；]?)?\s*(?:内容\s*[:：]\s*)?/gi;
+      line = line.replace(metadataContentReg, "");
+
+      // 5. 清理前缀符号和多余标点
       line = line
         .replace(/^\s*[-*•\d.、）)]+\s*/, "")
+        .replace(/^(?:引用|回复|针对|内容)\s*[:：]\s*/i, "")
         .replace(/^[\s\[【]+|[\s\]】]+$/g, "")
-        .trim();
-
-      line = line
-        .replace(/(?:消息\s*)?ID\s*[:：]\s*msg_[^;；\]】\s]+[;；]?\s*/gi, "")
-        .replace(/发送方\s*[:：]\s*(?:assistant|user|角色|对方|我)[;；]?\s*/gi, "")
-        .replace(/^(?:引用|回复|针对|引用回复|回复引用)\s*[:：][\s\S]*?[;；]\s*内容\s*[:：]\s*/i, "")
-        .replace(/^内容\s*[:：]\s*/i, "")
         .replace(/^\s*[:：;；]+\s*/, "")
-        .replace(/^[\s\[【]+|[\s\]】]+$/g, "")
         .trim();
 
       if (/^(?:消息\s*)?ID\s*[:：]/i.test(line)) return "";
@@ -10319,15 +10555,13 @@ The goal is not to produce "good writing" but to produce writing that feels true
       momentsList.innerHTML = "";
 
       setAvatarElementImage(momentsProfileAvatar, appState.theme.avatarImage || "");
-      if (momentsPostCount) momentsPostCount.textContent = String(appState.qq.moments.length);
-      if (momentsRoleCount) momentsRoleCount.textContent = String(appState.qq.roles.length);
-      if (momentsAutoStatus) {
-        momentsAutoStatus.textContent = appState.qq.roles.length
-          ? "角色会在回复中自行决定是否发动态"
-          : "创建角色后可在聊天中触发动态";
-      }
-
       const allMoments = Array.isArray(appState.qq.moments) ? appState.qq.moments : [];
+      const totalComments = allMoments.reduce((acc, m) => acc + (m.comments?.length || 0), 0);
+
+      if (momentsPostCount) momentsPostCount.textContent = String(allMoments.length);
+      if (momentsRoleCount) momentsRoleCount.textContent = String(appState.qq.roles.length);
+      if (momentsInteractionCount) momentsInteractionCount.textContent = String(totalComments);
+
       const hiddenMomentCount = Math.max(0, allMoments.length - 20);
       const moments = momentsHistoryExpanded ? allMoments : allMoments.slice(0, 20);
 
@@ -10348,7 +10582,7 @@ The goal is not to produce "good writing" but to produce writing that feels true
       if (!allMoments.length) {
         const empty = document.createElement("div");
         empty.className = "favorite-message-empty";
-        empty.textContent = "还没有动态。你可以先发布一条，或让角色根据聊天记忆主动发动态。";
+        empty.textContent = "还没有动态。你可以发布一条，或在与角色聊天时触发他发动态。";
         momentsList.appendChild(empty);
         return;
       }
@@ -10365,7 +10599,9 @@ The goal is not to produce "good writing" but to produce writing that feels true
 
         card.innerHTML = `
           <div class="moment-author">
-            <div class="moment-avatar" aria-hidden="true"></div>
+            <div class="moment-avatar-box">
+              <div class="moment-avatar"></div>
+            </div>
             <div class="moment-author-copy">
               <strong>${authorName}</strong>
               <small>${moment.createdAt || ""}</small>
@@ -10377,10 +10613,9 @@ The goal is not to produce "good writing" but to produce writing that feels true
           <div class="moment-text">${moment.text || ""}</div>
           <div class="moment-comments"></div>
           <div class="moment-comment-box">
-            <input class="moment-comment-input" type="text" placeholder="写评论 / 回复动态" />
+            <input class="moment-comment-input" type="text" placeholder="发送评论（角色会自动回复）..." />
             <div class="moment-comment-actions">
-              <button class="liquid-btn" type="button" data-moment-action="self-comment">我评论</button>
-              <button class="liquid-btn primary" type="button" data-moment-action="role-comment">角色回复</button>
+              <button class="ins-wide-btn primary" type="button" data-moment-action="send-comment" style="grid-column: 1 / -1;">发送评论</button>
             </div>
           </div>
         `;
@@ -10395,19 +10630,42 @@ The goal is not to produce "good writing" but to produce writing that feels true
           commentsNode.appendChild(row);
         });
 
+        const handleSendComment = async () => {
+          const input = card.querySelector(".moment-comment-input");
+          const text = input?.value.trim() || "";
+          if (!text) return;
+
+          // 1. 添加用户的评论
+          await addSelfMomentComment(moment.id, text);
+          if (input) input.value = "";
+
+          // 2. 自动触发角色进行上下文记忆连贯的回复
+          await generateRoleMomentComment(moment.id, text);
+        };
+
+        const commentInput = card.querySelector(".moment-comment-input");
+        if (commentInput) {
+          commentInput.addEventListener("keydown", async (event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              await handleSendComment();
+            }
+          });
+        }
+
         card.addEventListener("click", async (event) => {
           const actionBtn = event.target.closest("[data-moment-action]");
           if (!actionBtn) return;
-          const input = card.querySelector(".moment-comment-input");
-          if (actionBtn.dataset.momentAction === "self-comment") {
-            await addSelfMomentComment(moment.id, input?.value.trim() || "");
+          const action = actionBtn.dataset.momentAction;
+
+          if (action === "send-comment" || action === "self-comment") {
+            await handleSendComment();
+          } else if (action === "role-comment") {
+            const input = card.querySelector(".moment-comment-input");
+            const text = input?.value.trim() || "";
+            await generateRoleMomentComment(moment.id, text);
             if (input) input.value = "";
-          }
-          if (actionBtn.dataset.momentAction === "role-comment") {
-            await generateRoleMomentComment(moment.id, input?.value.trim() || "");
-            if (input) input.value = "";
-          }
-          if (actionBtn.dataset.momentAction === "delete") {
+          } else if (action === "delete") {
             await deleteMomentById(moment.id);
           }
         });
@@ -10587,23 +10845,27 @@ The goal is not to produce "good writing" but to produce writing that feels true
       const moment = appState.qq.moments.find((item) => item.id === momentId);
       if (!moment) return;
 
+      // 智能选取回复的角色：动态原角色 -> 当前活跃聊天角色 -> 列表中第一个角色
       let role = moment.roleId ? getMomentRoleById(moment.roleId) : null;
-      if (!role) {
-        const roleId = momentRoleSelect?.value || "";
-        role = getMomentRoleById(roleId);
+      if (!role && appState.qq.activeChatId && appState.qq.activeChatId !== "default") {
+        role = getMomentRoleById(appState.qq.activeChatId);
       }
       if (!role) {
-        window.alert("请先在下拉框选择一个要回复/评论的角色。");
+        role = appState.qq.roles[0] || null;
+      }
+
+      if (!role) {
+        window.alert("暂无可用角色进行评论，请先在好友列表创建角色。");
         return;
       }
 
       try {
         const existingComments = (moment.comments || []).map((item) => `${item.authorName || "我"}：${item.text || ""}`).join("\n");
         const prompt = [
-          "你要以角色本人身份在朋友圈/动态下评论或回复。",
+          "你要以角色本人身份在朋友圈/动态下回复评论。",
           `当前调用模型：${appState.api.modelName || "未知模型"}`,
-          "核心目标：评论要像真人在评论区互动，短、准、有关系感，同时严格符合角色人设和说话方式，不 OOC，不提 AI，不旁白。",
-          "先判断：这条动态是谁发的、角色和对方是什么关系、角色看到后第一反应是什么。回复必须从这个第一反应出发，而不是从规则或模板出发。",
+          "核心目标：评论要像真人在评论区互动，短、准、有关系感，同时严格符合角色人设、与用户的特定对话记忆，不 OOC，不提 AI，不旁白。",
+          "上下文记忆感知：你拥有与用户的聊天记忆、共同经历、绑定的世界书以及本条动态的所有历史评论。如果用户的评论或动态提及了你们之前聊过的事、梗或约定，你必须自然呼应，绝对不能装作不知情。",
           "模型适配：如果是 Gemini，避免土味霸总、油腻调戏、超雄发疯、复读 user、车轱辘话和没必要的解释。不要把所有角色都写成同一种控制狂或低魅力嘴臭人。",
           "模型适配：如果是 Claude，避免过度圆滑、过度共情、过度总结。可以有停顿、别扭、吃醋、不满、嘴硬或轻微冲突，但要像真人，不要像安全回复范文。",
           "不要为了礼貌把角色软化。角色可以冷、酸、倔、拧巴、吃醋、闹情绪，也可以不完全顺着 user；但冲突必须有角色逻辑和生活感，不能变成威胁、管教、PUA 或俗套霸总语录。",
@@ -10612,8 +10874,8 @@ The goal is not to produce "good writing" but to produce writing that feels true
           getRoleMemoryText(role),
           `动态作者：${moment.authorType === "self" ? "我" : (moment.authorName || role.name)}`,
           `动态正文：${moment.text || ""}`,
-          `已有评论：\n${existingComments || "暂无"}`,
-          `我刚刚输入的评论/想互动的话：${myComment || "未填写"}`
+          `已有评论上下文：\n${existingComments || "暂无"}`,
+          `用户最新的评论：${myComment || "未填写"}`
         ].join("\n");
 
         const text = await callChatCompletion([
@@ -10634,7 +10896,7 @@ The goal is not to produce "good writing" but to produce writing that feels true
         renderMoments();
         await saveState();
       } catch (error) {
-        window.alert(`角色评论失败：${error.message}`);
+        window.alert(`角色回复失败：${error.message}`);
       }
     }
 
@@ -10663,13 +10925,12 @@ The goal is not to produce "good writing" but to produce writing that feels true
     function showRoleTypingIndicator() {
       if (!qqTypingText) return;
       const base = getCurrentChatBase();
-      qqTypingText.textContent = `${getChatDisplayName(base)} 正在输入中...`;
-      qqTypingText.classList.add("show");
+      qqTypingText.textContent = `${getChatDisplayName(base)} 正在输入…`;
     }
 
     function hideRoleTypingIndicator() {
       if (!qqTypingText) return;
-      qqTypingText.classList.remove("show");
+      qqTypingText.textContent = "在线";
     }
 
     function parseRoleStatusJson(text) {
@@ -10932,7 +11193,7 @@ The goal is not to produce "good writing" but to produce writing that feels true
         "6. 如果上文已经围绕睡觉、熬夜、作息说过一次，下一次回复必须换角度：可以接情绪、关系、玩笑、沉默、反问、轻描淡写，不要继续车轱辘催睡。",
         "7. 不要输出括号动作描写，不要解释自己为什么这么说，不要说自己是 AI。",
         "8. 回复长度按角色和上下文决定：最少回复1条消息，也可以回复2到4条短消息；多条消息每条单独一行，不加序号、项目符号、引号或 JSON。",
-        "9. 如果你想针对 user 的某一条消息单独回复，只能独占一行输出 [回复消息:消息ID:回复内容]。不要输出「引用:……；内容:……」这种格式，不要把引用元数据写进正文。消息ID 会在聊天记录里标出，回复内容仍然必须像真人聊天。",
+        "9. 如果你想针对 user 的某一条消息单独回复，只能独占一行输出 [回复消息:消息ID:回复内容]。严禁输出「引用：...；内容：...」或在回复文本里带「内容：」、「引用：」等格式词！也不要把上下文里的括号、消息ID或右方括号 ']' 抄进回复正文中！消息ID 会在聊天记录里标出，回复内容必须是干净的真人话语。",
         "10. 如果角色自愿主动转账，可以独占一行输出 [转账:金额:备注]；如果聊天记录里有 user 给你的待处理转账，你必须由角色本人按人设和关系决定接收或退还：接收时独占一行输出 [处理转账:接收]，退还时独占一行输出 [处理转账:退还:原因]，不要让 user 替你决定。",
         "11. 如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。"
       ].join("\n");
@@ -11124,7 +11385,7 @@ The goal is not to produce "good writing" but to produce writing that feels true
 
     if (postMyMoment) postMyMoment.addEventListener("click", addSelfMoment);
     if (refreshMoments) refreshMoments.addEventListener("click", renderMoments);
-    if (generateRoleMoment) generateRoleMoment.addEventListener("click", () => generateRoleMomentPost());
+    if (triggerOpenMomentComposer) triggerOpenMomentComposer.addEventListener("click", openMomentComposerPage);
     if (closeMomentsPage) closeMomentsPage.addEventListener("click", () => showQqPanel("qqPanelChats"));
     if (openMomentComposer) openMomentComposer.addEventListener("click", openMomentComposerPage);
     if (closeMomentComposer) closeMomentComposer.addEventListener("click", closeMomentComposerPage);
@@ -11591,6 +11852,25 @@ The goal is not to produce "good writing" but to produce writing that feels true
     if (cancelTransfer) cancelTransfer.addEventListener("click", closeTransferDialog);
     if (sendTransfer) sendTransfer.addEventListener("click", sendTransferToRole);
 
+    const triggerStickerFile = document.querySelector("#triggerStickerFile");
+    const triggerStickerImport = document.querySelector("#triggerStickerImport");
+
+    if (triggerStickerFile && stickerFileInput) {
+      triggerStickerFile.addEventListener("click", () => stickerFileInput.click());
+      stickerFileInput.addEventListener("change", () => {
+        const file = stickerFileInput.files?.[0];
+        triggerStickerFile.textContent = file ? `已选图片: ${file.name}` : "选择本地表情图片";
+      });
+    }
+
+    if (triggerStickerImport && stickerImportInput) {
+      triggerStickerImport.addEventListener("click", () => stickerImportInput.click());
+      stickerImportInput.addEventListener("change", () => {
+        const file = stickerImportInput.files?.[0];
+        triggerStickerImport.textContent = file ? `已选文档: ${file.name}` : "选择 TXT / Word 批量文档";
+      });
+    }
+
     if (addStickerBtn) {
       addStickerBtn.addEventListener("click", async () => {
         const file = stickerFileInput?.files?.[0];
@@ -11598,6 +11878,7 @@ The goal is not to produce "good writing" but to produce writing that feels true
           readImage(file, async (src) => {
             await addStickerFromValues(src, stickerNoteInput?.value || "", stickerGroupInput?.value || "默认");
             if (stickerFileInput) stickerFileInput.value = "";
+            if (triggerStickerFile) triggerStickerFile.textContent = "选择本地表情图片";
           });
         } else {
           await addStickerFromValues(stickerUrlInput?.value || "", stickerNoteInput?.value || "", stickerGroupInput?.value || "默认");
@@ -11607,7 +11888,13 @@ The goal is not to produce "good writing" but to produce writing that feels true
       });
     }
 
-    if (importStickerBtn) importStickerBtn.addEventListener("click", importStickerFile);
+    if (importStickerBtn) {
+      importStickerBtn.addEventListener("click", async () => {
+        await importStickerFile();
+        if (stickerImportInput) stickerImportInput.value = "";
+        if (triggerStickerImport) triggerStickerImport.textContent = "选择 TXT / Word 批量文档";
+      });
+    }
     if (addWorldBookBtn) addWorldBookBtn.addEventListener("click", addWorldBookEntry);
     if (openAttachMenu && qqAttachMenu) {
       openAttachMenu.addEventListener("click", (event) => {
@@ -11898,6 +12185,18 @@ The goal is not to produce "good writing" but to produce writing that feels true
       label: "请输入朋友圈主页名称"
     });
 
+    bindQqEditableText(momentsHomeEmail, {
+      target: "momentsHomeEmail",
+      title: "编辑邮箱文案",
+      label: "请输入 Ins 邮箱装饰文案"
+    });
+
+    bindQqEditableText(momentsPageTitleText, {
+      target: "momentsPageTitle",
+      title: "编辑朋友圈标题",
+      label: "请输入朋友圈顶部标题"
+    });
+
     bindQqEditableText(momentsHomeSubtitle, {
       target: "momentsHomeSubtitle",
       title: "编辑朋友圈说明",
@@ -11983,6 +12282,9 @@ The goal is not to produce "good writing" but to produce writing that feels true
     if (roleNameInput) roleNameInput.addEventListener("input", updateRolePreview);
     if (roleGenderInput) roleGenderInput.addEventListener("change", updateRolePreview);
 
+    const triggerRoleAvatarUpload = document.querySelector("#triggerRoleAvatarUpload");
+    const cancelRoleEditorBtn = document.querySelector("#cancelRoleEditorBtn");
+
     if (roleAvatarInput) {
       roleAvatarInput.addEventListener("change", (event) => {
         const file = event.target.files?.[0];
@@ -11993,9 +12295,18 @@ The goal is not to produce "good writing" but to produce writing that feels true
       });
     }
 
+    if (triggerRoleAvatarUpload && roleAvatarInput) {
+      triggerRoleAvatarUpload.addEventListener("click", () => roleAvatarInput.click());
+    }
+
+    if (rolePreviewAvatar && roleAvatarInput) {
+      rolePreviewAvatar.addEventListener("click", () => roleAvatarInput.click());
+    }
+
     if (openRoleEditor) openRoleEditor.addEventListener("click", openRoleEditorModal);
     if (closeRoleEditor) closeRoleEditor.addEventListener("click", closeRoleEditorModal);
     if (cancelRoleEditor) cancelRoleEditor.addEventListener("click", closeRoleEditorModal);
+    if (cancelRoleEditorBtn) cancelRoleEditorBtn.addEventListener("click", closeRoleEditorModal);
     if (importRolesInput) {
       importRolesInput.addEventListener("change", (event) => {
         importRoleFile(event.target.files?.[0]);
@@ -12077,7 +12388,9 @@ The goal is not to produce "good writing" but to produce writing that feels true
         if (target === "qqLyricLine1") appState.theme.qqLyricLine1 = value || "置顶联系人 · 1 位在线";
         if (target === "qqLyricLine2") appState.theme.qqLyricLine2 = value || "共享歌单 · 可一键转聊天";
         if (target === "qqLyricLine3") appState.theme.qqLyricLine3 = value || "常用入口 · 更适合单手操作";
+        if (target === "momentsPageTitle") appState.theme.momentsPageTitle = value || "朋友圈";
         if (target === "momentsHomeTitle") appState.theme.momentsHomeTitle = value || "CatPaw Moments";
+        if (target === "momentsHomeEmail") appState.theme.momentsHomeEmail = value || "contact@catpaw.moments";
         if (target === "momentsHomeSubtitle") appState.theme.momentsHomeSubtitle = value || "自动收集角色像真人一样随机发布的碎片，也可以进入发布页写自己的动态。";
         if (target === "cardPageTitle") appState.theme.cardPageTitle = value || "我的猫爪名片";
         if (target === "cardPageSubtitle") appState.theme.cardPageSubtitle = value || "资产、表情包与世界书都在这里整理";
