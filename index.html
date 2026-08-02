@@ -58,13 +58,17 @@
     }
 
     body.ui-size-small {
-      --phone-width: 360px;
-      --dock-width: 326px;
+      --phone-width: 351px;
+      --dock-width: 315px;
+      zoom: 0.9;
+      -webkit-zoom: 0.9;
     }
 
     body.ui-size-large {
       --phone-width: 430px;
       --dock-width: 390px;
+      zoom: 1.08;
+      -webkit-zoom: 1.08;
     }
 
     .desktop {
@@ -5764,6 +5768,23 @@
       background: #000000;
     }
 
+    .sticker-group-delete {
+      flex-shrink: 0;
+      min-height: 36px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 999px;
+      color: #ff3b30;
+      background: #fff5f5;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .sticker-group-delete:active {
+      background: #ffe5e5;
+    }
+
     .sticker-manager-list {
       display: grid;
       gap: 10px;
@@ -6503,6 +6524,15 @@
       }
     }
 
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .fa-spin {
+      animation: spin 1s infinite linear !important;
+    }
+
     @keyframes typingPulse {
       0%,
       80%,
@@ -7019,13 +7049,13 @@
               <div class="field">
                 <label for="layoutSizeSelect">界面大小档位</label>
                 <select id="layoutSizeSelect">
-                  <option value="small">小 (360px)</option>
-                  <option value="default">默认 (390px)</option>
-                  <option value="large">大 (430px)</option>
+                  <option value="small">小 (90% / 351px)</option>
+                  <option value="default">默认 (100% / 390px)</option>
+                  <option value="large">大 (110% / 430px)</option>
                 </select>
               </div>
               <div class="result-box">
-                默认档接近 iOS 390px 视觉宽度；小档适合窄屏或显示过大的安卓机；大档适合宽屏设备。
+                默认档接近 iOS 390px 视觉宽度；小档为 90% 比例（351px），适合安卓端缩小至 iOS 比例一致大小；大档适合宽屏设备。
               </div>
               <div class="result-box">
                 系统已内置 PWA Manifest。在手机浏览器菜单中选择「添加到主屏幕」，即可隐藏浏览器地址栏以独立 App 全屏运行。
@@ -7649,6 +7679,16 @@
   <div class="chat-toast-layer" id="chatToastLayer" aria-live="polite" aria-atomic="false"></div>
 
   <input id="chatImageFileInput" type="file" accept="image/*" style="display:none;" />
+
+  <section class="textpost-modal" id="momentsLoadingModal" aria-label="正在刷新朋友圈">
+    <div class="textpost-modal-card" style="text-align:center; padding: 26px 20px;">
+      <div style="font-size:32px; color:#000000; margin-bottom:14px;">
+        <i class="fa-solid fa-rotate-right fa-spin"></i>
+      </div>
+      <strong style="display:block; font-size:16px; color:#000000; font-weight:700; margin-bottom:6px; letter-spacing:-0.02em;">正在刷新朋友圈...</strong>
+      <span style="font-size:11px; color:#8e8e93; font-weight:400;">AI 正在从联系人视角撰写新的生活动态</span>
+    </div>
+  </section>
 
   <section class="textpost-modal" id="textpostComposeModal" aria-label="发送文字图弹窗">
     <div class="textpost-modal-card">
@@ -8988,8 +9028,18 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
     function applyLayoutSize(size) {
       const normalized = ["small", "default", "large"].includes(size) ? size : "default";
       document.body.classList.remove("ui-size-small", "ui-size-large");
-      if (normalized === "small") document.body.classList.add("ui-size-small");
-      if (normalized === "large") document.body.classList.add("ui-size-large");
+      if (normalized === "small") {
+        document.body.classList.add("ui-size-small");
+        document.body.style.zoom = "0.9";
+        document.body.style.webkitZoom = "0.9";
+      } else if (normalized === "large") {
+        document.body.classList.add("ui-size-large");
+        document.body.style.zoom = "1.08";
+        document.body.style.webkitZoom = "1.08";
+      } else {
+        document.body.style.zoom = "1";
+        document.body.style.webkitZoom = "1";
+      }
     }
 
     function renderModels() {
@@ -10069,11 +10119,19 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         img.loading = "lazy";
         messageBody.appendChild(img);
       } else if (item.type === "textpost") {
-        messageBody = document.createElement("div");
+        messageBody = document.createElement("button");
+        messageBody.type = "button";
         messageBody.className = "chat-textpost-card";
-        messageBody.innerHTML = `
-          <img class="chat-textpost-img" src="${item.url || ""}" alt="文字图" />
-        `;
+        messageBody.setAttribute("aria-label", item.subtype === "role-photo" ? "查看照片" : "查看文字图");
+
+        const textPostImage = document.createElement("img");
+        textPostImage.className = "chat-textpost-img";
+        textPostImage.src = item.url || "https://i.postimg.cc/JzvphYfv/IMG-1683.jpg";
+        textPostImage.alt = item.text || (item.subtype === "role-photo" ? "照片" : "文字图");
+        textPostImage.loading = "lazy";
+        textPostImage.decoding = "async";
+
+        messageBody.appendChild(textPostImage);
         messageBody.addEventListener("click", () => openTextPostView(item));
       } else if (item.type === "sticker") {
         messageBody = document.createElement("img");
@@ -10144,26 +10202,50 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       });
     }
 
-    function sendTextPostMessage(text) {
+    function appendTextPostMessage({
+      sender = "self",
+      text = "",
+      url = "https://i.postimg.cc/JzvphYfv/IMG-1683.jpg",
+      subtype = "textpost",
+      replyTo = ""
+    } = {}) {
       ensureQqState();
       const messages = getCurrentChatMessages();
+
       messages.push({
         id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
         type: "textpost",
-        sender: "self",
-        url: "https://i.postimg.cc/JzvphYfv/IMG-1683.jpg",
+        subtype,
+        sender,
+        url,
         text,
         createdAtMs: Date.now(),
-        read: false,
-        replyTo: pendingReplyMessageId || ""
+        read: sender === "friend",
+        replyTo
       });
+
       renderThreadMessages(messages);
       renderChatList();
-      saveState();
-      clearReplyTarget();
+
       requestAnimationFrame(() => {
-        if (qqThreadMessages) qqThreadMessages.scrollTop = qqThreadMessages.scrollHeight;
+        if (qqThreadMessages) {
+          qqThreadMessages.scrollTop = qqThreadMessages.scrollHeight;
+        }
       });
+
+      return messages;
+    }
+
+    function sendTextPostMessage(text) {
+      appendTextPostMessage({
+        sender: "self",
+        text,
+        subtype: "textpost",
+        replyTo: pendingReplyMessageId || ""
+      });
+
+      clearReplyTarget();
+      saveState();
     }
 
     function openTextPostView(message) {
@@ -10173,7 +10255,13 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       if (textpostViewText) textpostViewText.textContent = message.text || "";
       if (textpostViewAuthor) textpostViewAuthor.textContent = message.sender === "friend" ? (base.name || "对方") : "我";
       if (textpostViewTime) textpostViewTime.textContent = formatMessageSecondTime(message.createdAtMs);
-      textpostViewModal.classList.add("show");
+
+      const textpostTitle = textpostViewModal.querySelector(".textpost-modal-head strong");
+      if (textpostTitle) {
+        textpostTitle.textContent = message.subtype === "role-photo" ? "照片" : "文字图";
+      }
+
+      if (textpostViewModal) textpostViewModal.classList.add("show");
     }
 
     function closeTextpostViewModal() {
@@ -11100,15 +11188,38 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
 
       stickerGroupTabs.innerHTML = "";
       uniqueGroups.forEach((groupName) => {
+        const groupWrap = document.createElement("div");
+        groupWrap.style.display = "inline-flex";
+        groupWrap.style.alignItems = "center";
+        groupWrap.style.gap = "5px";
+        groupWrap.style.flexShrink = "0";
+
         const button = document.createElement("button");
         button.className = `sticker-group-tab${activeStickerManagerGroup === groupName ? " active" : ""}`;
         button.type = "button";
-        button.textContent = groupName === "__all__" ? `全部 (${appState.qq.stickers.length})` : `${groupName} (${appState.qq.stickers.filter((item) => (item.group || "默认") === groupName).length})`;
+        button.textContent = groupName === "__all__"
+          ? `全部 (${appState.qq.stickers.length})`
+          : `${groupName} (${appState.qq.stickers.filter((item) => (item.group || "默认") === groupName).length})`;
         button.addEventListener("click", () => {
           activeStickerManagerGroup = groupName;
           renderStickerManager();
         });
-        stickerGroupTabs.appendChild(button);
+        groupWrap.appendChild(button);
+
+        if (groupName !== "__all__" && groupName !== "默认") {
+          const deleteGroupButton = document.createElement("button");
+          deleteGroupButton.className = "sticker-group-delete";
+          deleteGroupButton.type = "button";
+          deleteGroupButton.textContent = "删除";
+          deleteGroupButton.setAttribute("aria-label", `删除表情包分组 ${groupName}`);
+          deleteGroupButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            deleteStickerGroupByName(groupName);
+          });
+          groupWrap.appendChild(deleteGroupButton);
+        }
+
+        stickerGroupTabs.appendChild(groupWrap);
       });
 
       selectedStickerIds.forEach((id) => {
@@ -11189,6 +11300,51 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         row.appendChild(deleteButton);
         stickerManagerList.appendChild(row);
       });
+    }
+
+    async function deleteStickerGroupByName(groupName) {
+      ensureQqState();
+
+      const normalizedGroup = String(groupName || "").trim();
+      if (!normalizedGroup || normalizedGroup === "默认" || normalizedGroup === "未分组") {
+        window.alert("默认分组不能删除。");
+        return;
+      }
+
+      const stickerCount = appState.qq.stickers.filter(
+        (item) => (item.group || "默认") === normalizedGroup
+      ).length;
+
+      const confirmed = window.confirm(
+        `确定删除表情包分组「${normalizedGroup}」吗？该分组中的 ${stickerCount} 个表情包会移动到「默认」分组。`
+      );
+
+      if (!confirmed) return;
+
+      appState.qq.stickers.forEach((item) => {
+        if ((item.group || "默认") === normalizedGroup) {
+          item.group = "默认";
+        }
+      });
+
+      appState.qq.stickerGroups = appState.qq.stickerGroups.filter(
+        (group) => group !== normalizedGroup
+      );
+
+      selectedStickerIds.forEach((id) => {
+        const sticker = appState.qq.stickers.find((item) => item.id === id);
+        if (!sticker || sticker.group === "默认") {
+          selectedStickerIds.delete(id);
+        }
+      });
+
+      if (activeStickerManagerGroup === normalizedGroup) {
+        activeStickerManagerGroup = "__all__";
+      }
+
+      renderCardPage();
+      renderStickerManager();
+      await saveState();
     }
 
     function openStickerManagerModal() {
@@ -11930,10 +12086,44 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       return content ? { text: content } : null;
     }
 
-    function parseTextPostCommand(text) {
-      const match = String(text || "").match(/^\s*\[?\s*(?:文字图|发文字图|textpost)\s*[:：]\s*([\s\S]+?)\s*\]?\s*$/i);
+    function normalizeRolePhotoDescription(text) {
+      return String(text || "")
+        .replace(/^\s*[\[【]?\s*(?:照片|图片|发照片|发图片|角色照片|发送照片|image|photo)\s*[:：]\s*/i, "")
+        .replace(/\s*[\]】]?\s*$/i, "")
+        .replace(/^["“”'「『]|["“”'」』]$/g, "")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 100);
+    }
+
+    function parseRolePhotoCommand(text) {
+      const raw = String(text || "").trim();
+      const match = raw.match(
+        /(?:[\[【]\s*)?(?:照片|图片|发照片|发图片|角色照片|发送照片|image|photo)\s*[:：]\s*([\s\S]*?)(?:\s*[\]】]|$)/i
+      );
+
       if (!match) return null;
-      const content = match[1]?.trim() || "";
+
+      const description = normalizeRolePhotoDescription(match[1]);
+      if (!description) return null;
+
+      return {
+        text: description,
+        photoDescription: description
+      };
+    }
+
+    function parseTextPostCommand(text) {
+      const raw = String(text || "").trim();
+      const match = raw.match(
+        /(?:[\[【]\s*)?(?:文字图|发文字图|textpost)\s*[:：]\s*([\s\S]*?)(?:\s*[\]】]|$)/i
+      );
+      if (!match) return null;
+
+      const content = String(match[1] || "")
+        .replace(/^["“”'「『]|["“”'」』]$/g, "")
+        .trim();
+
       return content ? { text: content } : null;
     }
 
@@ -12242,6 +12432,7 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         ].join("\n");
 
         const text = await callChatCompletion([
+          { role: "system", content: ENHANCED_SYSTEM_PROMPT },
           { role: "system", content: prompt },
           { role: "user", content: "根据你和我的聊天记忆，主动发一条符合你人设的动态。" }
         ], {
@@ -12392,6 +12583,7 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         ].join("\n");
 
         const text = await callChatCompletion([
+          { role: "system", content: ENHANCED_SYSTEM_PROMPT },
           { role: "system", content: prompt },
           { role: "user", content: "请以角色本人身份在动态下自然回复一条评论。" }
         ], {
@@ -12509,6 +12701,7 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         ].join("\n");
 
         const text = await callChatCompletion([
+          { role: "system", content: ENHANCED_SYSTEM_PROMPT },
           { role: "system", content: prompt },
           { role: "user", content: "生成此刻角色状态栏 JSON。" }
         ], {
@@ -12736,8 +12929,11 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         "8. 回复长度按角色和上下文决定：最少回复1条消息，也可以回复2到4条短消息；多条消息每条单独一行，不加序号、项目符号、引号或 JSON。",
         "9. 如果你想针对 user 的某一条消息单独回复，只能独占一行输出 [回复消息:消息ID:回复内容]。严禁输出「引用：...；内容：...」或在回复文本里带「内容：」、「引用：」等格式词！也不要把上下文里的括号、消息ID或右方括号 ']' 抄进回复正文中！消息ID 会在聊天记录里标出，回复内容必须是干净的真人话语。",
         "10. 如果角色自愿主动转账，可以独占一行输出 [转账:金额:备注]；如果聊天记录里有 user 给你的待处理转账，你必须由角色本人按人设和关系决定接收或退还：接收时独占一行输出 [处理转账:接收]，退还时独占一行输出 [处理转账:退还:原因]，不要让 user 替你决定。",
-        "11. 如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。",
-        "12. 如果角色想发送文字图（把一段话做成图片发给user），可以独占一行输出 [文字图:内容]，内容会显示在图片上。"
+          "11. 如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。",
+          "12. 表情包和照片必须严格区分：表情包只能使用 [表情包:表情ID或备注]；不要把表情包写成照片，也不要把照片写成表情包。",
+          "13. 如果角色想发一张自己的照片、手机截图、聊天截图、生活照片或其他图片，必须独占一行输出 [照片:照片描述]。照片描述必须用 50 到 100 个字，描述照片里能看到的内容、场景、角度、光线或细节，不要输出真实图片链接，不要输出 Markdown 图片，不要输出解释。",
+          "14. 如果角色只是想发送一张带文字的文字图，才使用 [文字图:文字内容]。文字图不是照片，不能用来代替照片。",
+          "15. 照片、表情包和文字图都必须独占一行，格式外不要追加说明。若不确定是否为照片，优先使用 [照片:...]，不要输出裸文本。"
       ].join("\n");
     }	
 
@@ -12916,19 +13112,28 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
             continue;
           }
 
+          const rolePhoto = parseRolePhotoCommand(outputText);
+          if (rolePhoto) {
+            appendTextPostMessage({
+              sender: "friend",
+              subtype: "role-photo",
+              text: rolePhoto.text,
+              url: "https://i.postimg.cc/JzvphYfv/IMG-1683.jpg"
+            });
+
+            notificationItems.push({ text: `[照片] ${rolePhoto.text}` });
+            continue;
+          }
+
           const textpost = parseTextPostCommand(outputText);
           if (textpost) {
-            messages.push({
-              id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
-              type: "textpost",
+            appendTextPostMessage({
               sender: "friend",
-              url: "https://i.postimg.cc/JzvphYfv/IMG-1683.jpg",
+              subtype: "textpost",
               text: textpost.text,
-              createdAtMs: Date.now(),
-              read: true
+              url: "https://i.postimg.cc/JzvphYfv/IMG-1683.jpg"
             });
-            renderThreadMessages(messages);
-            renderChatList();
+
             notificationItems.push({ text: `[文字图] ${textpost.text}` });
             continue;
           }
@@ -13019,17 +13224,50 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
     }
 
     if (postMyMoment) postMyMoment.addEventListener("click", addSelfMoment);
+    const momentsLoadingModal = document.querySelector("#momentsLoadingModal");
+
+    function openMomentsLoadingModal() {
+      if (momentsLoadingModal) momentsLoadingModal.classList.add("show");
+    }
+
+    function closeMomentsLoadingModal() {
+      if (momentsLoadingModal) momentsLoadingModal.classList.remove("show");
+    }
+
     if (refreshMoments) {
       refreshMoments.addEventListener("click", async () => {
         if (autoMomentBusy) return;
 
+        ensureQqState();
+        if (!appState.qq.roles.length) {
+          window.alert("请先在好友列表创建角色。");
+          return;
+        }
+
+        const config = getApiConfigOrAlert(false);
+        if (!config) return;
+
         autoMomentBusy = true;
         refreshMoments.disabled = true;
+        openMomentsLoadingModal();
 
         try {
-          await maybeAutoGenerateMoment(true);
-          renderMoments();
+          // 挑选最久未更新动态的角色生成新朋友圈
+          const roles = appState.qq.roles.slice().sort((a, b) => (a.lastAutoMomentAt || 0) - (b.lastAutoMomentAt || 0));
+          const targetRole = roles[0];
+          const roleId = getRoleId(targetRole);
+
+          const success = await generateRoleMomentPost(roleId, true);
+          if (success) {
+            targetRole.lastAutoMomentAt = Date.now();
+            appState.qq.lastAutoMomentAt = Date.now();
+            renderMoments();
+            await saveState();
+          }
+        } catch (error) {
+          console.error("刷新朋友圈失败：", error);
         } finally {
+          closeMomentsLoadingModal();
           autoMomentBusy = false;
           refreshMoments.disabled = false;
         }
