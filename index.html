@@ -12,7 +12,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <link rel="manifest" id="catpawManifest" href="./manifest.json" />
+  <link rel="manifest" id="catpawManifest" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
   <link
     rel="stylesheet"
@@ -7593,9 +7593,8 @@
           <button class="card-mini-btn" id="triggerStickerImport" type="button">选择 TXT / Word 批量文档</button>
           <input id="stickerImportInput" type="file" accept=".txt,.doc,.docx,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none;" />
           <div class="card-form-actions">
-            <button class="card-mini-btn" id="addStickerBtn" type="button">添加表情</button>
-            <button class="card-mini-btn" id="importStickerBtn" type="button">识别导入文件</button>
-          </div>
+          <button class="card-mini-btn" id="addStickerBtn" type="button">添加表情</button>
+          <button class="card-mini-btn" id="importStickerBtn" type="button">识别导入文件</button>
         </div>
       </section>
 
@@ -9044,23 +9043,57 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
     }
 
     function setupPwaManifest() {
-      const manifestLink = document.querySelector("#catpawManifest");
-      if (manifestLink) {
-        manifestLink.setAttribute("href", "./manifest.json");
-      }
+  const manifestLink = document.querySelector("#catpawManifest");
+  if (!manifestLink) return;
 
-      registerPwaServiceWorker();
-    }
+  const manifest = {
+    name: "猫爪机",
+    short_name: "猫爪机",
+    id: window.location.href.split("?")[0],
+    start_url: window.location.href.split("?")[0],
+    scope: "./",
+    display: "fullscreen",
+    display_override: ["fullscreen", "standalone"],
+    orientation: "portrait",
+    background_color: "#f7f7f5",
+    theme_color: "#f7f7f5",
+    lang: "zh-CN",
+    icons: [
+      {
+        src: "https://i.postimg.cc/vH309Znr/IMG-1684.jpg",
+        sizes: "192x192",
+        type: "image/jpeg",
+        purpose: "any maskable"
+      },
+      {
+        src: "https://i.postimg.cc/vH309Znr/IMG-1684.jpg",
+        sizes: "512x512",
+        type: "image/jpeg",
+        purpose: "any maskable"
+      }
+    ]
+  };
+
+  const dataUri =
+    "data:application/manifest+json;charset=utf-8," +
+    encodeURIComponent(JSON.stringify(manifest));
+
+  manifestLink.href = dataUri;
+}
+
 
     function registerPwaServiceWorker() {
       if (!("serviceWorker" in navigator)) return;
-
-      navigator.serviceWorker.register("./sw.js", {
-        scope: "./",
-        updateViaCache: "none"
-      }).catch((error) => {
-        console.warn("Service Worker 注册失败：", error);
-      });
+      try {
+        const swCode = `
+          self.addEventListener('install', (e) => self.skipWaiting());
+          self.addEventListener('activate', (e) => e.waitUntil(clients.claim()));
+          self.addEventListener('fetch', (e) => {});
+        `;
+        const blob = new Blob([swCode], { type: "text/javascript" });
+        const swUrl = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl).catch(() => {});
+      } catch (e) {}
     }
 
     function openDatabase() {
@@ -9184,10 +9217,15 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
 
     function setupDeviceScale() {
       const isAndroid = /Android/i.test(navigator.userAgent);
-
-      document.body.classList.toggle("is-android", isAndroid);
-      document.body.style.zoom = "1";
-      document.body.style.webkitZoom = "1";
+      if (isAndroid) {
+        document.body.classList.add("is-android");
+        document.body.style.zoom = "1";
+        document.body.style.webkitZoom = "1";
+      } else {
+        document.body.classList.remove("is-android");
+        document.body.style.zoom = "1";
+        document.body.style.webkitZoom = "1";
+      }
     }
 
     function renderModels() {
@@ -9291,40 +9329,17 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
     }
 
     if (closeQqPage && qqPage) {
-      closeQqPage.addEventListener("click", () => {
-        resetTransientChatState();
-        qqPage.classList.remove("show");
-        qqPage.classList.remove("thread-mode");
-        showQqPanel("qqPanelChats");
-
-        const chatNav = document.querySelector('.qq-nav-item[data-nav-target="chats"]');
-        if (chatNav) {
-          document.querySelectorAll(".qq-nav-item").forEach((item) => item.classList.remove("active"));
-          chatNav.classList.add("active");
-        }
-
-        const chatTab = document.querySelector('[data-panel-trigger="qqPanelChats"]');
-        if (chatTab) {
-          document.querySelectorAll(".qq-home-tab[data-panel-trigger]").forEach((item) => item.classList.remove("active"));
-          chatTab.classList.add("active");
-        }
-      });
+      closeQqPage.addEventListener("click", () => qqPage.classList.remove("show"));
     }
 
     function showQqPanel(panelId) {
       qqTabs.forEach((item) => item.classList.remove("active"));
       qqPanels.forEach((panel) => panel.classList.remove("active"));
-
       const targetPanel = document.querySelector(`#${panelId}`);
       if (targetPanel) targetPanel.classList.add("active");
 
       const targetTab = Array.from(qqTabs).find((tab) => tab.dataset.panel === panelId);
       if (targetTab) targetTab.classList.add("active");
-
-      const homeTabs = document.querySelectorAll(".qq-home-tab[data-panel-trigger]");
-      homeTabs.forEach((tab) => {
-        tab.classList.toggle("active", tab.dataset.panelTrigger === panelId);
-      });
 
       const isThread = panelId === "qqPanelThread";
       const isMoments = panelId === "qqPanelMoments";
@@ -10913,7 +10928,7 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       }
 
       const messages = getCurrentChatMessages();
-      const hits = messages.filter((item) => getDisplayMessageText(item).toLowerCase().includes(keyword));
+      const hits = messages.filter((item) => (item.text || "").toLowerCase().includes(keyword));
 
       if (!hits.length) {
         chatHistoryResults.textContent = "没有找到匹配的本地会话历史。";
@@ -10923,15 +10938,8 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       hits.forEach((item) => {
         const hit = document.createElement("div");
         hit.className = "chat-history-hit";
-
-        const speaker = document.createElement("small");
-        speaker.textContent = item.sender === "friend" ? "对方" : "我";
-
-        const content = document.createElement("div");
-        content.textContent = getDisplayMessageText(item);
-
-        hit.appendChild(speaker);
-        hit.appendChild(content);
+        const speaker = item.sender === "friend" ? "对方" : "我";
+        hit.innerHTML = `<small>${speaker}</small>${item.text || ""}`;
         chatHistoryResults.appendChild(hit);
       });
     }
@@ -11569,31 +11577,17 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       targetList.innerHTML = "";
 
       if (!appState.qq.worldBooks.length) {
-        targetList.innerHTML = "";
-        const empty = document.createElement("div");
-        empty.className = "library-item";
-        empty.textContent = emptyText;
-        targetList.appendChild(empty);
+        targetList.innerHTML = `<div class="library-item">${emptyText}</div>`;
         return;
       }
 
       appState.qq.worldBooks.forEach((item) => {
         const row = document.createElement("div");
         row.className = "library-item";
-
-        const title = document.createElement("b");
-        title.textContent = item.title || "未命名条目";
-
-        const meta = document.createElement("span");
-        meta.textContent = ` · ${item.group || "默认"}`;
-
-        const content = document.createElement("div");
-        content.textContent = item.content || "";
-
-        row.appendChild(title);
-        row.appendChild(meta);
-        row.appendChild(document.createElement("br"));
-        row.appendChild(content);
+        row.innerHTML = `
+          <b>${item.title || "未命名条目"}</b> · ${item.group || "默认"}<br>
+          ${item.content || ""}
+        `;
         targetList.appendChild(row);
       });
     }
@@ -12854,23 +12848,6 @@ function extractRoleReplyLines(reply) {
       messages.forEach((item) => {
         if (item.sender === "self") item.read = true;
       });
-    }
-
-    function resetTransientChatState() {
-      clearReplyTarget();
-      closeMessageActionMenu();
-      closeMessageEditModal();
-      closeMultiDeleteModal();
-      closeFavoritesModal();
-      closeTransferDecisionModal();
-      closeEmojiPickerModal();
-      closeTransferDialog();
-      closeTextpostComposeModal();
-      closeTextpostViewModal();
-      closeWallpaperPreviewModal();
-      closeRoleStatusModal();
-      closeStatusHistoryModal();
-      if (qqAttachMenu) qqAttachMenu.classList.remove("show");
     }
 
     function showRoleTypingIndicator() {
@@ -14336,9 +14313,20 @@ function extractRoleReplyLines(reply) {
       });
     }
     if (transferDecisionModal) {
-      transferDecisionModal.addEventListener("click", (event) => {
+      transferDecisionModal.addEventListener("click", async (event) => {
         if (event.target === transferDecisionModal) {
           closeTransferDecisionModal();
+          return;
+        }
+
+        if (event.target.closest("#acceptTransferDecision")) {
+          event.preventDefault();
+          await decideTransfer("accepted");
+        }
+
+        if (event.target.closest("#refundTransferDecision")) {
+          event.preventDefault();
+          await decideTransfer("refunded");
         }
       });
     }
@@ -14920,10 +14908,14 @@ function extractRoleReplyLines(reply) {
           );
         }
 
-        // 恢复静态 Manifest，避免动态 data/blob URL 被 Android 当作普通网页快捷方式打开。
+        // 清理可能存在的旧 manifest Blob URL，避免旧启动配置继续复用。
         const manifestLink = document.querySelector("#catpawManifest");
         if (manifestLink) {
-          manifestLink.setAttribute("href", "./manifest.json");
+          const oldManifestUrl = manifestLink.getAttribute("href");
+          if (oldManifestUrl?.startsWith("blob:")) {
+            URL.revokeObjectURL(oldManifestUrl);
+          }
+          manifestLink.removeAttribute("href");
         }
 
         setResult(settingsResult, "页面缓存已清除，应用数据已保留。正在拉取最新代码并刷新页面...");
@@ -15127,9 +15119,11 @@ function extractRoleReplyLines(reply) {
     }
 
     setupPerformanceMode();
-    setupPwaManifest();
-    updateTime();
-    setupBatteryStatus();
+setupPwaManifest();
+setupCatpawAutoFullscreen();
+updateTime();
+setupBatteryStatus();
+
 
     openDatabase()
       .then(loadState)
@@ -15145,6 +15139,77 @@ function extractRoleReplyLines(reply) {
       });
 
     setInterval(updateTime, 1000);
+	
+	let catpawFullscreenLocked = false;
+
+function requestCatpawFullscreen() {
+  const root = document.documentElement;
+
+  const requestFullscreen =
+    root.requestFullscreen ||
+    root.webkitRequestFullscreen ||
+    root.msRequestFullscreen;
+
+  if (!requestFullscreen) return;
+
+  const isFullscreen =
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.msFullscreenElement;
+
+  if (isFullscreen) return;
+
+  try {
+    const result = requestFullscreen.call(root);
+
+    if (result && typeof result.then === "function") {
+      result.then(() => {
+        catpawFullscreenLocked = true;
+
+        try {
+          if (screen.orientation?.lock) {
+            screen.orientation.lock("portrait").catch(() => {});
+          }
+        } catch (error) {}
+      }).catch(() => {});
+    } else {
+      catpawFullscreenLocked = true;
+    }
+  } catch (error) {
+    console.warn("进入全屏失败", error);
+  }
+}
+
+function setupCatpawAutoFullscreen() {
+  const launchedAsApp =
+    window.matchMedia("(display-mode: fullscreen)").matches ||
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+
+  if (!launchedAsApp) return;
+
+  let handled = false;
+
+  const onFirstInteraction = () => {
+    if (handled) return;
+    handled = true;
+
+    requestCatpawFullscreen();
+
+    document.removeEventListener("touchstart", onFirstInteraction);
+    document.removeEventListener("click", onFirstInteraction);
+  };
+
+  document.addEventListener("touchstart", onFirstInteraction, {
+    passive: true,
+    once: true
+  });
+
+  document.addEventListener("click", onFirstInteraction, {
+    once: true
+  });
+}
+
 	</script>
 </body>
 </html>
