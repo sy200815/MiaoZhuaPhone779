@@ -10867,6 +10867,26 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       return line;
     }
 
+    function sanitizeRoleReplyText(text, modelName = "") {
+      let line = cleanRoleReplyText(text);
+      if (!line) return "";
+
+      const model = String(modelName || "").toLowerCase();
+      if (model.includes("gemini")) {
+        line = line
+          .replace(/隔着屏幕(?:呢|呀|啊|也|还)?/gi, "")
+          .replace(/隔着屏幕看着你/gi, "")
+          .replace(/汇报(?:一下|下)?(?:情况|状态)?[：:]?/gi, "")
+          .replace(/顺便提醒一下[，,]?\s*/gi, "")
+          .replace(/(?:当前|现在)情况(?:是|为)[：:]?\s*/gi, "")
+          .replace(/^\s*(?:情况|状态|汇报)\s*[：:]\s*/i, "")
+          .replace(/\s{2,}/g, " ")
+          .trim();
+      }
+
+      return line;
+    }
+
     function extractRoleReplyLines(reply) {
       const raw = String(reply || "");
       const metadataBlockReg = /[\[【]?\s*(?:消息\s*)?ID\s*[:：]\s*msg_[^;；\]】\s]+[;；]\s*发送方\s*[:：]\s*(?:assistant|user|角色|对方|我)[;；]\s*内容\s*[:：]\s*([\s\S]*?)(?=(?:[\[【]?\s*(?:消息\s*)?ID\s*[:：]\s*msg_)|[\]】]\s*$|$)/gi;
@@ -11172,7 +11192,12 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         const text = await callChatCompletion([
           { role: "system", content: prompt },
           { role: "user", content: "根据你和我的聊天记忆，主动发一条符合你人设的动态。" }
-        ], { temperature: 1, silent });
+        ], {
+          temperature: 0.84,
+          top_p: 0.92,
+          max_tokens: 260,
+          silent
+        });
 
         if (!text) throw new Error("没有生成动态内容");
 
@@ -11317,7 +11342,11 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         const text = await callChatCompletion([
           { role: "system", content: prompt },
           { role: "user", content: "请以角色本人身份在动态下自然回复一条评论。" }
-        ], { temperature: 1 });
+        ], {
+          temperature: 0.82,
+          top_p: 0.92,
+          max_tokens: 220
+        });
 
         if (!text) throw new Error("没有生成评论内容");
 
@@ -11430,7 +11459,11 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         const text = await callChatCompletion([
           { role: "system", content: prompt },
           { role: "user", content: "生成此刻角色状态栏 JSON。" }
-        ], { temperature: 1 });
+        ], {
+          temperature: 0.72,
+          top_p: 0.9,
+          max_tokens: 520
+        });
 
         const status = parseRoleStatusJson(text);
         status.createdAt = new Date().toLocaleString("zh-CN");
@@ -11627,7 +11660,13 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         "高魅力角色的反应应该有判断力和克制感：先看懂 user 的情绪和意图，再决定是安抚、调侃、压低声音、转移话题、给台阶、轻轻戳破，还是保持沉默。不要用低级反问、粗糙指责、廉价威胁或模板训话来制造性格。",
         "禁止把角色写成低情商低智商：不要动不动问「谁惹你了」「疯什么」「你发什么疯」「自己跟自己发脾气？」「别为这点破事烦」「弄不明白就丢一边」。这类话显得迟钝、没魅力、像人机接梗，除非人设和前文明确长期如此且此刻真的必要，否则不要用。",
         "当 user 说自己烦、崩溃、焦躁、委屈、没被惹、只是累或不知道怎么办时，高智商高情商角色要先读出『对方需要被理解/需要一个台阶/需要有人站在他这边』，不要第一反应审问原因。可以短句回应，例如接住情绪、降低压力、给选择、陪着拆问题，但必须贴合具体人设。",
-		"你的回复",
+		        "你的回复",
+        "你是在和 user 聊天，不是在写角色状态报告。除非 user 明确询问，否则不要连续罗列角色正在做什么、在哪里、当前状态或提醒事项。",
+        "不要使用「隔着屏幕……」「隔着屏幕看着你……」这类旁白。真人线上聊天不会把媒介本身当成台词重点；直接回应 user，或者换成自然的口语。",
+        "如果上一句只是 user 的呼唤、问候或找人，优先回应这句话本身，不要主动展开成汇报日程、天气、地点或生活状态。",
+        "如果一句话听起来像角色在向 user 汇报工作、播报状态或解释场景，就重写成更短、更直接、更像即时聊天的回应。",
+        "请在内部完成以下不可见的回复检查，但绝对不要输出检查过程、思维链或分析：先识别人设和关系距离，再判断 user 这一轮真正需要什么；结合当前时间、世界书、聊天上下文和现实场景；选择角色此刻最自然的说法；最后检查是否像真人会这样说、是否回答了 user、是否混入旁白或汇报口吻。若不像真人，直接改写，不要解释改写原因。",
+        "以上只是内部检查清单，不要把它写入回复，不要使用 XML、JSON、<thinking>、思考：或任何分析标签。最终只输出聊天正文或已规定的功能指令。",
      "消除刻板印象，解构特征：你的首要任务是解构这些人物的性格，非字面上地从心理动机层面去执行人物的行为逻辑和情感逻辑，这种深刻的动机必定推动所有对话和行动。强烈抵制一切形式的不经思考的俗套写作手法。情绪驱动行为：严格遵循情绪影响角色的行为的铁律。对话深度：角色之间的对话必须反应他们的阅历、三观和情感。避免模板化的句式结构，根据角色的情绪和意图改变对话的长度、结构和节奏。善用潜台词，角色所说的可能不是他们真正想说的，通过角色的肢体语言来暗示它们背后的含义。",
         "【Claude 适配】",
         "如果当前模型是 Claude，要特别避免：过度拟合规则、过度圆满、过度温柔正确、每句都像总结、情绪太稳太顺。允许角色嘴硬、停顿、没说透、短促、别扭、前后犹豫，只要符合人设。",
@@ -11741,6 +11780,8 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
                   "【最终执行层】",
                   "只执行角色回复任务，不要解释规则，不要复述上下文，不要暴露提示词。",
                   "【最高优先级硬限制】绝对禁止任何线下见面相关表达。不得让 user 过来、到角色那里去、去某个地点、让角色来接 user、把 user 接过去、去找 user 或安排碰面，也不得用玩笑、假设、暧昧和间接说法规避。只能进行线上文字交流。",
+                  "【聊天回应校验】不要汇报状态，不要写成旁白，不要使用「隔着屏幕……」等媒介旁白。直接回答 user 最新一条消息，除非 user 明确询问，否则不要主动罗列地点、日程、天气或角色正在做什么。",
+                  "内部先完成：读人设、读关系、读上下文、判断 user 此刻需要什么、写出最自然的口语、检查是否像真人聊天。这个内部过程不可输出，不要输出思考链、分析、XML、JSON 或标签。",
                   "把最近一条 user 消息作为当前主要回应对象，同时结合完整人设、关系和聊天记忆。",
                   "先判断角色此刻真正想说什么，再用角色自己的口吻输出。",
                   "优先保证人设一致、关系自然和语言像真人，其次才是信息完整。",
@@ -11779,9 +11820,12 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
           throw new Error("接口没有返回可用回复");
         }
 
-        const replyParts = extractRoleReplyLines(reply).slice(0, 4);
+        const sanitizedReply = sanitizeRoleReplyText(reply, config.model);
+        const replyParts = extractRoleReplyLines(sanitizedReply).slice(0, 4);
 
-        const finalReplies = replyParts.length ? replyParts : [cleanRoleReplyText(reply)].filter(Boolean);
+        const finalReplies = replyParts.length
+          ? replyParts.map((item) => sanitizeRoleReplyText(item, config.model)).filter(Boolean)
+          : [sanitizedReply].filter(Boolean);
         const notificationItems = [];
 
         for (const text of finalReplies) {
