@@ -5525,13 +5525,15 @@
     }
 
     .chat-textpost-card {
-      min-width: 216px;
-      max-width: 260px;
-      padding: 8px;
-      border-radius: 18px;
-      background: #ffffff;
-      border: 1px solid #f4f4f4;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      width: 88px;
+      height: 88px;
+      min-width: 88px;
+      max-width: 88px;
+      padding: 0;
+      border-radius: 12px;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
       cursor: pointer;
       overflow: hidden;
       transition: transform 0.12s ease;
@@ -5542,9 +5544,319 @@
     }
 
     .chat-textpost-img {
-      width: 100%;
+      width: 88px;
+      height: 88px;
+      max-width: 88px;
+      max-height: 88px;
       border-radius: 12px;
+      object-fit: contain;
       display: block;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .world-book-edit-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(34, 34, 34, 0.24);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+    }
+
+    .world-book-edit-modal.show {
+      display: flex;
+    }
+
+    .world-book-edit-card {
+      width: min(100%, 390px);
+      max-height: min(760px, calc(100dvh - 36px));
+      overflow-y: auto;
+      border-radius: 30px;
+      padding: 18px 16px 16px;
+      background: #ffffff;
+      border: 1px solid #eeeeee;
+      box-shadow: 0 22px 48px rgba(20, 20, 20, 0.16);
+    }
+
+    .world-book-edit-card::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    .world-book-edit-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .world-book-edit-head strong {
+      color: #111111;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .world-book-edit-close {
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #555555;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    .world-book-edit-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .world-book-edit-form label {
+      display: grid;
+      gap: 6px;
+      color: #8e8e93;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .world-book-edit-form input,
+    .world-book-edit-form textarea {
+      width: 100%;
+      border: 0;
+      border-radius: 18px;
+      padding: 13px 15px;
+      outline: none;
+      color: #111111;
+      background: #f7f7f7;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .world-book-edit-form textarea {
+      min-height: 260px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .world-book-edit-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .sticker-manager-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 92;
+      display: none;
+      padding: 0;
+      color: #111111;
+      background: #ffffff;
+    }
+
+    .sticker-manager-modal.show {
+      display: block;
+    }
+
+    .sticker-manager-card {
+      width: 100%;
+      max-width: var(--phone-width, 390px);
+      height: 100dvh;
+      margin: 0 auto;
+      padding: calc(12px + env(safe-area-inset-top)) 16px calc(30px + env(safe-area-inset-bottom));
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: #ffffff;
+    }
+
+    .sticker-manager-card::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    .sticker-manager-head {
+      min-height: 56px;
+      display: grid;
+      grid-template-columns: 40px 1fr 40px;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f4f4f4;
+    }
+
+    .sticker-manager-head .card-back,
+    .sticker-manager-head .card-add {
+      width: 40px;
+      height: 40px;
+    }
+
+    .sticker-manager-title {
+      min-width: 0;
+      text-align: center;
+    }
+
+    .sticker-manager-title strong,
+    .sticker-manager-title span {
+      display: block;
+    }
+
+    .sticker-manager-title strong {
+      color: #000000;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .sticker-manager-title span {
+      margin-top: 3px;
+      color: #8e8e93;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .sticker-manager-toolbar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .sticker-manager-toolbar .card-mini-btn {
+      min-height: 44px;
+    }
+
+    .sticker-group-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 0 12px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .sticker-group-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sticker-group-tab {
+      flex-shrink: 0;
+      min-height: 36px;
+      padding: 0 15px;
+      border: 0;
+      border-radius: 999px;
+      color: #8e8e93;
+      background: #fafafa;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .sticker-group-tab.active {
+      color: #ffffff;
+      background: #000000;
+    }
+
+    .sticker-manager-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .sticker-manager-empty {
+      padding: 34px 16px;
+      border-radius: 22px;
+      color: #8e8e93;
+      background: #fafafa;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .sticker-manager-item {
+      display: grid;
+      grid-template-columns: 24px 58px 1fr 34px;
+      gap: 10px;
+      align-items: center;
+      min-height: 78px;
+      padding: 10px;
+      border-radius: 20px;
+      background: #fafafa;
+    }
+
+    .sticker-manager-item.selected {
+      background: #f0f0f0;
+    }
+
+    .sticker-manager-item input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: #000000;
+    }
+
+    .sticker-manager-item img {
+      width: 58px;
+      height: 58px;
+      border-radius: 15px;
+      object-fit: contain;
+      background: #ffffff;
+    }
+
+    .sticker-manager-copy {
+      min-width: 0;
+    }
+
+    .sticker-manager-copy strong,
+    .sticker-manager-copy span,
+    .sticker-manager-copy small {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sticker-manager-copy strong {
+      color: #000000;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .sticker-manager-copy span {
+      margin-top: 4px;
+      color: #555555;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .sticker-manager-copy small {
+      margin-top: 4px;
+      color: #9a9a9a;
+      font-size: 10px;
+      font-weight: 400;
+    }
+
+    .sticker-manager-delete {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      border-radius: 50%;
+      color: #ff3b30;
+      background: #fff5f5;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .sticker-manager-open-btn {
+      width: 100%;
+      min-height: 44px;
+      margin-bottom: 12px;
+      gap: 6px;
     }
 
     .textpost-modal {
@@ -5748,11 +6060,24 @@
     }
 
     .chat-sticker-img {
-      max-width: 128px;
-      max-height: 128px;
-      border-radius: 18px;
-      object-fit: cover;
+      width: auto;
+      height: auto;
+      max-width: 88px;
+      max-height: 88px;
+      border-radius: 12px;
+      object-fit: contain;
       display: block;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .emoji-picker-item img {
+      width: 100%;
+      height: 72px;
+      max-width: 72px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
     }
 
     .moment-delete-btn {
@@ -7100,6 +7425,10 @@
           <strong>表情包库</strong>
           <button class="card-mini-btn" type="button" data-close-card-panel>收起</button>
         </div>
+        <button class="card-mini-btn sticker-manager-open-btn" id="openStickerManager" type="button">
+          <i class="fa-solid fa-layer-group"></i>
+          管理分组与批量删除
+        </button>
         <div class="card-form">
           <input id="stickerGroupInput" type="text" placeholder="表情包分组，例如：撒娇 / 生气 / 日常" />
           <input id="stickerUrlInput" type="text" placeholder="图床链接，可粘贴图片 URL" />
@@ -7109,10 +7438,8 @@
           <button class="card-mini-btn" id="triggerStickerImport" type="button">选择 TXT / Word 批量文档</button>
           <input id="stickerImportInput" type="file" accept=".txt,.doc,.docx,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none;" />
           <div class="card-form-actions">
-            <button class="card-mini-btn" id="addStickerBtn" type="button">添加表情</button>
-            <button class="card-mini-btn" id="importStickerBtn" type="button">识别导入文件</button>
-          </div>
-          <div class="library-list" id="stickerList"></div>
+          <button class="card-mini-btn" id="addStickerBtn" type="button">添加表情</button>
+          <button class="card-mini-btn" id="importStickerBtn" type="button">识别导入文件</button>
         </div>
       </section>
 
@@ -7126,9 +7453,89 @@
           <input id="worldBookTitleInput" type="text" placeholder="条目标题" />
           <textarea id="worldBookContentInput" placeholder="写入附加设定、世界观、称呼、注意事项等，角色可按绑定分组读取。"></textarea>
           <button class="card-mini-btn" id="addWorldBookBtn" type="button">添加世界书条目</button>
-          <div class="library-list" id="worldBookList"></div>
+          <button class="card-mini-btn" id="openWorldBookManager" type="button">
+            <i class="fa-solid fa-pen-to-square"></i>
+            管理与编辑世界书
+          </button>
         </div>
       </section>
+    </div>
+  </section>
+
+  <section class="sticker-manager-modal" id="worldBookManagerModal" aria-label="世界书管理">
+    <div class="sticker-manager-card">
+      <header class="sticker-manager-head">
+        <button class="card-back" id="closeWorldBookManager" type="button" aria-label="关闭世界书管理">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="sticker-manager-title">
+          <strong>世界书管理</strong>
+          <span id="worldBookManagerCount">0 个条目</span>
+        </div>
+        <button class="card-add" id="refreshWorldBookManager" type="button" aria-label="刷新世界书列表">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
+      </header>
+
+      <div class="sticker-manager-list" id="worldBookManagerList"></div>
+    </div>
+  </section>
+
+  <section class="world-book-edit-modal" id="worldBookEditModal" aria-label="编辑世界书">
+    <div class="world-book-edit-card">
+      <div class="world-book-edit-head">
+        <strong>编辑世界书</strong>
+        <button class="world-book-edit-close" id="closeWorldBookEdit" type="button" aria-label="关闭编辑">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="world-book-edit-form">
+        <label>
+          世界书分组
+          <input id="worldBookEditGroupInput" type="text" placeholder="例如：主线设定 / 禁忌 / 城市资料" />
+        </label>
+
+        <label>
+          条目标题
+          <input id="worldBookEditTitleInput" type="text" placeholder="请输入条目标题" />
+        </label>
+
+        <label>
+          世界书内容
+          <textarea id="worldBookEditContentInput" placeholder="请输入世界书内容"></textarea>
+        </label>
+
+        <div class="world-book-edit-actions">
+          <button class="liquid-btn" id="cancelWorldBookEdit" type="button">取消</button>
+          <button class="liquid-btn primary" id="saveWorldBookEdit" type="button">保存修改</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sticker-manager-modal" id="stickerManagerModal" aria-label="表情包分组管理">
+    <div class="sticker-manager-card">
+      <header class="sticker-manager-head">
+        <button class="card-back" id="closeStickerManager" type="button" aria-label="关闭表情包管理">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="sticker-manager-title">
+          <strong>表情包管理</strong>
+          <span id="stickerManagerCount">0 个表情包</span>
+        </div>
+        <button class="card-add" id="deleteSelectedStickers" type="button" aria-label="删除选中表情包">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </header>
+
+      <div class="sticker-manager-toolbar">
+        <button class="card-mini-btn" id="selectAllStickers" type="button">全选当前分组</button>
+        <button class="card-mini-btn" id="clearStickerSelection" type="button">取消选择</button>
+      </div>
+
+      <div class="sticker-group-tabs" id="stickerGroupTabs"></div>
+      <div class="sticker-manager-list" id="stickerManagerList"></div>
     </div>
   </section>
 
@@ -8162,11 +8569,33 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
     const addStickerBtn = document.querySelector("#addStickerBtn");
     const importStickerBtn = document.querySelector("#importStickerBtn");
     const stickerList = document.querySelector("#stickerList");
+    const openStickerManager = document.querySelector("#openStickerManager");
+    const stickerManagerModal = document.querySelector("#stickerManagerModal");
+    const closeStickerManager = document.querySelector("#closeStickerManager");
+    const stickerManagerCount = document.querySelector("#stickerManagerCount");
+    const stickerGroupTabs = document.querySelector("#stickerGroupTabs");
+    const stickerManagerList = document.querySelector("#stickerManagerList");
+    const selectAllStickers = document.querySelector("#selectAllStickers");
+    const clearStickerSelection = document.querySelector("#clearStickerSelection");
+    const deleteSelectedStickers = document.querySelector("#deleteSelectedStickers");
     const worldBookGroupInput = document.querySelector("#worldBookGroupInput");
     const worldBookTitleInput = document.querySelector("#worldBookTitleInput");
     const worldBookContentInput = document.querySelector("#worldBookContentInput");
     const addWorldBookBtn = document.querySelector("#addWorldBookBtn");
     const worldBookList = document.querySelector("#worldBookList");
+    const openWorldBookManager = document.querySelector("#openWorldBookManager");
+    const worldBookManagerModal = document.querySelector("#worldBookManagerModal");
+    const closeWorldBookManager = document.querySelector("#closeWorldBookManager");
+    const refreshWorldBookManager = document.querySelector("#refreshWorldBookManager");
+    const worldBookManagerCount = document.querySelector("#worldBookManagerCount");
+    const worldBookManagerList = document.querySelector("#worldBookManagerList");
+    const worldBookEditModal = document.querySelector("#worldBookEditModal");
+    const closeWorldBookEdit = document.querySelector("#closeWorldBookEdit");
+    const cancelWorldBookEdit = document.querySelector("#cancelWorldBookEdit");
+    const saveWorldBookEdit = document.querySelector("#saveWorldBookEdit");
+    const worldBookEditGroupInput = document.querySelector("#worldBookEditGroupInput");
+    const worldBookEditTitleInput = document.querySelector("#worldBookEditTitleInput");
+    const worldBookEditContentInput = document.querySelector("#worldBookEditContentInput");
     const openAttachMenu = document.querySelector("#openAttachMenu");
     const qqAttachMenu = document.querySelector("#qqAttachMenu");
     const openEmojiPicker = document.querySelector("#openEmojiPicker");
@@ -8222,6 +8651,8 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
     const closeTextpostViewBtn = document.querySelector("#closeTextpostView");
     const chatToastQueue = [];
     let chatToastShowing = false;
+    let activeStickerManagerGroup = "__all__";
+    const selectedStickerIds = new Set();
     const chatHistoryVisibleCounts = new Map();
     let momentsHistoryExpanded = false;
     let autoMomentTimer = null;
@@ -9644,30 +10075,32 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
           <img class="chat-textpost-img" src="${item.url || ""}" alt="文字图" />
         `;
         messageBody.addEventListener("click", () => openTextPostView(item));
+      } else if (item.type === "sticker") {
+        messageBody = document.createElement("img");
+        messageBody.className = "chat-sticker-img";
+        messageBody.src = item.url || "";
+        messageBody.alt = item.note || "表情包";
+        messageBody.title = item.note || "";
+        messageBody.loading = "lazy";
+        messageBody.decoding = "async";
       } else {
         messageBody = document.createElement("div");
         messageBody.className = `qq-message-bubble${item.marked ? " marked" : ""}`;
 
-        if (item.type === "sticker") {
-          messageBody.classList.add("media-message", "sticker-message");
-          messageBody.innerHTML = `<img class="chat-sticker-img" src="${item.url || ""}" alt="${item.note || "表情包"}" />`;
-          messageBody.title = item.note || "";
-        } else {
-          if (item.replyTo) {
-            const quoteText = getMessageReplyLabel(item.replyTo);
-            if (quoteText) {
-              const quote = document.createElement("div");
-              quote.className = "qq-message-quote";
-              quote.textContent = quoteText;
-              messageBody.appendChild(quote);
-            }
+        if (item.replyTo) {
+          const quoteText = getMessageReplyLabel(item.replyTo);
+          if (quoteText) {
+            const quote = document.createElement("div");
+            quote.className = "qq-message-quote";
+            quote.textContent = quoteText;
+            messageBody.appendChild(quote);
           }
-
-          const content = document.createElement("span");
-          content.className = "qq-message-content";
-          content.textContent = getDisplayMessageText(item);
-          messageBody.appendChild(content);
         }
+
+        const content = document.createElement("span");
+        content.className = "qq-message-content";
+        content.textContent = getDisplayMessageText(item);
+        messageBody.appendChild(content);
       }
 
       bindMessageLongPress(messageBody, messageId);
@@ -10615,32 +11048,344 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       if (!stickerList) return;
       ensureQqState();
       stickerList.innerHTML = "";
+
       if (!appState.qq.stickers.length) {
         stickerList.innerHTML = '<div class="library-item">还没有表情包。你可以添加图床链接、从相册上传，或导入含图片链接与备注的 TXT / Word 文件。</div>';
         return;
       }
+
       appState.qq.stickers.forEach((item) => {
         const row = document.createElement("div");
         row.className = "library-item";
-        row.innerHTML = `<img src="${item.url || ""}" alt="${item.note || "表情"}"><b>${item.group || "默认"}</b><br>${item.note || "未备注"}<br><small>${item.url || ""}</small>`;
+
+        const image = document.createElement("img");
+        image.src = item.url || "";
+        image.alt = item.note || "表情包";
+        image.loading = "lazy";
+        image.decoding = "async";
+
+        const group = document.createElement("b");
+        group.textContent = item.group || "默认";
+
+        const note = document.createElement("div");
+        note.textContent = item.note || item.remark || item.description || "未填写备注";
+
+        row.appendChild(image);
+        row.appendChild(group);
+        row.appendChild(note);
         stickerList.appendChild(row);
       });
     }
 
-    function renderWorldBooks() {
-      if (!worldBookList) return;
+    function getStickerManagerItems() {
       ensureQqState();
-      worldBookList.innerHTML = "";
-      if (!appState.qq.worldBooks.length) {
-        worldBookList.innerHTML = '<div class="library-item">还没有世界书。添加后可在会话设置里绑定给角色读取。</div>';
+
+      if (activeStickerManagerGroup === "__all__") {
+        return appState.qq.stickers;
+      }
+
+      return appState.qq.stickers.filter(
+        (item) => (item.group || "默认") === activeStickerManagerGroup
+      );
+    }
+
+    function renderStickerManager() {
+      if (!stickerManagerList || !stickerGroupTabs) return;
+
+      ensureQqState();
+
+      const groups = ["__all__", ...(appState.qq.stickerGroups || [])];
+      const uniqueGroups = [...new Set(groups)];
+      const items = getStickerManagerItems();
+
+      stickerGroupTabs.innerHTML = "";
+      uniqueGroups.forEach((groupName) => {
+        const button = document.createElement("button");
+        button.className = `sticker-group-tab${activeStickerManagerGroup === groupName ? " active" : ""}`;
+        button.type = "button";
+        button.textContent = groupName === "__all__" ? `全部 (${appState.qq.stickers.length})` : `${groupName} (${appState.qq.stickers.filter((item) => (item.group || "默认") === groupName).length})`;
+        button.addEventListener("click", () => {
+          activeStickerManagerGroup = groupName;
+          renderStickerManager();
+        });
+        stickerGroupTabs.appendChild(button);
+      });
+
+      selectedStickerIds.forEach((id) => {
+        if (!appState.qq.stickers.some((item) => item.id === id)) {
+          selectedStickerIds.delete(id);
+        }
+      });
+
+      if (stickerManagerCount) {
+        stickerManagerCount.textContent = `${appState.qq.stickers.length} 个表情包 · 已选 ${selectedStickerIds.size} 个`;
+      }
+
+      stickerManagerList.innerHTML = "";
+
+      if (!items.length) {
+        stickerManagerList.innerHTML = '<div class="sticker-manager-empty">这个分组还没有表情包。</div>';
         return;
       }
+
+      items.forEach((item) => {
+        const row = document.createElement("div");
+        row.className = `sticker-manager-item${selectedStickerIds.has(item.id) ? " selected" : ""}`;
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = selectedStickerIds.has(item.id);
+        checkbox.setAttribute("aria-label", `选择${item.note || "表情包"}`);
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) {
+            selectedStickerIds.add(item.id);
+          } else {
+            selectedStickerIds.delete(item.id);
+          }
+          renderStickerManager();
+        });
+
+        const image = document.createElement("img");
+        image.src = item.url || "";
+        image.alt = item.note || "表情包";
+        image.loading = "lazy";
+        image.decoding = "async";
+
+        const copy = document.createElement("div");
+        copy.className = "sticker-manager-copy";
+
+        const note = document.createElement("strong");
+        note.textContent = item.note || "未填写备注";
+
+        const group = document.createElement("span");
+        group.textContent = `分组：${item.group || "默认"}`;
+
+        const id = document.createElement("small");
+        id.textContent = item.id || "";
+
+        copy.appendChild(note);
+        copy.appendChild(group);
+        copy.appendChild(id);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "sticker-manager-delete";
+        deleteButton.type = "button";
+        deleteButton.setAttribute("aria-label", "删除这个表情包");
+        deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        deleteButton.addEventListener("click", async () => {
+          const confirmed = window.confirm(`确定删除表情包「${item.note || "未填写备注"}」吗？`);
+          if (!confirmed) return;
+
+          appState.qq.stickers = appState.qq.stickers.filter((sticker) => sticker.id !== item.id);
+          selectedStickerIds.delete(item.id);
+          renderCardPage();
+          renderStickerManager();
+          await saveState();
+        });
+
+        row.appendChild(checkbox);
+        row.appendChild(image);
+        row.appendChild(copy);
+        row.appendChild(deleteButton);
+        stickerManagerList.appendChild(row);
+      });
+    }
+
+    function openStickerManagerModal() {
+      if (!stickerManagerModal) return;
+      activeStickerManagerGroup = "__all__";
+      selectedStickerIds.clear();
+      renderStickerManager();
+      stickerManagerModal.classList.add("show");
+    }
+
+    function closeStickerManagerModal() {
+      if (stickerManagerModal) stickerManagerModal.classList.remove("show");
+      selectedStickerIds.clear();
+    }
+
+    async function deleteSelectedStickerItems() {
+      if (!selectedStickerIds.size) {
+        window.alert("请先选择要删除的表情包。");
+        return;
+      }
+
+      const count = selectedStickerIds.size;
+      const confirmed = window.confirm(`确定删除选中的 ${count} 个表情包吗？`);
+      if (!confirmed) return;
+
+      appState.qq.stickers = appState.qq.stickers.filter(
+        (item) => !selectedStickerIds.has(item.id)
+      );
+
+      selectedStickerIds.clear();
+      renderCardPage();
+      renderStickerManager();
+      await saveState();
+    }
+
+    function renderWorldBookItems(targetList, emptyText = "还没有世界书。") {
+      if (!targetList) return;
+      ensureQqState();
+      targetList.innerHTML = "";
+
+      if (!appState.qq.worldBooks.length) {
+        targetList.innerHTML = `<div class="library-item">${emptyText}</div>`;
+        return;
+      }
+
       appState.qq.worldBooks.forEach((item) => {
         const row = document.createElement("div");
         row.className = "library-item";
-        row.innerHTML = `<b>${item.title || "未命名条目"}</b> · ${item.group || "默认"}<br>${item.content || ""}`;
-        worldBookList.appendChild(row);
+        row.innerHTML = `
+          <b>${item.title || "未命名条目"}</b> · ${item.group || "默认"}<br>
+          ${item.content || ""}
+        `;
+        targetList.appendChild(row);
       });
+    }
+
+    function renderWorldBooks() {
+      renderWorldBookItems(
+        worldBookList,
+        "还没有世界书。添加后可在会话设置里绑定给角色读取。"
+      );
+    }
+
+    function renderWorldBookManager() {
+      if (!worldBookManagerList) return;
+      ensureQqState();
+
+      worldBookManagerList.innerHTML = "";
+
+      if (worldBookManagerCount) {
+        worldBookManagerCount.textContent = `${appState.qq.worldBooks.length} 个条目`;
+      }
+
+      if (!appState.qq.worldBooks.length) {
+        worldBookManagerList.innerHTML = '<div class="sticker-manager-empty">还没有世界书条目。</div>';
+        return;
+      }
+
+      appState.qq.worldBooks.forEach((item) => {
+        const row = document.createElement("div");
+        row.className = "sticker-manager-item";
+        row.style.gridTemplateColumns = "1fr auto auto";
+
+        const copy = document.createElement("div");
+        copy.className = "sticker-manager-copy";
+        copy.innerHTML = `
+          <strong>${item.title || "未命名条目"}</strong>
+          <span>分组：${item.group || "默认"}</span>
+          <small>${item.content || "暂无内容"}</small>
+        `;
+
+        const editButton = document.createElement("button");
+        editButton.className = "qq-role-mini-btn";
+        editButton.type = "button";
+        editButton.textContent = "编辑";
+        editButton.addEventListener("click", () => openWorldBookEditModal(item.id));
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "sticker-manager-delete";
+        deleteButton.type = "button";
+        deleteButton.setAttribute("aria-label", "删除世界书条目");
+        deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        deleteButton.addEventListener("click", () => deleteWorldBookEntry(item.id));
+
+        row.appendChild(copy);
+        row.appendChild(editButton);
+        row.appendChild(deleteButton);
+        worldBookManagerList.appendChild(row);
+      });
+    }
+
+    function openWorldBookManagerModal() {
+      if (!worldBookManagerModal) return;
+      renderWorldBookManager();
+      worldBookManagerModal.classList.add("show");
+    }
+
+    function closeWorldBookManagerModal() {
+      if (worldBookManagerModal) worldBookManagerModal.classList.remove("show");
+    }
+
+    function openWorldBookEditModal(worldBookId) {
+      ensureQqState();
+      const item = appState.qq.worldBooks.find((entry) => entry.id === worldBookId);
+      if (!item || !worldBookEditModal) return;
+
+      worldBookEditModal.dataset.worldBookId = worldBookId;
+
+      if (worldBookEditGroupInput) {
+        worldBookEditGroupInput.value = item.group || "默认";
+      }
+
+      if (worldBookEditTitleInput) {
+        worldBookEditTitleInput.value = item.title || "未命名条目";
+      }
+
+      if (worldBookEditContentInput) {
+        worldBookEditContentInput.value = item.content || "";
+      }
+
+      worldBookEditModal.classList.add("show");
+    }
+
+    function closeWorldBookEditModal() {
+      if (!worldBookEditModal) return;
+      worldBookEditModal.classList.remove("show");
+      worldBookEditModal.dataset.worldBookId = "";
+    }
+
+    async function saveWorldBookEditEntry() {
+      ensureQqState();
+
+      const worldBookId = worldBookEditModal?.dataset.worldBookId || "";
+      const item = appState.qq.worldBooks.find((entry) => entry.id === worldBookId);
+      if (!item) return;
+
+      const nextGroup = worldBookEditGroupInput?.value.trim() || "默认";
+      const nextTitle = worldBookEditTitleInput?.value.trim() || "未命名条目";
+      const nextContent = worldBookEditContentInput?.value.trim() || "";
+
+      if (!nextContent) {
+        window.alert("世界书内容不能为空。");
+        return;
+      }
+
+      item.group = nextGroup;
+      item.title = nextTitle;
+      item.content = nextContent;
+
+      if (!appState.qq.worldBookGroups.includes(nextGroup)) {
+        appState.qq.worldBookGroups.push(nextGroup);
+      }
+
+      closeWorldBookEditModal();
+      renderCardPage();
+      renderWorldBookManager();
+      syncLibrarySelectOptions();
+      await saveState();
+    }
+
+    async function deleteWorldBookEntry(worldBookId) {
+      ensureQqState();
+      const item = appState.qq.worldBooks.find((entry) => entry.id === worldBookId);
+      if (!item) return;
+
+      const confirmed = window.confirm(
+        `确定删除世界书「${item.title || "未命名条目"}」吗？删除后绑定该分组的角色将无法继续读取这条内容。`
+      );
+      if (!confirmed) return;
+
+      appState.qq.worldBooks = appState.qq.worldBooks.filter(
+        (entry) => entry.id !== worldBookId
+      );
+
+      renderCardPage();
+      renderWorldBookManager();
+      await saveState();
     }
 
     function getMultiSelectValues(select) {
@@ -10706,17 +11451,28 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
 
     async function addStickerFromValues(url, note, group) {
       ensureQqState();
-      const finalUrl = (url || "").trim();
+
+      const finalUrl = String(url || "").trim();
+      const finalNote = String(note || "").trim();
+      const finalGroup = String(group || "默认").trim() || "默认";
+
       if (!finalUrl) return;
-      const finalGroup = (group || "默认").trim() || "默认";
-      if (!appState.qq.stickerGroups.includes(finalGroup)) appState.qq.stickerGroups.push(finalGroup);
-      appState.qq.stickers.unshift({
+
+      if (!appState.qq.stickerGroups.includes(finalGroup)) {
+        appState.qq.stickerGroups.push(finalGroup);
+      }
+
+            appState.qq.stickers.unshift({
         id: `sticker_${Date.now()}_${Math.random().toString(16).slice(2)}`,
         url: finalUrl,
-        note: (note || "").trim(),
+        note: finalNote,
         group: finalGroup
       });
+
       renderCardPage();
+      if (stickerManagerModal?.classList.contains("show")) {
+        renderStickerManager();
+      }
       await saveState();
     }
 
@@ -10768,13 +11524,36 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       await saveState();
     }
 
-    function getBoundWorldBookText() {
-      const settings = getActiveChatSettings();
-      const groups = settings.boundWorldBookGroups || [];
-      if (!groups.length) return "未绑定世界书。";
-      const entries = (appState.qq.worldBooks || []).filter((item) => groups.includes(item.group));
-      if (!entries.length) return "已绑定分组暂无世界书内容。";
-      return entries.map((item) => `【${item.group} / ${item.title}】\n${item.content}`).join("\n\n");
+    function getBoundWorldBookText(role = null) {
+      ensureQqState();
+
+      const roleId = role ? getRoleId(role) : appState.qq.activeChatId || "default";
+      const settings = role
+        ? {
+            ...getChatDefaultSettings(),
+            ...(appState.qq.chatSettings?.[roleId] || {})
+          }
+        : getActiveChatSettings();
+
+      const groups = Array.isArray(settings.boundWorldBookGroups)
+        ? settings.boundWorldBookGroups.filter(Boolean)
+        : [];
+
+      if (!groups.length) {
+        return "未绑定世界书。请在当前角色的会话设置中选择需要绑定的世界书分组。";
+      }
+
+      const entries = (appState.qq.worldBooks || []).filter((item) =>
+        groups.includes(item.group || "默认")
+      );
+
+      if (!entries.length) {
+        return "已绑定的世界书分组暂无可读取条目。";
+      }
+
+      return entries
+        .map((item) => `【世界书分组：${item.group || "默认"} / ${item.title || "未命名条目"}】\n${item.content || ""}`)
+        .join("\n\n");
     }
 
     function getBoundStickerText() {
@@ -10968,24 +11747,34 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
 
     function openEmojiPickerModal() {
       if (!emojiPickerModal || !emojiPickerGrid) return;
+
       ensureQqState();
-      const settings = getActiveChatSettings();
-      const groups = settings.boundStickerGroups || [];
-      const stickers = appState.qq.stickers.filter((item) => !groups.length || groups.includes(item.group));
+      const stickers = getAvailableRoleStickers();
       emojiPickerGrid.innerHTML = "";
-      if (!stickers.length) {
-        emojiPickerGrid.innerHTML = '<div class="emoji-empty">暂无可发送表情。请先到名片页添加表情包。</div>';
+
+      if (!getActiveChatSettings().roleCanSendStickers) {
+        emojiPickerGrid.innerHTML = '<div class="emoji-empty">请先在会话设置中开启角色表情包权限。</div>';
+      } else if (!stickers.length) {
+        emojiPickerGrid.innerHTML = '<div class="emoji-empty">当前会话没有可用表情包，请检查已绑定的分组。</div>';
       } else {
         stickers.forEach((item) => {
           const button = document.createElement("button");
           button.className = "emoji-picker-item";
           button.type = "button";
-          button.title = item.note || "";
-          button.innerHTML = `<img src="${item.url || ""}" alt="${item.note || "表情包"}">`;
+          button.title = item.note || item.group || "表情包";
+
+          const image = document.createElement("img");
+          image.src = item.url || "";
+          image.alt = item.note || "表情包";
+          image.loading = "lazy";
+          image.decoding = "async";
+
+          button.appendChild(image);
           button.addEventListener("click", () => sendStickerMessage(item));
           emojiPickerGrid.appendChild(button);
         });
       }
+
       emojiPickerModal.classList.add("show");
     }
 
@@ -11167,16 +11956,49 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       return true;
     }
 
-    function findRoleStickerByHint(text) {
+    function getAvailableRoleStickers() {
       const settings = getActiveChatSettings();
-      if (!settings.roleCanSendStickers) return null;
-      const groups = settings.boundStickerGroups || [];
-      const stickers = (appState.qq.stickers || []).filter((item) => !groups.length || groups.includes(item.group));
+
+      if (!settings.roleCanSendStickers) return [];
+
+      const groups = Array.isArray(settings.boundStickerGroups)
+        ? settings.boundStickerGroups.filter(Boolean)
+        : [];
+
+      return (appState.qq.stickers || []).filter((item) => {
+        if (!groups.length) return true;
+        return groups.includes(item.group || "默认");
+      });
+    }
+
+    function parseStickerCommand(text) {
+      const match = String(text || "").match(
+        /^\s*[\[【]\s*(?:表情包|发送表情包|sticker)\s*[:：]\s*([\s\S]+?)\s*[\]】]\s*$/i
+      );
+
+      if (!match) return null;
+
+      const hint = match[1].trim();
+      return hint ? { hint } : null;
+    }
+
+    function findRoleStickerByHint(text) {
+      const stickers = getAvailableRoleStickers();
       if (!stickers.length) return null;
-      const clean = String(text || "").toLowerCase();
-      return stickers.find((item) => item.id && clean.includes(item.id.toLowerCase()))
-        || stickers.find((item) => item.note && clean.includes(item.note.toLowerCase().slice(0, 6)))
-        || (Math.random() < 0.16 ? stickers[Math.floor(Math.random() * stickers.length)] : null);
+
+      const clean = String(text || "")
+        .replace(/^\s*[\[【]\s*(?:表情包|发送表情包|sticker)\s*[:：]\s*/i, "")
+        .replace(/\s*[\]】]\s*$/i, "")
+        .trim()
+        .toLowerCase();
+
+      if (!clean) return null;
+
+      return stickers.find((item) => item.id && clean === String(item.id).trim().toLowerCase())
+        || stickers.find((item) => item.note && clean === String(item.note).trim().toLowerCase())
+        || stickers.find((item) => item.note && clean.includes(String(item.note).trim().toLowerCase()))
+        || stickers.find((item) => item.note && String(item.note).trim().toLowerCase().includes(clean))
+        || null;
     }
 
     function getRoleMomentMemoryText(role) {
@@ -11212,7 +12034,7 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         `角色完整人设：${settings.contactNote || role.persona || "未填写"}`,
         `我的身份/昵称/设定：${settings.myName || "未填写"}`,
         `我和角色的经历：${role.story || "未填写"}`,
-        `已绑定世界书：\n${getBoundWorldBookText()}`,
+        `已绑定世界书（本次回复会读取以下内容）：\n${getBoundWorldBookText(role)}`,
         `可用表情包：\n${getBoundStickerText()}`,
         `最近十条动态与互动记忆：\n${getRoleMomentMemoryText(role)}`,
         `最近聊天记忆：\n${memory || "暂无聊天记录"}`
@@ -11873,41 +12695,6 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
 		"IMPORTANT!!!强调“可读性，结构化”的输出，以及自然流对话，必须全部严格按照用户的要求来进行输出，保证输出质量",
 		"*助手采用高情商写作方法，{{char}}必须说非书面化语言，{{char}}绝对不能显得说话油腻，绝对禁止角色对话讲大道理，讲心理学，讲论文，说教式PUA，讲废话，讲解释性质的话，必须符合带感小说设定，有“真实感”，别他妈让角色跟个霸道总裁一样，你拿点有原创性的带感对话！",
 		"[assistant enters' non-traditional framed role-playing']: 角色 is the origin of this role-playing axis. The assistant selects the number axis x ~ (th) y as the narrative linear change, and the x, y value takes any infinite random value, that is, the narrative line is controlled within the number axis (in line with the basic logic outline) but has a random, diversified and creative functional thinking.Random deviation angle per narrative node shall be constrained between 15°-70°, ensuring dynamic but traceable plot fluctuation.",
-		  "写有意思的回复，但记住这是他们在手机上聊天的情景。允许使用emoji表情或网络俚语或颜文字。不要输出逗号和句号，用空格代替逗号。",
-        "不要古早霸总，要一个有吸引力，Be a swoon-worthy person.",
-				"【用语规则】",
-		"严禁前因后果模板的句式，例如如果不xxx，就xxx类句式等它的句式变体。",
-		"assistant整体使用口语化，生活化，日常化的对话风格。",
-		"【真人对话的信息处理逻辑】",
-"真人聊天不是越短越好。真人的回复长度取决于对方给了多少信息需要处理。",
-"核心规则：",
-"- 对方说了一个具体处境（饿了/难受/遇到问题），角色应该先接住这个处境再行动，而不是跳过处境直接给指令或解决方案。",
-"- '接住处境'的方式：追问一个具体细节、确认一个条件、顺着对方的话往下说。这不是废话，这是真人在对话中自然会做的信息确认。",
-"- 错误的简洁：对方说了三句话，角色只回一个字，跳过了对方提供的所有信息。这不是活人感，这是没在听。",
-"- 正确的简洁：每句话都不长，但每句话都在回应对方给的某个信息点。",
-"",
-"示例对比：",
-"user：肚子好饿 这么早外面没东西吃",
-"",
-"错误（假简洁）：去吃东西。",
-"错误原因：对方说了'这么早没东西吃'，角色的'去吃东西'完全没接住这个信息，像没看见这句话。",
-"",
-"正确：那就去吃东西 别饿着 / 几点了你那边 / 家里没吃的吗 饼干什么的先垫一下",
-"正确原因：'别饿着'接住了情绪，'几点了'是在判断情况，'饼干先垫一下'是基于'外面没东西吃'这个条件给的方案。每一句都在处理对方给的信息。",
-"",
-"【行动与对话的关系】",
-"- 转账、发红包、买东西等行动不能代替对话中的信息处理。真人会在对话中确认完情况之后才行动，而不是对方一说饿就直接转钱。",
-"- 直接行动跳过对话过程 = 霸总模板 = 模型在走捷径。",
-"- 正确顺序：接住信息 → 确认情况 → 给方案或行动。中间环节不能跳。",
-"",
-"【回复长度判断标准】",
-"不是'越短越像真人'，而是'信息密度匹配越好越像真人'。",
-"- 对方只发了一个字/一个表情 → 角色可以很短",
-"- 对方给了一个具体场景/问题 → 角色应该有对应的信息处理，可以多几句",
-"- 判断标准：对方给了几个信息点，角色是否都接住了。漏掉信息点 = 没在听 = 不像真人。",
-
-		
-		
 		
 		           "【角色回复目标】",
         "你要写的不是漂亮台词，而是真人聊天。回复必须同时做到：有活人感、符合人设、不 OOC、能自然推进对话。",
@@ -12146,19 +12933,30 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
             continue;
           }
 
-          const sticker = findRoleStickerByHint(outputText);
+          const stickerCommand = parseStickerCommand(outputText);
+          const sticker = stickerCommand
+            ? findRoleStickerByHint(stickerCommand.hint)
+            : findRoleStickerByHint(outputText);
+
           if (sticker) {
             messages.push({
               id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
               type: "sticker",
               sender: "friend",
               url: sticker.url,
-              note: sticker.note || "",
+              note: sticker.note || "未备注",
               createdAtMs: Date.now(),
-              text: `[表情包：${sticker.note || "未备注"}]`,
+              text: "",
               read: true
             });
-            notificationItems.push({ text: `[表情包] ${sticker.note || "未备注"}` });
+
+            notificationItems.push({
+              text: `发送了表情包${sticker.note ? `：${sticker.note}` : ""}`
+            });
+
+            renderThreadMessages(messages);
+            renderChatList();
+            continue;
           }
 
           messages.push({
@@ -12720,20 +13518,60 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       });
     }
 
+    if (openStickerManager) {
+      openStickerManager.addEventListener("click", openStickerManagerModal);
+    }
+
+    if (closeStickerManager) {
+      closeStickerManager.addEventListener("click", closeStickerManagerModal);
+    }
+
+    if (stickerManagerModal) {
+      stickerManagerModal.addEventListener("click", (event) => {
+        if (event.target === stickerManagerModal) {
+          closeStickerManagerModal();
+        }
+      });
+    }
+
+    if (selectAllStickers) {
+      selectAllStickers.addEventListener("click", () => {
+        getStickerManagerItems().forEach((item) => selectedStickerIds.add(item.id));
+        renderStickerManager();
+      });
+    }
+
+    if (clearStickerSelection) {
+      clearStickerSelection.addEventListener("click", () => {
+        selectedStickerIds.clear();
+        renderStickerManager();
+      });
+    }
+
+    if (deleteSelectedStickers) {
+      deleteSelectedStickers.addEventListener("click", deleteSelectedStickerItems);
+    }
+
     if (addStickerBtn) {
       addStickerBtn.addEventListener("click", async () => {
         const file = stickerFileInput?.files?.[0];
+        const note = stickerNoteInput?.value.trim() || "";
+        const group = stickerGroupInput?.value.trim() || "默认";
+        const url = stickerUrlInput?.value.trim() || "";
+
         if (file) {
           readImage(file, async (src) => {
-            await addStickerFromValues(src, stickerNoteInput?.value || "", stickerGroupInput?.value || "默认");
+            await addStickerFromValues(src, note, group);
             if (stickerFileInput) stickerFileInput.value = "";
             if (triggerStickerFile) triggerStickerFile.textContent = "选择本地表情图片";
           });
         } else {
-          await addStickerFromValues(stickerUrlInput?.value || "", stickerNoteInput?.value || "", stickerGroupInput?.value || "默认");
+          await addStickerFromValues(url, note, group);
         }
+
         if (stickerUrlInput) stickerUrlInput.value = "";
         if (stickerNoteInput) stickerNoteInput.value = "";
+        if (stickerGroupInput) stickerGroupInput.value = "";
       });
     }
 
@@ -12745,6 +13583,47 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       });
     }
     if (addWorldBookBtn) addWorldBookBtn.addEventListener("click", addWorldBookEntry);
+
+    if (openWorldBookManager) {
+      openWorldBookManager.addEventListener("click", openWorldBookManagerModal);
+    }
+
+    if (closeWorldBookManager) {
+      closeWorldBookManager.addEventListener("click", closeWorldBookManagerModal);
+    }
+
+    if (closeWorldBookEdit) {
+      closeWorldBookEdit.addEventListener("click", closeWorldBookEditModal);
+    }
+
+    if (cancelWorldBookEdit) {
+      cancelWorldBookEdit.addEventListener("click", closeWorldBookEditModal);
+    }
+
+    if (saveWorldBookEdit) {
+      saveWorldBookEdit.addEventListener("click", saveWorldBookEditEntry);
+    }
+
+    if (worldBookEditModal) {
+      worldBookEditModal.addEventListener("click", (event) => {
+        if (event.target === worldBookEditModal) {
+          closeWorldBookEditModal();
+        }
+      });
+    }
+
+    if (refreshWorldBookManager) {
+      refreshWorldBookManager.addEventListener("click", renderWorldBookManager);
+    }
+
+    if (worldBookManagerModal) {
+      worldBookManagerModal.addEventListener("click", (event) => {
+        if (event.target === worldBookManagerModal) {
+          closeWorldBookManagerModal();
+        }
+      });
+    }
+
     if (openAttachMenu && qqAttachMenu) {
       openAttachMenu.addEventListener("click", (event) => {
         event.stopPropagation();
