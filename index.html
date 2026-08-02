@@ -10328,11 +10328,230 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       return parameters;
     }
 
+    function normalizeMessageContent(content) {
+      if (Array.isArray(content)) return content.slice();
+      return String(content ?? "");
+    }
+
+    function mergeMessageContent(previous, current) {
+      const previousContent = normalizeMessageContent(previous);
+      const currentContent = normalizeMessageContent(current);
+
+      if (Array.isArray(previousContent) || Array.isArray(currentContent)) {
+        const previousParts = Array.isArray(previousContent)
+          ? previousContent
+          : [{ type: "text", text: previousContent }];
+        const currentParts = Array.isArray(currentContent)
+          ? currentContent
+          : [{ type: "text", text: currentContent }];
+        return previousParts.concat(currentParts);
+      }
+
+      return `${previousContent}\n\n${currentContent}`;
+    }
+
+    function normalizeMessages(messages) {
+      const systemContents = [];
+      const chatMessages = [];
+
+      (Array.isArray(messages) ? messages : []).forEach((message) => {
+        if (!message || !message.role) return;
+
+        if (message.role === "system") {
+          const content = typeof message.content === "string"
+            ? message.content
+            : JSON.stringify(message.content ?? "");
+          if (content.trim()) systemContents.push(content);
+          return;
+        }
+
+        chatMessages.push({
+          ...message,
+          content: message.content ?? ""
+        });
+      });
+
+      const normalized = [];
+
+      if (systemContents.length) {
+        normalized.push({
+          role: "system",
+          content: systemContents.join("\n\n")
+        });
+      }
+
+      let lastMessage = null;
+
+      chatMessages.forEach((message) => {
+        if (lastMessage && lastMessage.role === message.role) {
+          lastMessage.content = mergeMessageContent(lastMessage.content, message.content);
+          return;
+        }
+
+        const clonedMessage = {
+          ...message,
+          content: normalizeMessageContent(message.content)
+        };
+
+        normalized.push(clonedMessage);
+        lastMessage = clonedMessage;
+      });
+
+      const firstNonSystemIndex = normalized.findIndex((message) => message.role !== "system");
+
+      if (
+        firstNonSystemIndex !== -1 &&
+        normalized[firstNonSystemIndex].role === "assistant"
+      ) {
+        normalized.splice(firstNonSystemIndex, 0, {
+          role: "user",
+          content: "[对话历史开始]"
+        });
+      }
+
+      const finalMessage = normalized[normalized.length - 1];
+
+      if (finalMessage?.role === "assistant") {
+        const finalContent = Array.isArray(finalMessage.content)
+          ? finalMessage.content.map((part) => part?.text || "").join("")
+          : String(finalMessage.content || "");
+
+        if (["[", "{", "<status>"].includes(finalContent.trim())) {
+          const previousUser = normalized
+            .slice(0, -1)
+            .reverse()
+            .find((message) => message.role === "user");
+
+          normalized.pop();
+
+          if (previousUser) {
+            const prefixInstruction = `\n\n【系统格式强制校验】\n请直接且只能以 \`${finalContent.trim()}\` 开头输出纯格式数据，不要输出解释、Markdown 或额外文本。`;
+            previousUser.content = mergeMessageContent(previousUser.content, prefixInstruction);
+          }
+        } else {
+          normalized.push({
+            role: "user",
+            content: "请继续。"
+          });
+        }
+      }
+
+      return normalized;
+    }
+
+    function parseAPIResponse(responseText) {
+      const trimmed = String(responseText || "").trim();
+      if (!trimmed) {
+        return {
+          choices: [{ message: { content: "" } }]
+        };
+      }
+
+      const parseJson = (value) => {
+        try {
+          return JSON.parse(value);
+        } catch (error) {
+          return null;
+        }
+      };
+
+      const direct = parseJson(trimmed);
+
+      if (direct?.choices?.[0]?.message) {
+        return direct;
+      }
+
+      if (direct?.candidates?.[0]) {
+        const content = direct.candidates[0]?.content?.parts
+          ?.map((part) => part?.text || "")
+          .join("") || "";
+
+        return {
+          choices: [{ message: { content } }]
+        };
+      }
+
+      const sseLines = trimmed.split(/\r?\n/);
+      if (sseLines.some((line) => line.trim().startsWith("data:"))) {
+        let content = "";
+
+        sseLines.forEach((line) => {
+          const value = line.trim();
+          if (!value.startsWith("data:")) return;
+
+          const payload = value.slice(5).trim();
+          if (!payload || payload === "[DONE]") return;
+
+          const chunk = parseJson(payload);
+          if (chunk?.choices?.[0]?.delta?.content) {
+            content += chunk.choices[0].delta.content;
+          }
+
+          if (chunk?.candidates?.[0]?.content?.parts) {
+            content += chunk.candidates[0].content.parts
+              .map((part) => part?.text || "")
+              .join("");
+          }
+        });
+
+        if (content) {
+          return {
+            choices: [{ message: { content } }]
+          };
+        }
+      }
+
+      const choicesMatch = trimmed.match(/\{[\s\S]*"choices"[\s\S]*\}/);
+      const choicesData = choicesMatch ? parseJson(choicesMatch[0]) : null;
+      if (choicesData?.choices?.[0]?.message) {
+        return choicesData;
+      }
+
+      const jsonMatch = trimmed.match(/\{[\s\S]+\}/);
+      const jsonData = jsonMatch ? parseJson(jsonMatch[0]) : null;
+      if (jsonData?.candidates?.[0]) {
+        const content = jsonData.candidates[0]?.content?.parts
+          ?.map((part) => part?.text || "")
+          .join("") || "";
+
+        return {
+          choices: [{ message: { content } }]
+        };
+      }
+
+      return {
+        choices: [{ message: { content: trimmed } }]
+      };
+    }
+
+    function extractAPIContent(data, expectedPrefix = "") {
+      let content = data?.choices?.[0]?.message?.content;
+
+      if (Array.isArray(content)) {
+        content = content
+          .map((part) => typeof part === "string" ? part : part?.text || "")
+          .join("");
+      }
+
+      content = String(content || "").trim();
+
+      if (
+        expectedPrefix &&
+        content &&
+        !content.startsWith(expectedPrefix)
+      ) {
+        content = `${expectedPrefix}${content}`;
+      }
+
+      return content;
+    }
+
     async function callChatCompletion(messages, options = {}) {
       const config = getApiConfigOrAlert(!!options.silent);
       if (!config) return "";
 
       const parameters = getBalancedModelParameters(config.model, options);
+      const requestMessages = normalizeMessages(messages);
 
       const response = await fetch(`${config.baseUrl}/chat/completions`, {
         method: "POST",
@@ -10342,7 +10561,7 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         },
         body: JSON.stringify({
           model: config.model,
-          messages,
+          messages: requestMessages,
           temperature: parameters.temperature,
           top_p: parameters.top_p,
           max_tokens: parameters.max_tokens,
@@ -10351,11 +10570,14 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         })
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+      const data = parseAPIResponse(responseText);
+
       if (!response.ok) {
-        throw new Error(data.error?.message || "API 调用失败");
+        throw new Error(data?.error?.message || "API 调用失败");
       }
-      return data.choices?.[0]?.message?.content?.trim() || "";
+
+      return extractAPIContent(data, options.expectedPrefix || "");
     }
 
     function formatMoney(value) {
@@ -11651,6 +11873,41 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
 		"IMPORTANT!!!强调“可读性，结构化”的输出，以及自然流对话，必须全部严格按照用户的要求来进行输出，保证输出质量",
 		"*助手采用高情商写作方法，{{char}}必须说非书面化语言，{{char}}绝对不能显得说话油腻，绝对禁止角色对话讲大道理，讲心理学，讲论文，说教式PUA，讲废话，讲解释性质的话，必须符合带感小说设定，有“真实感”，别他妈让角色跟个霸道总裁一样，你拿点有原创性的带感对话！",
 		"[assistant enters' non-traditional framed role-playing']: 角色 is the origin of this role-playing axis. The assistant selects the number axis x ~ (th) y as the narrative linear change, and the x, y value takes any infinite random value, that is, the narrative line is controlled within the number axis (in line with the basic logic outline) but has a random, diversified and creative functional thinking.Random deviation angle per narrative node shall be constrained between 15°-70°, ensuring dynamic but traceable plot fluctuation.",
+		  "写有意思的回复，但记住这是他们在手机上聊天的情景。允许使用emoji表情或网络俚语或颜文字。不要输出逗号和句号，用空格代替逗号。",
+        "不要古早霸总，要一个有吸引力，Be a swoon-worthy person.",
+				"【用语规则】",
+		"严禁前因后果模板的句式，例如如果不xxx，就xxx类句式等它的句式变体。",
+		"assistant整体使用口语化，生活化，日常化的对话风格。",
+		"【真人对话的信息处理逻辑】",
+"真人聊天不是越短越好。真人的回复长度取决于对方给了多少信息需要处理。",
+"核心规则：",
+"- 对方说了一个具体处境（饿了/难受/遇到问题），角色应该先接住这个处境再行动，而不是跳过处境直接给指令或解决方案。",
+"- '接住处境'的方式：追问一个具体细节、确认一个条件、顺着对方的话往下说。这不是废话，这是真人在对话中自然会做的信息确认。",
+"- 错误的简洁：对方说了三句话，角色只回一个字，跳过了对方提供的所有信息。这不是活人感，这是没在听。",
+"- 正确的简洁：每句话都不长，但每句话都在回应对方给的某个信息点。",
+"",
+"示例对比：",
+"user：肚子好饿 这么早外面没东西吃",
+"",
+"错误（假简洁）：去吃东西。",
+"错误原因：对方说了'这么早没东西吃'，角色的'去吃东西'完全没接住这个信息，像没看见这句话。",
+"",
+"正确：那就去吃东西 别饿着 / 几点了你那边 / 家里没吃的吗 饼干什么的先垫一下",
+"正确原因：'别饿着'接住了情绪，'几点了'是在判断情况，'饼干先垫一下'是基于'外面没东西吃'这个条件给的方案。每一句都在处理对方给的信息。",
+"",
+"【行动与对话的关系】",
+"- 转账、发红包、买东西等行动不能代替对话中的信息处理。真人会在对话中确认完情况之后才行动，而不是对方一说饿就直接转钱。",
+"- 直接行动跳过对话过程 = 霸总模板 = 模型在走捷径。",
+"- 正确顺序：接住信息 → 确认情况 → 给方案或行动。中间环节不能跳。",
+"",
+"【回复长度判断标准】",
+"不是'越短越像真人'，而是'信息密度匹配越好越像真人'。",
+"- 对方只发了一个字/一个表情 → 角色可以很短",
+"- 对方给了一个具体场景/问题 → 角色应该有对应的信息处理，可以多几句",
+"- 判断标准：对方给了几个信息点，角色是否都接住了。漏掉信息点 = 没在听 = 不像真人。",
+
+		
+		
 		
 		           "【角色回复目标】",
         "你要写的不是漂亮台词，而是真人聊天。回复必须同时做到：有活人感、符合人设、不 OOC、能自然推进对话。",
@@ -11772,7 +12029,7 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
           },
           body: JSON.stringify({
             model: config.model,
-            messages: [
+            messages: normalizeMessages([
               {
                 role: "system",
                 content: ENHANCED_SYSTEM_PROMPT
@@ -11799,18 +12056,17 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
                   "只返回最终角色消息正文，不要返回空消息。"
                 ].join("\n")
               }
-            ],
-            ...getBalancedModelParameters(config.model, {
-              temperature: 0.78,
-              top_p: 0.92,
-              max_tokens: 900,
-              presence_penalty: 0.08,
-              frequency_penalty: 0.08
-            })
+            ]),
+            temperature: 0.78,
+            top_p: 0.92,
+            max_tokens: 900,
+            presence_penalty: 0.08,
+            frequency_penalty: 0.08
           })
         });
 
-        const data = await response.json();
+        const responseText = await response.text();
+        const data = parseAPIResponse(responseText);
 
         if (!response.ok) {
           throw new Error(data.error?.message || "角色回复失败");
