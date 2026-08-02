@@ -7007,8 +7007,38 @@
       </header>
 
       <section class="setting-list">
-        <!-- API 设置 -->
+        <!-- PWA 添加到桌面与全屏 -->
         <article class="setting-group open">
+          <button class="group-toggle" type="button">
+            <div class="group-title">
+              <span class="group-icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
+              <div class="group-copy">
+                <strong>添加到桌面与全屏</strong>
+                <span>一键将猫爪机安装至手机桌面，享受 APP 式全屏体验</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="group-body">
+            <div class="field-stack">
+              <div class="upload-item">
+                <strong>独立 APP 模式</strong>
+                <span id="pwaStatusText">添加到桌面后，从主屏幕图标启动可自动隐藏浏览器地址栏，享受真正的全屏流畅体验。</span>
+                <div class="inline-actions" style="margin-top:10px;">
+                  <button class="liquid-btn primary" id="installPwaBtn" type="button">
+                    <i class="fa-solid fa-square-plus" style="margin-right:6px;"></i>添加到桌面
+                  </button>
+                  <button class="liquid-btn" id="toggleFullscreenBtn" type="button">
+                    <i class="fa-solid fa-expand" style="margin-right:6px;"></i>手动切换全屏
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- API 设置 -->
+        <article class="setting-group">
           <button class="group-toggle" type="button">
             <div class="group-title">
               <span class="group-icon"><i class="fa-solid fa-sliders"></i></span>
@@ -7796,6 +7826,38 @@
     <div class="dock-center">
       <span class="dock-mini"><i class="fa-solid fa-comment"></i></span>
       <span class="dock-mini"><i class="fa-solid fa-phone"></i></span>
+    </div>
+  </section>
+
+  <section class="announcement-modal" id="pwaInstallModal" aria-label="添加到桌面引导">
+    <div class="announcement-card">
+      <header class="announcement-head">
+        <h3>添加到手机桌面</h3>
+        <div class="announcement-author-badge">
+          <i class="fa-solid fa-mobile-screen"></i>
+          <span>享受独立全屏 APP 体验</span>
+        </div>
+      </header>
+
+      <div class="announcement-body" id="pwaInstallGuideBody">
+        <div class="announcement-item">
+          <strong>1. iOS / Safari 浏览器用户：</strong>
+          <p>点击浏览器底部工具栏的【分享】按钮（ <i class="fa-solid fa-arrow-up-from-bracket"></i> ），下滑并选择【添加到主屏幕】。</p>
+        </div>
+        <div class="announcement-item">
+          <strong>2. Android / Chrome 浏览器用户：</strong>
+          <p>点击浏览器右上角【三点菜单】（ <i class="fa-solid fa-ellipsis-vertical"></i> ），选择【添加到主屏幕】或【安装应用】。</p>
+        </div>
+        <div class="announcement-free-tag">
+          成功添加到主屏幕后，从桌面图标打开即可实现隐藏浏览器地址栏的“真正的应用级全屏”！
+        </div>
+      </div>
+
+      <footer class="announcement-footer">
+        <button class="announcement-btn active" id="closePwaInstallModal" type="button">
+          我已知晓
+        </button>
+      </footer>
     </div>
   </section>
 
@@ -15140,75 +15202,141 @@ setupBatteryStatus();
 
     setInterval(updateTime, 1000);
 	
-	let catpawFullscreenLocked = false;
+	    let deferredPrompt = null;
 
-function requestCatpawFullscreen() {
-  const root = document.documentElement;
+    // 捕获 PWA 原生安装事件
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const statusText = document.querySelector("#pwaStatusText");
+      if (statusText) {
+        statusText.textContent = "当前浏览器支持一键添加到桌面！点击下方按钮即可快速安装到主屏幕。";
+      }
+    });
 
-  const requestFullscreen =
-    root.requestFullscreen ||
-    root.webkitRequestFullscreen ||
-    root.msRequestFullscreen;
+    window.addEventListener("appinstalled", () => {
+      deferredPrompt = null;
+      const statusText = document.querySelector("#pwaStatusText");
+      if (statusText) {
+        statusText.textContent = "已成功添加到桌面！请从手机桌面点击猫爪机图标以体验独立 APP 模式。";
+      }
+    });
 
-  if (!requestFullscreen) return;
+    function setupPwaInstallLogic() {
+      const installBtn = document.querySelector("#installPwaBtn");
+      const fullscreenBtn = document.querySelector("#toggleFullscreenBtn");
+      const pwaModal = document.querySelector("#pwaInstallModal");
+      const closePwaModalBtn = document.querySelector("#closePwaInstallModal");
+      const pwaStatusText = document.querySelector("#pwaStatusText");
 
-  const isFullscreen =
-    document.fullscreenElement ||
-    document.webkitFullscreenElement ||
-    document.msFullscreenElement;
+      const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.matchMedia("(display-mode: fullscreen)").matches || window.navigator.standalone === true;
 
-  if (isFullscreen) return;
+      if (isStandalone && pwaStatusText) {
+        pwaStatusText.textContent = "已处于独立桌面 APP 模式，当前正在全屏状态下运行！";
+      }
 
-  try {
-    const result = requestFullscreen.call(root);
-
-    if (result && typeof result.then === "function") {
-      result.then(() => {
-        catpawFullscreenLocked = true;
-
-        try {
-          if (screen.orientation?.lock) {
-            screen.orientation.lock("portrait").catch(() => {});
+      if (installBtn) {
+        installBtn.addEventListener("click", async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === "accepted") {
+              deferredPrompt = null;
+            }
+          } else {
+            if (pwaModal) pwaModal.classList.add("show");
           }
-        } catch (error) {}
-      }).catch(() => {});
-    } else {
-      catpawFullscreenLocked = true;
+        });
+      }
+
+      if (closePwaModalBtn && pwaModal) {
+        closePwaModalBtn.addEventListener("click", () => {
+          pwaModal.classList.remove("show");
+        });
+      }
+
+      if (fullscreenBtn) {
+        fullscreenBtn.addEventListener("click", () => {
+          toggleCatpawFullscreen();
+        });
+      }
     }
-  } catch (error) {
-    console.warn("进入全屏失败", error);
-  }
-}
 
-function setupCatpawAutoFullscreen() {
-  const launchedAsApp =
-    window.matchMedia("(display-mode: fullscreen)").matches ||
-    window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone === true;
+    function toggleCatpawFullscreen() {
+      const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+      if (!isFullscreen) {
+        requestCatpawFullscreen();
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+    }
 
-  if (!launchedAsApp) return;
+    let catpawFullscreenLocked = false;
 
-  let handled = false;
+    function requestCatpawFullscreen() {
+      const root = document.documentElement;
+      const requestFullscreen = root.requestFullscreen || root.webkitRequestFullscreen || root.msRequestFullscreen;
 
-  const onFirstInteraction = () => {
-    if (handled) return;
-    handled = true;
+      if (!requestFullscreen) return;
 
-    requestCatpawFullscreen();
+      const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+      if (isFullscreen) return;
 
-    document.removeEventListener("touchstart", onFirstInteraction);
-    document.removeEventListener("click", onFirstInteraction);
-  };
+      try {
+        const result = requestFullscreen.call(root);
 
-  document.addEventListener("touchstart", onFirstInteraction, {
-    passive: true,
-    once: true
-  });
+        if (result && typeof result.then === "function") {
+          result.then(() => {
+            catpawFullscreenLocked = true;
+            try {
+              if (screen.orientation?.lock) {
+                screen.orientation.lock("portrait").catch(() => {});
+              }
+            } catch (error) {}
+          }).catch(() => {});
+        } else {
+          catpawFullscreenLocked = true;
+        }
+      } catch (error) {
+        console.warn("进入全屏失败", error);
+      }
+    }
 
-  document.addEventListener("click", onFirstInteraction, {
-    once: true
-  });
-}
+    function setupCatpawAutoFullscreen() {
+      setupPwaInstallLogic();
+
+      const launchedAsApp =
+        window.matchMedia("(display-mode: fullscreen)").matches ||
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true;
+
+      if (!launchedAsApp) return;
+
+      let handled = false;
+
+      const onFirstInteraction = () => {
+        if (handled) return;
+        handled = true;
+
+        requestCatpawFullscreen();
+
+        document.removeEventListener("touchstart", onFirstInteraction);
+        document.removeEventListener("click", onFirstInteraction);
+      };
+
+      document.addEventListener("touchstart", onFirstInteraction, {
+        passive: true,
+        once: true
+      });
+
+      document.addEventListener("click", onFirstInteraction, {
+        once: true
+      });
+    }
 
 	</script>
 </body>
