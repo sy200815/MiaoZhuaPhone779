@@ -12,7 +12,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <link rel="manifest" href="manifest.json" id="catpawManifest" />
+  <link rel="manifest" id="catpawManifest" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
   <link
     rel="stylesheet"
@@ -7832,24 +7832,24 @@
   <section class="announcement-modal" id="pwaInstallModal" aria-label="添加到桌面引导">
     <div class="announcement-card">
       <header class="announcement-head">
-        <h3>安装为手机独立 APP</h3>
+        <h3>安装猫爪机为独立 APP (PWA)</h3>
         <div class="announcement-author-badge">
           <i class="fa-solid fa-mobile-screen"></i>
-          <span>享受真正的全屏无地址栏体验</span>
+          <span>无地址栏 · 独立窗口 · 全屏体验</span>
         </div>
       </header>
 
       <div class="announcement-body" id="pwaInstallGuideBody">
         <div class="announcement-item">
-          <strong>1. Edge / Chrome 浏览器用户：</strong>
-          <p>点击浏览器底部或右上角的菜单按钮（ <i class="fa-solid fa-ellipsis"></i> ），在弹出的菜单中选择 <b>【安装到屏幕】</b> 或 <b>【安装猫爪机】</b>（注：请选择带应用图标的“安装”，而非“快捷方式”）。</p>
+          <strong>1. Android Chrome / Edge 用户：</strong>
+          <p>点击设置页面的 <b>【安装猫爪机 APP】</b> 按钮唤起系统原生 PWA 安装弹窗；或点击浏览器右上角菜单，选择 <b>【安装应用】</b> / <b>【添加到主屏幕】</b>。</p>
         </div>
         <div class="announcement-item">
-          <strong>2. iOS / Safari 浏览器用户：</strong>
-          <p>点击浏览器底部工具栏的【分享】按钮（ <i class="fa-solid fa-arrow-up-from-bracket"></i> ），下滑并选择 <b>【添加到主屏幕】</b>。</p>
+          <strong>2. iOS / Safari 用户：</strong>
+          <p>点击 Safari 底部工具栏的【分享】按钮（ <i class="fa-solid fa-arrow-up-from-bracket"></i> ），下滑并选择 <b>【添加到主屏幕】</b>。</p>
         </div>
         <div class="announcement-free-tag">
-          安装成功后从手机桌面图标启动，会自动隐藏顶部地址栏和底部导航栏，获得原生全屏 APP 体验！
+          安装为独立 APP 后从手机桌面点开，系统将以 standalone / fullscreen 模式启动，彻底移除浏览器地址栏与底部工具栏！
         </div>
       </div>
 
@@ -9104,45 +9104,67 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         : "现实时间感知未开启。";
     }
 
+    function getPwaManifestObject() {
+      const currentUrl = window.location.href.split("#")[0].split("?")[0];
+      return {
+        name: "猫爪机",
+        short_name: "猫爪机",
+        description: "CatPaw Studio 智能桌面助手",
+        id: currentUrl,
+        start_url: currentUrl,
+        scope: "./",
+        display: "standalone",
+        display_override: ["standalone", "fullscreen", "minimal-ui"],
+        orientation: "portrait",
+        background_color: "#f7f7f5",
+        theme_color: "#f7f7f5",
+        lang: "zh-CN",
+        icons: [
+          {
+            src: "https://i.postimg.cc/vH309Znr/IMG-1684.jpg",
+            sizes: "192x192",
+            type: "image/jpeg",
+            purpose: "any maskable"
+          },
+          {
+            src: "https://i.postimg.cc/vH309Znr/IMG-1684.jpg",
+            sizes: "512x512",
+            type: "image/jpeg",
+            purpose: "any maskable"
+          }
+        ]
+      };
+    }
+
+    function setupPwaManifest() {
+      const manifestLink = document.querySelector("#catpawManifest");
+      if (!manifestLink) return;
+
+      const manifestObj = getPwaManifestObject();
+      const jsonString = JSON.stringify(manifestObj);
+
+      try {
+        const blob = new Blob([jsonString], { type: "application/manifest+json" });
+        manifestLink.href = URL.createObjectURL(blob);
+      } catch (e) {
+        manifestLink.href = "data:application/manifest+json;charset=utf-8," + encodeURIComponent(jsonString);
+      }
+
+      registerPwaServiceWorker();
+    }
+
     function registerPwaServiceWorker() {
       if (!("serviceWorker" in navigator)) return;
       try {
-        // 创建能自动拦截并响应 manifest.json 请求的 Service Worker，
-        // 让 Edge/Chrome 检测到合规的 HTTP 响应，从而激活【安装为应用(Install App)】功能而非【创建网页快捷方式】。
+        const manifestJson = JSON.stringify(getPwaManifestObject());
         const swCode = `
-          const MANIFEST_DATA = {
-            "name": "猫爪机",
-            "short_name": "猫爪机",
-            "start_url": "./",
-            "scope": "./",
-            "display": "standalone",
-            "display_override": ["standalone", "fullscreen", "minimal-ui"],
-            "orientation": "portrait",
-            "background_color": "#f7f7f5",
-            "theme_color": "#f7f7f5",
-            "lang": "zh-CN",
-            "icons": [
-              {
-                "src": "https://i.postimg.cc/vH309Znr/IMG-1684.jpg",
-                "sizes": "192x192",
-                "type": "image/jpeg",
-                "purpose": "any maskable"
-              },
-              {
-                "src": "https://i.postimg.cc/vH309Znr/IMG-1684.jpg",
-                "sizes": "512x512",
-                "type": "image/jpeg",
-                "purpose": "any maskable"
-              }
-            ]
-          };
-
+          const MANIFEST_TEXT = ${JSON.stringify(manifestJson)};
           self.addEventListener('install', (e) => self.skipWaiting());
           self.addEventListener('activate', (e) => e.waitUntil(clients.claim()));
           self.addEventListener('fetch', (event) => {
-            if (event.request.url.endsWith('manifest.json')) {
+            if (event.request.url.includes('manifest.json')) {
               event.respondWith(
-                new Response(JSON.stringify(MANIFEST_DATA), {
+                new Response(MANIFEST_TEXT, {
                   headers: {
                     'Content-Type': 'application/manifest+json; charset=utf-8',
                     'Cache-Control': 'no-cache'
@@ -9156,10 +9178,6 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         const swUrl = URL.createObjectURL(blob);
         navigator.serviceWorker.register(swUrl).catch(() => {});
       } catch (e) {}
-    }
-
-    function setupPwaManifest() {
-      registerPwaServiceWorker();
     }
 
     function openDatabase() {
@@ -15208,13 +15226,19 @@ setupBatteryStatus();
 	
 	    let deferredPrompt = null;
 
-    // 捕获 PWA 原生安装事件
+    // 捕获 Android Chrome / Edge 原生 PWA 安装事件
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
+
+      const installBtn = document.querySelector("#installPwaBtn");
       const statusText = document.querySelector("#pwaStatusText");
+
+      if (installBtn) {
+        installBtn.innerHTML = '<i class="fa-solid fa-download" style="margin-right:6px;"></i>安装猫爪机 APP';
+      }
       if (statusText) {
-        statusText.textContent = "当前浏览器支持一键添加到桌面！点击下方按钮即可快速安装到主屏幕。";
+        statusText.textContent = "检测到原生 PWA 可安装资格！点击下方按钮即可将猫爪机作为独立 APP 安装至手机桌面。";
       }
     });
 
@@ -15222,7 +15246,7 @@ setupBatteryStatus();
       deferredPrompt = null;
       const statusText = document.querySelector("#pwaStatusText");
       if (statusText) {
-        statusText.textContent = "已成功添加到桌面！请从手机桌面点击猫爪机图标以体验独立 APP 模式。";
+        statusText.textContent = "已成功安装为独立桌面 APP！请直接从手机桌面点击应用图标，开启无地址栏的全屏体验。";
       }
     });
 
@@ -15236,15 +15260,15 @@ setupBatteryStatus();
       const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.matchMedia("(display-mode: fullscreen)").matches || window.navigator.standalone === true;
 
       if (isStandalone && pwaStatusText) {
-        pwaStatusText.textContent = "已处于独立桌面 APP 模式，当前正在全屏状态下运行！";
+        pwaStatusText.textContent = "已进入独立的桌面 APP (standalone) 模式运行，页面已自动隐藏浏览器地址栏！";
       }
 
       if (installBtn) {
         installBtn.addEventListener("click", async () => {
           if (deferredPrompt) {
             deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === "accepted") {
+            const choiceResult = await deferredPrompt.userChoice;
+            if (choiceResult && choiceResult.outcome === "accepted") {
               deferredPrompt = null;
             }
           } else {
