@@ -9,6 +9,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="猫爪机" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <link rel="manifest" id="catpawManifest" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
   <link
@@ -8230,6 +8233,7 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
     const DB_NAME = "catpaw-desktop-db";
     const STORE_NAME = "app_state";
     const STATE_KEY = "main";
+    const APP_VERSION = "2025-02-22-01";
     let dbInstance = null;
 
     const appState = {
@@ -8403,10 +8407,14 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       const manifestLink = document.querySelector("#catpawManifest");
       if (!manifestLink) return;
 
+      const launchUrl = new URL(window.location.href);
+      launchUrl.searchParams.set("app_version", APP_VERSION);
+      launchUrl.searchParams.delete("_cacheBust");
+
       const manifest = {
         name: "猫爪机",
         short_name: "猫爪机",
-        start_url: `${window.location.pathname}${window.location.search || ""}`,
+        start_url: `${launchUrl.pathname}${launchUrl.search}`,
         scope: window.location.pathname.replace(/[^/]*$/, ""),
         display: "fullscreen",
         background_color: "#f7f7f5",
@@ -13091,28 +13099,66 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
     }
 
     async function clearPageCacheOnly() {
-      setResult(settingsResult, "正在清除页面缓存，不会重置应用数据...");
+      setResult(settingsResult, "正在清除页面缓存并准备加载最新代码...");
 
       try {
+        // 解除旧 Service Worker，避免旧脚本继续接管页面请求。
         if ("serviceWorker" in navigator) {
           const registrations = await navigator.serviceWorker.getRegistrations();
-          await Promise.all(registrations.map((registration) => registration.unregister()));
+
+          await Promise.all(
+            registrations.map(async (registration) => {
+              try {
+                await registration.update();
+              } catch (error) {
+                console.warn("Service Worker 更新检查失败：", error);
+              }
+
+              return registration.unregister();
+            })
+          );
         }
 
+        // 删除 Cache Storage 中由 PWA、Service Worker 或浏览器缓存的资源。
         if ("caches" in window) {
           const cacheNames = await caches.keys();
-          await Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)));
+          await Promise.all(
+            cacheNames.map((cacheName) => caches.delete(cacheName))
+          );
         }
 
-        setResult(settingsResult, "页面缓存已清除，应用数据已保留。即将刷新页面加载最新版本。");
+        // 清理可能存在的旧 manifest Blob URL，避免旧启动配置继续复用。
+        const manifestLink = document.querySelector("#catpawManifest");
+        if (manifestLink) {
+          const oldManifestUrl = manifestLink.getAttribute("href");
+          if (oldManifestUrl?.startsWith("blob:")) {
+            URL.revokeObjectURL(oldManifestUrl);
+          }
+          manifestLink.removeAttribute("href");
+        }
 
+        setResult(settingsResult, "页面缓存已清除，应用数据已保留。正在拉取最新代码并刷新页面...");
+
+        // 使用新的查询参数绕过 HTML、CDN、PWA 启动页和 WebView 的旧文档缓存。
+        const url = new URL(window.location.href);
+        url.searchParams.set("app_version", APP_VERSION);
+        url.searchParams.set("_cacheBust", `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+
+        // 让当前页面彻底离开旧文档，再由浏览器重新请求最新 HTML。
+        setTimeout(() => {
+          window.location.replace(url.toString());
+        }, 350);
+      } catch (error) {
+        console.error("清除页面缓存失败：", error);
+        setResult(settingsResult, `清除页面缓存失败：${error.message}`);
+
+        // 即使部分缓存 API 不可用，也继续使用随机参数刷新最新页面。
         setTimeout(() => {
           const url = new URL(window.location.href);
-          url.searchParams.set("_cacheBust", String(Date.now()));
+          url.searchParams.set("app_version", APP_VERSION);
+          url.searchParams.set("_cacheBust", `${Date.now()}-${Math.random().toString(36).slice(2)}`);
           window.location.replace(url.toString());
-        }, 600);
-      } catch (error) {
-        setResult(settingsResult, `清除页面缓存失败：${error.message}`);
+        }, 700);
       }
     }
 
