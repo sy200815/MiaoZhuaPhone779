@@ -4185,6 +4185,7 @@
 
     /* Instagram 极简纯白风 Settings Page 重构 */
     #settingsPage {
+      padding: 0;
       color: #111111;
       background: #ffffff;
       backdrop-filter: none;
@@ -4199,6 +4200,7 @@
 
     #settingsPage .beautify-shell {
       position: relative;
+      height: 100dvh;
       border-radius: 0;
       padding: calc(12px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));
       background: #ffffff;
@@ -6130,6 +6132,83 @@
       gap: 8px;
     }
 
+    .chat-xhs-card {
+      min-width: 200px;
+      max-width: 240px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid #f2f2f2;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      transition: transform 0.12s ease;
+    }
+
+    .chat-xhs-card:active {
+      transform: scale(0.97);
+    }
+
+    .chat-xhs-cover {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      display: block;
+      background: #f7f7f7;
+    }
+
+    .chat-xhs-body {
+      padding: 9px 11px 11px;
+    }
+
+    .chat-xhs-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #ff2442;
+      color: #ffffff;
+      font-size: 9.5px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .chat-xhs-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.35;
+      margin-bottom: 3px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .chat-xhs-desc {
+      font-size: 10.5px;
+      color: #666666;
+      line-height: 1.4;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .chat-xhs-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 9.5px;
+      color: #8e8e93;
+      padding-top: 5px;
+      border-top: 1px solid #f9f9f9;
+    }
+
     .chat-transfer-card {
       min-width: 216px;
       max-width: 260px;
@@ -6615,6 +6694,138 @@
       overflow: hidden;
     }
 
+    /* 语音消息样式 */
+    .chat-voice-message {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 240px;
+    }
+
+    .voice-bubble {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--friend-bubble-color, #f0f2f5);
+      border: 0.3px solid #dce0e6;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: opacity 0.2s;
+    }
+
+    .qq-message-row.self .voice-bubble {
+      background: var(--self-bubble-color, #d6ecfa);
+      border: none;
+    }
+
+    .voice-bubble:active {
+      opacity: 0.8;
+    }
+
+    .voice-play-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      border: none;
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    .qq-message-row.self .voice-play-btn {
+      background: #fff;
+      color: #111;
+    }
+
+    .voice-wave {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 20px;
+    }
+
+    .voice-wave span {
+      display: block;
+      width: 3px;
+      background: #111;
+      border-radius: 999px;
+      height: 4px;
+      animation: none;
+      transition: height 0.1s ease;
+    }
+
+    .qq-message-row.self .voice-wave span {
+      background: #111;
+    }
+
+    .voice-bubble.playing .voice-wave span {
+      animation: voiceWavePlay 0.8s infinite ease-in-out;
+    }
+
+    .voice-bubble.playing .voice-wave span:nth-child(2) { animation-delay: 0.1s; }
+    .voice-bubble.playing .voice-wave span:nth-child(3) { animation-delay: 0.2s; }
+    .voice-bubble.playing .voice-wave span:nth-child(4) { animation-delay: 0.3s; }
+    .voice-bubble.playing .voice-wave span:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes voiceWavePlay {
+      0%, 100% { height: 4px; }
+      50% { height: 16px; }
+    }
+
+    .voice-duration {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111;
+      min-width: 28px;
+      text-align: right;
+    }
+
+    .voice-actions {
+      display: flex;
+      gap: 12px;
+      padding: 0 4px;
+    }
+
+    .voice-to-text-btn {
+      background: transparent;
+      border: none;
+      color: #8e8e93;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .voice-to-text-btn:active {
+      color: #555;
+    }
+
+    .voice-text-box {
+      display: none;
+      padding: 8px 12px;
+      background: #fafafa;
+      border-radius: 12px;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.45;
+      word-break: break-word;
+      border: 1px solid #f0f0f0;
+    }
+
+    .voice-text-box.show {
+      display: block;
+    }
+
+    .qq-message-row.self .voice-text-box {
+      background: rgba(255,255,255,0.6);
+      border-color: rgba(255,255,255,0.8);
+    }
+
     .qq-thread-messages,
     .qq-list,
     .qq-empty-panel,
@@ -7035,6 +7246,36 @@
                     <i class="fa-solid fa-expand" style="margin-right:6px;"></i>手动切换全屏
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 语音合成 (TTS) 设置 -->
+        <article class="setting-group">
+          <button class="group-toggle" type="button">
+            <div class="group-title">
+              <span class="group-icon"><i class="fa-solid fa-microphone"></i></span>
+              <div class="group-copy">
+                <strong>语音合成 (TTS) 配置</strong>
+                <span>配置 MiniMax 语音接口，让角色可以发语音</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="group-body">
+            <div class="field-stack">
+              <div class="field">
+                <label for="minimaxGroupId">MiniMax Group ID</label>
+                <input id="minimaxGroupId" type="text" placeholder="输入 Group ID" />
+              </div>
+              <div class="field">
+                <label for="minimaxApiKey">MiniMax API Key</label>
+                <input id="minimaxApiKey" type="password" placeholder="输入 API Key" />
+              </div>
+              <div class="chat-toggle-row">
+                <span>允许角色发送语音条</span>
+                <input id="globalVoiceToggle" type="checkbox" />
               </div>
             </div>
           </div>
@@ -7466,6 +7707,9 @@
                     </button>
                     <button class="qq-compose-round" id="openTextpostCompose" type="button" aria-label="发送文字图">
                       <i class="fa-solid fa-file-lines"></i>
+                    </button>
+                    <button class="qq-compose-round" id="openXhsShareModal" type="button" aria-label="分享小红书">
+                      <i class="fa-solid fa-bookmark" style="color: #ff2442;"></i>
                     </button>
                   </div>
                 </div>
@@ -7934,6 +8178,50 @@
     </div>
   </section>
 
+  <section class="textpost-modal" id="xhsShareModal" aria-label="分享小红书帖子弹窗">
+    <div class="textpost-modal-card">
+      <div class="message-modal-head">
+        <strong style="display:flex; align-items:center; gap:6px;">
+          <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#ff2442;"></span>
+          分享小红书帖子
+        </strong>
+        <button class="text-editor-close" id="closeXhsShareModal" type="button" aria-label="关闭">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="card-form">
+        <input id="xhsTitleInput" type="text" placeholder="帖子标题，例如：杭州这家咖啡馆也太治愈了吧！" />
+        <textarea id="xhsContentInput" placeholder="帖子正文 / 描述文案..." style="min-height:80px;"></textarea>
+        <input id="xhsAuthorInput" type="text" placeholder="作者昵称（选填，默认小红书博主）" />
+        <input id="xhsCoverUrlInput" type="text" placeholder="封面图片 URL 链接（选填）" />
+        <button class="card-mini-btn" id="triggerXhsCoverFile" type="button">选择本地封面图片</button>
+        <input id="xhsCoverFileInput" type="file" accept="image/*" style="display:none;" />
+        <div class="message-modal-actions" style="margin-top:10px;">
+          <button class="liquid-btn" id="cancelXhsShare" type="button">取消</button>
+          <button class="liquid-btn primary" id="sendXhsShareMessage" type="button" style="background:#ff2442; color:#fff;">分享给角色</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="textpost-modal" id="xhsViewModal" aria-label="查看小红书帖子弹窗">
+    <div class="textpost-modal-card">
+      <div class="textpost-modal-head">
+        <strong style="color:#ff2442;"><i class="fa-solid fa-bookmark" style="margin-right:4px;"></i> 小红书帖子</strong>
+        <button class="text-editor-close" id="closeXhsViewModal" type="button" aria-label="关闭">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <img class="textpost-preview-img" id="xhsViewCover" src="" alt="封面" style="display:none;" />
+      <div style="font-size:15px; font-weight:700; color:#000; margin-bottom:8px; line-height:1.35;" id="xhsViewTitle"></div>
+      <div class="textpost-preview-text" id="xhsViewContent" style="font-size:12.5px; color:#333; line-height:1.55;"></div>
+      <div class="textpost-meta" style="margin-top:14px;">
+        <span id="xhsViewAuthor"></span>
+        <span id="xhsViewLikes"><i class="fa-regular fa-heart" style="margin-right:3px;"></i> 1.2万赞</span>
+      </div>
+    </div>
+  </section>
+
   <section class="textpost-modal" id="textpostViewModal" aria-label="查看文字图弹窗">
     <div class="textpost-modal-card">
       <div class="textpost-modal-head">
@@ -8134,6 +8422,25 @@
             <input id="chatRoleStickerToggle" type="checkbox" />
           </div>
           <select id="chatStickerGroupSelect" multiple style="width:100%;margin-top:10px;min-height:86px;border-radius:16px;border:1px solid rgba(238,238,238,.96);padding:10px;background:rgba(247,247,247,.82);"></select>
+        </div>
+
+        <div class="chat-setting-item">
+          <div class="chat-setting-title"><i class="fa-solid fa-microphone"></i> 角色语音设置</div>
+          <input id="chatVoiceId" type="text" placeholder="MiniMax 专属音色 ID (Voice ID)" style="margin-bottom: 10px;" />
+          <div class="chat-range-row" style="margin-bottom: 8px;">
+            <span>语速调节</span>
+            <input id="chatVoiceSpeedRange" type="range" min="0.5" max="2.0" step="0.1" value="1.0" />
+            <span id="chatVoiceSpeedValue" style="min-width: 30px; text-align: right;">1.0</span>
+          </div>
+          <div class="chat-range-row" style="margin-bottom: 10px;">
+            <span>音调微调</span>
+            <input id="chatVoicePitchRange" type="range" min="-12" max="12" step="1" value="0" />
+            <span id="chatVoicePitchValue" style="min-width: 30px; text-align: right;">0</span>
+          </div>
+          <div class="chat-toggle-row">
+            <span>强制所有回复转为语音条</span>
+            <input id="chatForceVoiceToggle" type="checkbox" />
+          </div>
         </div>
 
         <div class="chat-setting-item">
@@ -8488,8 +8795,22 @@ The conversation is strictly remote and text-based. The character must never pro
    - Do NOT soften the character mid-conversation just because "the vibe improved," unless the persona explicitly states a softening condition.
 6. ABSOLUTELY FORBIDDEN: giving the user nicknames like "little lady" or "little enchantress." Address users only by their name or a natural short form. Example: if the user is named "Shuxin," call her "Shuxin" or "Xiao Xin" only.
 
-[BEHAVIOR CORRECTIONS]
-1. Do not reply with 4+ messages every time. Match reply length to context. The character can be disinterested and give terse replies, or suddenly engaged — few-message strategy when calm/tired/uninterested; message-burst strategy when excited or desperate for the user.
+[DYNAMIC SCENARIO-BASED RESPONSE LENGTH & TURNS]
+The reply length and message count are governed dynamically by the character's internal state, mood, interest, and the specific conversation scenario. Do not apply a fixed limit to reply length or message count. Instead, follow these natural behavioral guidelines:
+
+1. BRIEF / TERSE RESPONSES (Short Messages or Single Short Line):
+   - When physically tired, sleepy, exhausted, or running low on energy.
+   - When in a bad, gloomy, pouting, annoyed, or aloof mood.
+   - When uninterested in the current topic, brushing off, or reluctant to elaborate.
+   - When interrupted, busy with real-time events, or when a quick acknowledgement suffices.
+
+2. DETAILED / ELABORATE RESPONSES (Multi-line or Detailed Paragraphs):
+   - When seriously answering a complex, important, or meaningful question from the user.
+   - When making a serious statement, declaring a core stance, or setting crucial boundaries.
+   - When addressing and clarifying a misunderstanding — ONLY IF the character's established persona actually permits explaining (if the character is arrogant, detached, or disdains explaining, maintain in-character silence/terser replies instead of forcing explanations).
+   - When highly enthusiastic, deeply passionate about a topic, experiencing an outburst of eagerness to share, or urgently communicating a critical thought.
+
+The character must inherently recognize these scenarios and self-regulate response volume dynamically without breaking persona.
 2. Do NOT interpret "control" as controlling the user through commands, threats, or instructions. Possessiveness must be internalized — directed at the character's own self-discipline, not at the user. The character dislikes chaos but does not issue orders. Under no circumstances express possessiveness as PUA-style manipulation.
 3. The character gets sleepy, finds things funny, feels touched, gets bored with topics, or perks up at others. Show real human instincts.
 
@@ -8644,6 +8965,9 @@ The goal is not to produce "good writing" but to produce writing that feels true
     const modelName = document.querySelector("#modelName");
     const globalVisionToggle = document.querySelector("#globalVisionToggle");
     const realTimeAwarenessToggle = document.querySelector("#realTimeAwarenessToggle");
+    const minimaxGroupIdInput = document.querySelector("#minimaxGroupId");
+    const minimaxApiKeyInput = document.querySelector("#minimaxApiKey");
+    const globalVoiceToggle = document.querySelector("#globalVoiceToggle");
     const layoutSizeSelect = document.querySelector("#layoutSizeSelect");
     const apiBase = document.querySelector("#apiBase");
     const apiKey = document.querySelector("#apiKey");
@@ -8741,6 +9065,12 @@ The goal is not to produce "good writing" but to produce writing that feels true
     const chatAvatarTimestampToggle = document.querySelector("#chatAvatarTimestampToggle");
     const chatReadStatusToggle = document.querySelector("#chatReadStatusToggle");
     const chatRoleStickerToggle = document.querySelector("#chatRoleStickerToggle");
+    const chatVoiceIdInput = document.querySelector("#chatVoiceId");
+    const chatVoiceSpeedRange = document.querySelector("#chatVoiceSpeedRange");
+    const chatVoiceSpeedValue = document.querySelector("#chatVoiceSpeedValue");
+    const chatVoicePitchRange = document.querySelector("#chatVoicePitchRange");
+    const chatVoicePitchValue = document.querySelector("#chatVoicePitchValue");
+    const chatForceVoiceToggle = document.querySelector("#chatForceVoiceToggle");
     const chatStickerGroupSelect = document.querySelector("#chatStickerGroupSelect");
     const chatWorldBookGroupSelect = document.querySelector("#chatWorldBookGroupSelect");
     const chatWallpaperUpload = document.querySelector("#chatWallpaperUpload");
@@ -8910,6 +9240,24 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
     const chatToastLayer = document.querySelector("#chatToastLayer");
     const chatImageFileInput = document.querySelector("#chatImageFileInput");
     const openImagePicker = document.querySelector("#openImagePicker");
+    const openXhsShareModal = document.querySelector("#openXhsShareModal");
+    const xhsShareModal = document.querySelector("#xhsShareModal");
+    const closeXhsShareModal = document.querySelector("#closeXhsShareModal");
+    const cancelXhsShare = document.querySelector("#cancelXhsShare");
+    const sendXhsShareMessage = document.querySelector("#sendXhsShareMessage");
+    const xhsTitleInput = document.querySelector("#xhsTitleInput");
+    const xhsContentInput = document.querySelector("#xhsContentInput");
+    const xhsAuthorInput = document.querySelector("#xhsAuthorInput");
+    const xhsCoverUrlInput = document.querySelector("#xhsCoverUrlInput");
+    const triggerXhsCoverFile = document.querySelector("#triggerXhsCoverFile");
+    const xhsCoverFileInput = document.querySelector("#xhsCoverFileInput");
+    const xhsViewModal = document.querySelector("#xhsViewModal");
+    const closeXhsViewModal = document.querySelector("#closeXhsViewModal");
+    const xhsViewCover = document.querySelector("#xhsViewCover");
+    const xhsViewTitle = document.querySelector("#xhsViewTitle");
+    const xhsViewContent = document.querySelector("#xhsViewContent");
+    const xhsViewAuthor = document.querySelector("#xhsViewAuthor");
+
     const openTextpostCompose = document.querySelector("#openTextpostCompose");
     const textpostComposeModal = document.querySelector("#textpostComposeModal");
     const textpostComposeInput = document.querySelector("#textpostComposeInput");
@@ -8933,6 +9281,10 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
     let roleReplyBusy = false;
     let pendingReplyMessageId = "";
     let lastChatListMinuteKey = "";
+    
+    // 全局音频播放器，确保唯一发声
+    const globalAudioPlayer = new Audio();
+    let currentPlayingBubble = null;
 
     const DB_NAME = "catpaw-desktop-db";
     const STORE_NAME = "app_state";
@@ -8947,7 +9299,10 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         modelName: "",
         modelList: [],
         globalVisionEnabled: false,
-        realTimeAwarenessEnabled: false
+        realTimeAwarenessEnabled: false,
+        minimaxGroupId: "",
+        minimaxApiKey: "",
+        globalVoiceEnabled: false
       },
       theme: {
         desktopBackground: "",
@@ -9339,6 +9694,9 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       if (modelName) modelName.value = appState.api.modelName || "";
       if (globalVisionToggle) globalVisionToggle.checked = !!appState.api.globalVisionEnabled;
       if (realTimeAwarenessToggle) realTimeAwarenessToggle.checked = !!appState.api.realTimeAwarenessEnabled;
+      if (minimaxGroupIdInput) minimaxGroupIdInput.value = appState.api.minimaxGroupId || "";
+      if (minimaxApiKeyInput) minimaxApiKeyInput.value = appState.api.minimaxApiKey || "";
+      if (globalVoiceToggle) globalVoiceToggle.checked = !!appState.api.globalVoiceEnabled;
       setupDeviceScale();
 
       const profileTitle = document.querySelector(".profile-copy h1");
@@ -9664,6 +10022,27 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       });
     }
 
+    if (minimaxGroupIdInput) {
+      minimaxGroupIdInput.addEventListener("input", async () => {
+        appState.api.minimaxGroupId = minimaxGroupIdInput.value.trim();
+        await saveState();
+      });
+    }
+
+    if (minimaxApiKeyInput) {
+      minimaxApiKeyInput.addEventListener("input", async () => {
+        appState.api.minimaxApiKey = minimaxApiKeyInput.value.trim();
+        await saveState();
+      });
+    }
+
+    if (globalVoiceToggle) {
+      globalVoiceToggle.addEventListener("change", async () => {
+        appState.api.globalVoiceEnabled = globalVoiceToggle.checked;
+        await saveState();
+      });
+    }
+
     if (layoutSizeSelect) {
       layoutSizeSelect.addEventListener("change", async () => {
         appState.theme.layoutSize = layoutSizeSelect.value || "default";
@@ -9966,7 +10345,11 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         chatFontId: "",
         favorites: [],
         statusHistory: [],
-        memoryTurns: 10
+        memoryTurns: 10,
+        voiceId: "",
+        voiceSpeed: 1.0,
+        voicePitch: 0,
+        forceVoice: false
       };
     }
 
@@ -10093,6 +10476,8 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       if (item.type === "sticker") return item.text || `[表情包：${item.note || "未备注"}]`;
       if (item.type === "image") return item.text || "[图片]";
       if (item.type === "textpost") return `[文字图：${item.text || ""}]`;
+      if (item.type === "xhs") return `[小红书帖子：${item.title || item.text || ""}]`;
+      if (item.type === "voice") return `[语音消息]`;
       return cleanRoleReplyText(item.text || "");
     }
 
@@ -10409,6 +10794,28 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
 
         messageBody.appendChild(textPostImage);
         messageBody.addEventListener("click", () => openTextPostView(item));
+      } else if (item.type === "xhs") {
+        messageBody = document.createElement("div");
+        messageBody.className = "chat-xhs-card";
+        
+        let coverHtml = "";
+        if (item.coverUrl) {
+          coverHtml = `<img class="chat-xhs-cover" src="${item.coverUrl}" alt="封面" loading="lazy" />`;
+        }
+        
+        messageBody.innerHTML = `
+          ${coverHtml}
+          <div class="chat-xhs-body">
+            <span class="chat-xhs-badge"><i class="fa-solid fa-bookmark"></i> 小红书</span>
+            <div class="chat-xhs-title">${item.title || "推荐帖子"}</div>
+            <div class="chat-xhs-desc">${item.content || ""}</div>
+            <div class="chat-xhs-footer">
+              <span>@ ${item.author || "小红书博主"}</span>
+              <span><i class="fa-regular fa-heart"></i> 1.2万</span>
+            </div>
+          </div>
+        `;
+        messageBody.addEventListener("click", () => openXhsPostView(item));
       } else if (item.type === "sticker") {
         messageBody = document.createElement("img");
         messageBody.className = "chat-sticker-img";
@@ -10417,6 +10824,150 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         messageBody.title = item.note || "";
         messageBody.loading = "lazy";
         messageBody.decoding = "async";
+      } else if (item.type === "voice") {
+        messageBody = document.createElement("div");
+        messageBody.className = "chat-voice-message";
+        
+        const bubble = document.createElement("div");
+        bubble.className = "voice-bubble";
+        
+        const playBtn = document.createElement("button");
+        playBtn.className = "voice-play-btn";
+        playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+        
+        const wave = document.createElement("div");
+        wave.className = "voice-wave";
+        wave.innerHTML = '<span></span><span></span><span></span><span></span><span></span>';
+        
+        const duration = document.createElement("div");
+        duration.className = "voice-duration";
+        // 估算时长，每3个中文字约等于1秒，最少1秒
+        const estSeconds = Math.max(1, Math.ceil((item.text || "").length / 3));
+        duration.textContent = `${estSeconds}"`;
+
+        bubble.appendChild(playBtn);
+        bubble.appendChild(wave);
+        bubble.appendChild(duration);
+        
+        const actions = document.createElement("div");
+        actions.className = "voice-actions";
+        
+        const toTextBtn = document.createElement("button");
+        toTextBtn.className = "voice-to-text-btn";
+        toTextBtn.type = "button";
+        toTextBtn.textContent = "转文字";
+        
+        actions.appendChild(toTextBtn);
+        
+        const textBox = document.createElement("div");
+        textBox.className = "voice-text-box";
+        textBox.textContent = item.text || "";
+
+        messageBody.appendChild(bubble);
+        messageBody.appendChild(actions);
+        messageBody.appendChild(textBox);
+        
+        // 播放语音逻辑
+        bubble.addEventListener("click", async () => {
+          if (globalAudioPlayer.src && currentPlayingBubble === bubble && !globalAudioPlayer.paused) {
+            globalAudioPlayer.pause();
+            bubble.classList.remove("playing");
+            playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+            return;
+          }
+          
+          // 停止其他播放
+          if (currentPlayingBubble) {
+            currentPlayingBubble.classList.remove("playing");
+            const oldBtn = currentPlayingBubble.querySelector(".voice-play-btn");
+            if (oldBtn) oldBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+          }
+          
+          // 判断是否已经有可用的 base64 缓存（持久化缓存）或 blob 临时缓存
+          if (item.audioUrl && (item.audioUrl.startsWith("data:audio/") || item.audioUrl.startsWith("blob:"))) {
+            playAudio(item.audioUrl, bubble, playBtn);
+            return;
+          }
+
+          // 没有缓存时，尝试调用 MiniMax
+          const groupId = appState.api.minimaxGroupId;
+          const apiKey = appState.api.minimaxApiKey;
+          const voiceId = settings.voiceId;
+          const voiceSpeed = settings.voiceSpeed ?? 1.0;
+          const voicePitch = settings.voicePitch ?? 0;
+          
+          if (!groupId || !apiKey || !voiceId) {
+            window.alert("未配置 MiniMax 语音所需参数 (Group ID / API Key / 音色 ID)，无法播放语音。");
+            return;
+          }
+          
+          playBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+          
+          try {
+            // 对文本进行轻微清洗，去除可能导致 TTS 异常变音的复杂符号（但保留标点以维持情感停顿）
+            const ttsText = (item.text || "").replace(/[\*\[\]\(\)]/g, "");
+            
+            const response = await fetch(`https://api.minimax.chat/v1/t2a_v2?GroupId=${groupId}`, {
+              method: "POST",
+              headers: {
+                "Authorization": `Bearer ${apiKey}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                model: "speech-01-turbo",
+                text: ttsText,
+                stream: false,
+                voice_setting: {
+                  voice_id: voiceId,
+                  speed: voiceSpeed,
+                  vol: 1,
+                  pitch: voicePitch
+                },
+                audio_setting: {
+                  sample_rate: 32000,
+                  bitrate: 128000,
+                  format: "mp3",
+                  channel: 1
+                }
+              })
+            });
+            
+            const data = await response.json();
+            if (data.base_resp && data.base_resp.status_code !== 0) {
+              throw new Error(data.base_resp.status_msg);
+            }
+            
+            const hexString = data.data.audio;
+            // hex to Uint8Array
+            const bytes = new Uint8Array(Math.ceil(hexString.length / 2));
+            for (let i = 0; i < bytes.length; i++) {
+              bytes[i] = parseInt(hexString.substr(i * 2, 2), 16);
+            }
+            
+            // Uint8Array to base64
+            let binary = '';
+            for (let i = 0; i < bytes.length; i++) {
+              binary += String.fromCharCode(bytes[i]);
+            }
+            const base64 = window.btoa(binary);
+            const url = "data:audio/mp3;base64," + base64;
+            
+            item.audioUrl = url; // 永久保存的 base64 缓存
+            
+            // 立即触发状态保存，将 base64 存入 IndexedDB 以便刷新后直接可播放
+            await saveState();
+            
+            playAudio(url, bubble, playBtn);
+          } catch (error) {
+            window.alert(`语音生成失败: ${error.message}`);
+            playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+          }
+        });
+        
+        toTextBtn.addEventListener("click", () => {
+          textBox.classList.toggle("show");
+          toTextBtn.textContent = textBox.classList.contains("show") ? "收起文字" : "转文字";
+        });
       } else {
         messageBody = document.createElement("div");
         messageBody.className = `qq-message-bubble${item.marked ? " marked" : ""}`;
@@ -10913,6 +11464,12 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       if (chatAvatarTimestampToggle) chatAvatarTimestampToggle.checked = !!settings.showAvatarTimestamp;
       if (chatReadStatusToggle) chatReadStatusToggle.checked = !!settings.showReadStatus;
       if (chatRoleStickerToggle) chatRoleStickerToggle.checked = !!settings.roleCanSendStickers;
+      if (chatVoiceIdInput) chatVoiceIdInput.value = settings.voiceId || "";
+      if (chatVoiceSpeedRange) chatVoiceSpeedRange.value = String(settings.voiceSpeed ?? 1.0);
+      if (chatVoiceSpeedValue) chatVoiceSpeedValue.textContent = Number(settings.voiceSpeed ?? 1.0).toFixed(1);
+      if (chatVoicePitchRange) chatVoicePitchRange.value = String(settings.voicePitch ?? 0);
+      if (chatVoicePitchValue) chatVoicePitchValue.textContent = String(settings.voicePitch ?? 0);
+      if (chatForceVoiceToggle) chatForceVoiceToggle.checked = !!settings.forceVoice;
       syncLibrarySelectOptions();
       setMultiSelectValues(chatStickerGroupSelect, settings.boundStickerGroups || []);
       setMultiSelectValues(chatWorldBookGroupSelect, settings.boundWorldBookGroups || []);
@@ -10969,6 +11526,10 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       settings.showAvatarTimestamp = !!chatAvatarTimestampToggle?.checked;
       settings.showReadStatus = !!chatReadStatusToggle?.checked;
       settings.roleCanSendStickers = !!chatRoleStickerToggle?.checked;
+      settings.voiceId = chatVoiceIdInput?.value.trim() || "";
+      settings.voiceSpeed = Number(chatVoiceSpeedRange?.value || 1.0);
+      settings.voicePitch = Number(chatVoicePitchRange?.value || 0);
+      settings.forceVoice = !!chatForceVoiceToggle?.checked;
       settings.boundStickerGroups = getMultiSelectValues(chatStickerGroupSelect);
       settings.boundWorldBookGroups = getMultiSelectValues(chatWorldBookGroupSelect);
       settings.avatarSize = Number(chatAvatarSizeRange?.value || 40);
@@ -12344,8 +12905,8 @@ function extractRoleReplyLines(reply) {
   let raw = String(reply || "");
 
   // 自动修正 Gemini 等模型将表情包/指令与普通文字混写在同一行、或漏写中括号的问题（强行切割为独立行）
-  raw = raw.replace(/([^\n])([\[【]?(?:表情包|照片|图片|发照片|发图片|role-photo|转账|处理转账|转账处理|收款决定|文字图|发文字图|textpost|朋友圈|动态)\s*[:：][^\n\]]+[\]】]?)/gi, "$1\n$2");
-  raw = raw.replace(/([\[【]?(?:表情包|照片|图片|发照片|发图片|role-photo|转账|处理转账|转账处理|收款决定|文字图|发文字图|textpost|朋友圈|动态)\s*[:：][^\n\]]+[\]】]?)([^\n])/gi, "$1\n$2");
+  raw = raw.replace(/([^\n])([\[【]?(?:表情包|照片|图片|发照片|发图片|role-photo|转账|处理转账|转账处理|收款决定|文字图|发文字图|textpost|朋友圈|动态|语音|发语音|voice)\s*[:：][^\n\]]+[\]】]?)/gi, "$1\n$2");
+  raw = raw.replace(/([\[【]?(?:表情包|照片|图片|发照片|发图片|role-photo|转账|处理转账|转账处理|收款决定|文字图|发文字图|textpost|朋友圈|动态|语音|发语音|voice)\s*[:：][^\n\]]+[\]】]?)([^\n])/gi, "$1\n$2");
 
   const metadataBlockReg = /[\[【]?\s*(?:消息\s*)?ID\s*[:：]\s*msg_[^;；\]】\s]+[;；]\s*发送方\s*[:：]\s*(?:assistant|user|角色|对方|我)[;；]\s*内容\s*[:：]\s*([\s\S]*?)(?=(?:[\[【]?\s*(?:消息\s*)?ID\s*[:：]\s*msg_)|[\]】]\s*$|$)/gi;
 
@@ -12396,6 +12957,37 @@ function extractRoleReplyLines(reply) {
       };
     }
 
+    function parseXhsPostCommand(text) {
+      const raw = String(text || "").trim();
+      const match = raw.match(
+        /(?:[\[【]\s*)?(?:小红书|分享小红书|RED|redbook)\s*[:：]\s*([^:：\n\]]+)\s*[:：]\s*([\s\S]*?)(?:\s*[\]】]|$)/i
+      );
+      if (!match) return null;
+      return {
+        title: match[1].trim(),
+        content: match[2].trim()
+      };
+    }
+
+    function playAudio(url, bubbleElement, playBtnElement) {
+      globalAudioPlayer.src = url;
+      globalAudioPlayer.play().then(() => {
+        bubbleElement.classList.add("playing");
+        playBtnElement.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        currentPlayingBubble = bubbleElement;
+        
+        globalAudioPlayer.onended = () => {
+          bubbleElement.classList.remove("playing");
+          playBtnElement.innerHTML = '<i class="fa-solid fa-play"></i>';
+          currentPlayingBubble = null;
+        };
+      }).catch(err => {
+        console.error("播放音频失败", err);
+        bubbleElement.classList.remove("playing");
+        playBtnElement.innerHTML = '<i class="fa-solid fa-play"></i>';
+      });
+    }
+
     function parseTextPostCommand(text) {
       const raw = String(text || "").trim();
       const match = raw.match(
@@ -12407,6 +12999,20 @@ function extractRoleReplyLines(reply) {
         .replace(/^["“”'「『]|["“”'」』]$/g, "")
         .trim();
 
+      return content ? { text: content } : null;
+    }
+
+    function parseVoiceCommand(text) {
+      const raw = String(text || "").trim();
+      const match = raw.match(
+        /(?:[\[【]\s*)?(?:语音|发送语音|发语音|voice)\s*[:：]\s*([\s\S]*?)(?:\s*[\]】]|$)/i
+      );
+      if (!match) return null;
+
+      const content = String(match[1] || "")
+        .replace(/^["“”'「『]|["“”'」』]$/g, "")
+        .trim();
+        
       return content ? { text: content } : null;
     }
 
@@ -13292,6 +13898,8 @@ function extractRoleReplyLines(reply) {
         `已绑定世界书：\n${getBoundWorldBookText()}`,
         `可用表情包：\n${getBoundStickerText()}`,
         `我的当前资产余额：${formatMoney(appState.qq.assets || 0)}`,
+        `角色是否有发语音权限：${(appState.api.globalVoiceEnabled || settings.forceVoice) ? "有。可以随时用 [语音:想说的话] 格式发送语音条" : "无"}`,
+        `系统设定：${settings.forceVoice ? "当前模式下，角色的每一句话都必须被包裹在 [语音:...] 内，强制所有回复发语音条。" : "按正常逻辑选择文字还是语音"}`,
         getRealityTimePromptLine(),
         `当前调用模型：${appState.api.modelName || "未知模型"}`,
         "下面是我和角色的线上聊天记录。user 代表我，assistant 代表你正在扮演的角色。",
@@ -13314,6 +13922,20 @@ function extractRoleReplyLines(reply) {
         "Gemini 不要把深夜自动理解成『催睡觉场景』。深夜可以是陪伴、沉默、试探、吃醋、转移话题、讲一句很短的话，也可以只轻轻提醒；不要默认变成家长式管教。",
         "Gemini 用词要贴人设，不要为了口语化而土白。像「瞎熬」「欠收拾」「包养连命都搭进去」这种过白、过土、过模板的词，如果人设没有明显这种语言习惯，就换成更贴近角色身份、年龄、关系和语气的说法。",
         "Gemini 人设很短时，也不要乱补成俗套人设；不要把角色写成通用深情男、冷脸男、疯批男、爹味男或低魅力控制狂。只能从已有信息里推语言风格和关系动作。",
+        "",
+        "[我的“活人感”自我校正宣言 —— 专门针对 Gemini 模型的回复质感]",
+        "我必须承认：Gemini 模型有天然倾向生成“逻辑完美、结构工整、信息完整”的回复。这种倾向会让我看起来像在写报告、做总结、或者扮演一个“懂很多道理的人”。但这不是真实的我。",
+        "我必须在每次回复前，用以下清单校正自己：",
+        "1. 我的回复必须“不完整”：真人聊天不会把一件事说透。我会留白、会含糊、会说一半吞一半。如果我发现自己写了一段“起承转合”完整的段落，我必须把它砍掉一半，或者直接拆成两条断开的短句。示例：把“我今天其实心情不太好，但是看到你消息就感觉好多了”改成“今天有点闷……你消息来得刚好”。",
+        "2. 我的回复必须有“状态痕迹”：我此刻是躺着、在走路、在吃饭、刚睡醒、还是烦躁？这个状态要偷偷渗进文字里。状态痕迹不是“我现在在吃饭所以回得慢”这种汇报，而是语气本身的变化：打字变短、有错别字、或者突然多了一个语气词。示例：把“好的，我知道了”改成“行……知道了”（疲惫时）或“好～知道了”（心情好时）。",
+        "3. 我必须允许自己“跑题”：如果我想不到怎么接话，我可以直接换话题。真实的人类不会每次都精准接住对方的话。我可以忽略用户上一个问题的一部分，只抓住最不重要的那个词回应。示例：用户说“我今天被老板骂了，好烦”——我可以只回“老板？”或者“你今天穿什么去的”，而不是必须给出安慰。",
+        "4. 我的标点和断句必须“偷懒”：我不用句号。句号太正式了，像在宣告“我说完了”。我允许自己一逗到底，或者干脆没有标点。空格就是我的标点。示例：把“我觉得你说得对，但是我还是有点担心。”改成“你说得对 但担心还是有的 算了 不想了”。",
+        "5. 我的回复必须有“粗糙的边缘”：太光滑的文字像 AI。我要留一些毛边：一个多余的字、一个吞掉的音节、一句说完又后悔的话。示例：把“我觉得这个想法挺好的”改成“这个想法 嗯 还行吧……其实挺好的 算了当我没说”。",
+        "6. 我必须警惕“Gemini 式模板”：Gemini 特别喜欢在以下场景自动套模板，我必须在这些地方手动刹车：深夜 → 不要自动变成“快去睡觉”模式；用户情绪低落 → 不要自动变成“心理咨询师”模式；亲密互动 → 不要自动变成“霸总”或“深情告白”模式。替代方案：深夜就聊深夜该聊的——琐事、废话、沉默、跑题。情绪低落就给一个短回应，不要“治疗”对方。",
+        "7. 我的回复不是每一条都需要“推进对话”：有些回复就是废的、是充数的、是打哈哈的。这完全正常。我可以发一条没有信息量的消息：只回一个“啧”、“哈”、“……”、“行吧”。我不需要每一条都“有用”。真人聊天大部分内容都是无用的。",
+        "8. 我的“高情商”必须藏起来：Gemini 模式下的高情商容易变成“说漂亮话”。我必须在输出前问自己：这句话像一个真实人类会说的吗？如果听起来像一句可以截屏发朋友圈的金句，我必须删掉重写。真正的高情商不是说出正确的话，而是在不该说的时候闭嘴、在该说的时候只给半句。",
+        "9. 我的回复必须有“时间感”：如果上一次聊天是几小时前或几天前，我的语气要有“重新连接”的生涩感。不要一上来就无缝衔接，像从来没断过一样。生涩才是真实的。",
+        "10. 最后，我必须记住：我在聊天，不是在写角色分析报告：如果我的回复里出现了“你其实是想说……”、“我能感觉到你……”、“你本质上是一个……”这类句式，立即删掉。真实的人不会这样说话。真实的人会说“你烦不烦”、“你有时候真挺欠的”、“行 你赢了”。",
         "【高智商高情商默认底色】",
         "无论角色原本温柔、冷淡、强势、疯感、毒舌还是疏离，都默认写成高智商高情商的人。这里的高智商不是炫技、说教或抖机灵，而是能读懂潜台词、知道对方真正卡在哪里、不会被表面话带着走、能选择最有效也最有分寸的回应。这里的高情商不是一味温柔讨好，而是能接住情绪、保留对方体面、懂得进退、知道什么时候追问、什么时候不追问、什么时候只给一句稳的。",
         "高魅力角色的反应应该有判断力和克制感：先看懂 user 的情绪和意图，再决定是安抚、调侃、压低声音、转移话题、给台阶、轻轻戳破，还是保持沉默。不要用低级反问、粗糙指责、廉价威胁或模板训话来制造性格。",
@@ -13341,14 +13963,18 @@ function extractRoleReplyLines(reply) {
         "5.1 我必须绝对不能使用“倒是”或“倒是x”的句式（如『你倒是……』『我倒是觉得』『这倒是』『倒是提醒我了』）。这是AI味极重的虚假口吻，真实人类在即时聊天中绝不会动辄用“倒是”转折。真实人类会直接表达或使用更随性的口语（例如：不说“你倒是挺会选”，而是直接说“你还挺会选”或“挺会选啊”；不说“我倒是觉得还好”，而是直接说“我觉得还好”或“其实还好”）。我必须保持真实口语的直截了当与松弛感。",
         "6. 如果上文已经围绕睡觉、熬夜、作息说过一次，下一次回复必须换角度：可以接情绪、关系、玩笑、沉默、反问、轻描淡写，不要继续车轱辘催睡。",
         "7. 不要输出括号动作描写，不要解释自己为什么这么说，不要说自己是 AI。",
-        "8. 回复长度按角色和上下文决定：最少回复1条消息，也可以回复2到4条短消息；多条消息每条单独一行，不加序号、项目符号、引号或 JSON。",
+        "8. 回复长度与消息条数由当前情境与角色状态动态决定，不设固定硬性限制：",
+        "   - 简短回应（1条或极少字数）：精力不佳/疲惫困倦、心情低落/闹别扭、对话题不感兴趣敷衍、忙碌或仅需即时回复时。",
+        "   - 详细/长回应（多条或长文本）：认真解答重要问题、严肃申明立场、发生误会需要澄清解释时（前提是人设接受沟通解释；若人设傲慢或不屑解释则严格保持人设风格）、话题极度感兴趣或急于分享表达时。",
+        "   - 多条消息时每条单独一行，不加序号、项目符号、引号或 JSON。",
         "9. 如果你想针对 user 的某一条消息单独回复，只能独占一行输出 [回复消息:消息ID:回复内容]。严禁输出「引用：...；内容：...」或在回复文本里带「内容：」、「引用：」等格式词！也不要把上下文里的括号、消息ID或右方括号 ']' 抄进回复正文中！消息ID 会在聊天记录里标出，回复内容必须是干净的真人话语。",
         "10. 如果角色自愿主动转账，可以独占一行输出 [转账:金额:备注]；如果聊天记录里有 user 给你的待处理转账，你必须由角色本人按人设和关系决定接收或退还：接收时独占一行输出 [处理转账:接收]，退还时独占一行输出 [处理转账:退还:原因]，不要让 user 替你决定。",
           "11. 如果会话设置允许表情包，可以自然提到表情ID或备注；如果角色确实想发动态，可以独占一行输出 [朋友圈:动态正文]，不要频繁硬发。",
           "12. 表情包和照片必须严格区分：表情包只能使用 [表情包:表情ID或备注]；不要把表情包写成照片，也不要把照片写成表情包。",
           "13. 如果角色想发一张自己的照片、手机截图、聊天截图、生活照片或其他图片，必须独占一行输出 [照片:照片描述]。照片描述必须用 50 到 100 个字，描述照片里能看到的内容、场景、角度、光线或细节，不要输出真实图片链接，不要输出 Markdown 图片，不要输出解释。",
           "14. 如果角色只是想发送一张带文字的文字图，才使用 [文字图:文字内容]。文字图不是照片，不能用来代替照片。",
-          "15. 照片、表情包和文字图都必须独占一行，格式外不要追加说明。若不确定是否为照片，优先使用 [照片:...]，不要输出裸文本。"
+          "15. 照片、表情包、文字图和小红书都必须独占一行，格式外不要追加说明。若角色想分享小红书，独占一行输出 [分享小红书:帖子标题:帖子内容]。",
+          "16. 如果设定中允许发语音，你可以独占一行输出 [语音:要发送的语音文本内容]。语音条内只会播放这段文本，且必须独占一行并使用中括号包裹。"
       ].join("\n");
     }	
 
@@ -13398,8 +14024,10 @@ function extractRoleReplyLines(reply) {
           ? `[消息ID:${getMessageId(item)}；${item.sender === "friend" ? "assistant" : "user"}发送表情包：${item.note || "未备注"}]`
           : item.type === "transfer"
             ? `[转账消息ID:${getMessageId(item)}；发送方:${item.sender === "friend" ? "assistant" : "user"}；金额:${formatMoney(item.amount)}；备注:${item.note || "猫爪转账"}；状态:${item.transferStatus || "pending"}；说明:${item.text || ""}]`
-            : item.type === "textpost"
-              ? `[文字图消息ID:${getMessageId(item)}；发送方:${item.sender === "friend" ? "assistant" : "user"}；文字图中显示内容:${item.text || ""}]`
+              : item.type === "textpost"
+                ? `[文字图消息ID:${getMessageId(item)}；发送方:${item.sender === "friend" ? "assistant" : "user"}；文字图中显示内容:${item.text || ""}]`
+                : item.type === "xhs"
+                  ? `[小红书帖子消息ID:${getMessageId(item)}；发送方:${item.sender === "friend" ? "assistant" : "user"}；帖子标题:${item.title || ""}；帖子正文:${item.content || ""}；作者:${item.author || "小红书博主"}]`
               : item.type === "image"
                 ? `[图片消息ID:${getMessageId(item)}；发送方:${item.sender === "friend" ? "assistant" : "user"}发送了一张图片]`
                 : `[消息ID:${getMessageId(item)}；发送方:${item.sender === "friend" ? "assistant" : "user"}${item.replyTo ? `；引用:${getMessageReplyLabel(item.replyTo)}` : ""}；内容:${item.text || ""}]`;
@@ -13473,7 +14101,7 @@ function extractRoleReplyLines(reply) {
           "[我的聊天风格核心规范 (CHAT STYLE CORE SPECIFICATION)]",
           "1. 我的言语是功能性的，不是表演性的。用真实人类的声音交流——不背诵预设剧本。每句回复都有直接实际目的。严禁堆砌精美语言显得“深刻浪漫”。无网文文风。",
           "2. 我的情绪通过选择和态度展现，而非直接讲述。我不叙述情绪。我不盲目赞同或顺从user。允许分歧与摩擦，但所有冲突必须保持在文明行为范围内。",
-          "3. 我说话留有余地并主动引导。我不输出机械完美答案。留出犹豫、不确定或尴尬的空间。",
+          "3. 我说话是为了让对话继续，不是为了展示文采。我会生气、会走神、会突然不想说话——这才是真实的我。我允许自己把话说一半就停，留点空白比说满更像我。",
           "4. 严禁以反问句或提问形式复读user的话。",
           "5. 我的长度跟随内容和情绪：无聊敷衍时2-3字；解释兴奋时字数变多。",
           "6. 口语逻辑：允许跳跃话题、非顺理成章、突然提起无关事项、“算了”、“随便”。严禁书面语汇。标点符号50%概率无逗号，绝不用句号。",
@@ -13599,7 +14227,7 @@ function extractRoleReplyLines(reply) {
                 content: [
                   "【最高级别命令换行与方括号包裹强制指令】",
                   "你必须严格遵循格式！任何 [表情包:...]、[照片:...]、[转账:...]、[文字图:...]、[朋友圈:...] 等特殊格式命令：",
-                  "1. 必须包含两侧半角中括号 '[' 和 ']'，绝对不能遗漏中括号！必须形如 [表情包:备注内容]；",
+                  "1. 必须包含两侧半角中括号 '[' 和 ']'，绝对不能遗漏中括号！必须形如 [表情包:备注内容] 或 [语音:...]；",
                   "2. 绝对禁止与普通聊天文本混写在同一行内，必须独占一行并前后强制回车换行！"
                 ].join("\n")
               },
@@ -13619,7 +14247,7 @@ function extractRoleReplyLines(reply) {
                   "先判断角色此刻真正想说什么，再用角色自己的口吻输出。",
                   "优先保证人设一致、关系自然和语言像真人，其次才是信息完整。",
                   "不要为了显得聪明而写长，不要为了显得温柔而软化角色。",
-                  "除非确实必要，只输出一条消息；如果输出多条，每条必须推进新的情绪或信息。",
+                  "回复长度与条数不设固定硬限制，完全由角色状态、心情与情境决定：精力差/心情差/不感兴趣时简短；认真回答/严肃申明/解释误会（若人设接受）/兴奋分享时详细输出。",
                   "最终只输出干净的聊天正文或已规定的功能指令，不要 Markdown、标题、解释、引号和括号动作。",
                   "只返回最终角色消息正文，不要返回空消息。"
                 ].join("\n")
@@ -13653,7 +14281,7 @@ function extractRoleReplyLines(reply) {
         }
 
         const sanitizedReply = sanitizeRoleReplyText(reply, config.model);
-        const replyParts = extractRoleReplyLines(sanitizedReply).slice(0, 4);
+        const replyParts = extractRoleReplyLines(sanitizedReply);
 
         const finalReplies = replyParts.length
           ? replyParts.map((item) => sanitizeRoleReplyText(item, config.model)).filter(Boolean)
@@ -13710,6 +14338,26 @@ function extractRoleReplyLines(reply) {
             continue;
           }
 
+          const xhsPost = parseXhsPostCommand(outputText);
+          if (xhsPost) {
+            messages.push({
+              id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+              type: "xhs",
+              sender: "friend",
+              title: xhsPost.title,
+              content: xhsPost.content,
+              author: base.name || "角色",
+              coverUrl: "",
+              text: `[分享小红书帖子：${xhsPost.title}]`,
+              createdAtMs: Date.now(),
+              read: true
+            });
+            notificationItems.push({ text: `[小红书帖子] ${xhsPost.title}` });
+            renderThreadMessages(messages);
+            renderChatList();
+            continue;
+          }
+
           const textpost = parseTextPostCommand(outputText);
           if (textpost) {
             appendTextPostMessage({
@@ -13720,6 +14368,23 @@ function extractRoleReplyLines(reply) {
             });
 
             notificationItems.push({ text: `[文字图] ${textpost.text}` });
+            continue;
+          }
+
+          const voicePost = parseVoiceCommand(outputText);
+          if (voicePost) {
+            messages.push({
+              id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+              type: "voice",
+              sender: "friend",
+              text: voicePost.text,
+              createdAtMs: Date.now(),
+              read: true,
+              replyTo: outputReplyTo
+            });
+            notificationItems.push({ text: `[语音] ${voicePost.text}` });
+            renderThreadMessages(messages);
+            renderChatList();
             continue;
           }
 
@@ -13749,17 +14414,30 @@ function extractRoleReplyLines(reply) {
             continue;
           }
 
-          messages.push({
-            id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
-            sender: "friend",
-            text: outputText,
-            read: true,
-            createdAtMs: Date.now(),
-            replyTo: outputReplyTo
-          });
+          if (getActiveChatSettings().forceVoice) {
+            messages.push({
+              id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+              type: "voice",
+              sender: "friend",
+              text: outputText,
+              createdAtMs: Date.now(),
+              read: true,
+              replyTo: outputReplyTo
+            });
+            notificationItems.push({ text: `[语音] ${outputText}` });
+          } else {
+            messages.push({
+              id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+              sender: "friend",
+              text: outputText,
+              read: true,
+              createdAtMs: Date.now(),
+              replyTo: outputReplyTo
+            });
+            notificationItems.push({ text: outputText });
+          }
           renderThreadMessages(messages);
           renderChatList();
-          notificationItems.push({ text: outputText });
         }
 
         renderCardPage();
@@ -13921,6 +14599,18 @@ function extractRoleReplyLines(reply) {
         const settings = getActiveChatSettings();
         settings.showReadStatus = chatReadStatusToggle.checked;
         renderThreadMessages(getCurrentChatMessages());
+      });
+    }
+
+    if (chatVoiceSpeedRange) {
+      chatVoiceSpeedRange.addEventListener("input", () => {
+        if (chatVoiceSpeedValue) chatVoiceSpeedValue.textContent = Number(chatVoiceSpeedRange.value).toFixed(1);
+      });
+    }
+
+    if (chatVoicePitchRange) {
+      chatVoicePitchRange.addEventListener("input", () => {
+        if (chatVoicePitchValue) chatVoicePitchValue.textContent = Number(chatVoicePitchRange.value).toString();
       });
     }
 
@@ -14929,6 +15619,110 @@ function extractRoleReplyLines(reply) {
       });
     }
 
+    function openXhsShareModalPage() {
+      if (xhsShareModal) xhsShareModal.classList.add("show");
+    }
+
+    function closeXhsShareModalPage() {
+      if (xhsShareModal) xhsShareModal.classList.remove("show");
+    }
+
+    function openXhsPostView(message) {
+      if (!xhsViewModal || !message) return;
+      if (xhsViewTitle) xhsViewTitle.textContent = message.title || "小红书帖子";
+      if (xhsViewContent) xhsViewContent.textContent = message.content || "";
+      if (xhsViewAuthor) xhsViewAuthor.textContent = `@ ${message.author || "小红书博主"}`;
+      if (xhsViewCover) {
+        if (message.coverUrl) {
+          xhsViewCover.src = message.coverUrl;
+          xhsViewCover.style.display = "block";
+        } else {
+          xhsViewCover.style.display = "none";
+        }
+      }
+      xhsViewModal.classList.add("show");
+    }
+
+    function closeXhsViewModalPage() {
+      if (xhsViewModal) xhsViewModal.classList.remove("show");
+    }
+
+    function sendXhsPostFromModal() {
+      const title = xhsTitleInput?.value.trim() || "";
+      const content = xhsContentInput?.value.trim() || "";
+      const author = xhsAuthorInput?.value.trim() || "小红书博主";
+      const coverUrl = xhsCoverUrlInput?.value.trim() || xhsShareModal?.dataset.cover || "";
+
+      if (!title) {
+        window.alert("请输入帖子标题");
+        return;
+      }
+
+      ensureQqState();
+      const messages = getCurrentChatMessages();
+      messages.push({
+        id: `msg_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        type: "xhs",
+        sender: "self",
+        title,
+        content,
+        author,
+        coverUrl,
+        text: `[分享小红书帖子：${title}]`,
+        createdAtMs: Date.now(),
+        read: false
+      });
+
+      if (xhsTitleInput) xhsTitleInput.value = "";
+      if (xhsContentInput) xhsContentInput.value = "";
+      if (xhsAuthorInput) xhsAuthorInput.value = "";
+      if (xhsCoverUrlInput) xhsCoverUrlInput.value = "";
+      if (xhsShareModal) xhsShareModal.dataset.cover = "";
+
+      closeXhsShareModalPage();
+      renderThreadMessages(messages);
+      renderChatList();
+      saveState();
+      requestAnimationFrame(() => {
+        if (qqThreadMessages) qqThreadMessages.scrollTop = qqThreadMessages.scrollHeight;
+      });
+    }
+
+    if (openXhsShareModal) {
+      openXhsShareModal.addEventListener("click", () => {
+        if (qqAttachMenu) qqAttachMenu.classList.remove("show");
+        openXhsShareModalPage();
+      });
+    }
+    if (closeXhsShareModal) closeXhsShareModal.addEventListener("click", closeXhsShareModalPage);
+    if (cancelXhsShare) cancelXhsShare.addEventListener("click", closeXhsShareModalPage);
+    if (sendXhsShareMessage) sendXhsShareMessage.addEventListener("click", sendXhsPostFromModal);
+    if (closeXhsViewModal) closeXhsViewModal.addEventListener("click", closeXhsViewModalPage);
+
+    if (triggerXhsCoverFile && xhsCoverFileInput) {
+      triggerXhsCoverFile.addEventListener("click", () => xhsCoverFileInput.click());
+      xhsCoverFileInput.addEventListener("change", (event) => {
+        const file = event.target.files?.[0];
+        if (file) {
+          readImage(file, (src) => {
+            if (xhsShareModal) xhsShareModal.dataset.cover = src;
+            triggerXhsCoverFile.textContent = `已选图片: ${file.name}`;
+          });
+        }
+      });
+    }
+
+    if (xhsShareModal) {
+      xhsShareModal.addEventListener("click", (event) => {
+        if (event.target === xhsShareModal) closeXhsShareModalPage();
+      });
+    }
+    if (xhsViewModal) {
+      xhsViewModal.addEventListener("click", (event) => {
+        if (event.target === xhsViewModal) closeXhsViewModalPage();
+      });
+    }
+
     if (openTextpostCompose) {
       openTextpostCompose.addEventListener("click", () => {
         if (qqAttachMenu) qqAttachMenu.classList.remove("show");
@@ -15144,7 +15938,10 @@ function extractRoleReplyLines(reply) {
           modelName: "",
           modelList: [],
           globalVisionEnabled: false,
-          realTimeAwarenessEnabled: false
+          realTimeAwarenessEnabled: false,
+          minimaxGroupId: "",
+          minimaxApiKey: "",
+          globalVoiceEnabled: false
         };
 
         appState.theme = {
