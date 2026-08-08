@@ -27,6 +27,14 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    *::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
     }
 
     :root {
@@ -850,7 +858,7 @@
     .beautify-shell,
     .qq-shell {
       width: 100%;
-      max-width: var(--phone-width, 390px);
+      max-width: 100%;
       height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 10px);
       margin: 0 auto;
       border-radius: 28px;
@@ -2420,7 +2428,7 @@
       padding: 0;
       --chat-avatar-size: 30px;
       --chat-avatar-radius: 10px;
-      --self-bubble-color: #d6ecfa;
+      --self-bubble-color: #e3f2fd;
       --friend-bubble-color: #f0f2f5;
       background: #ffffff;
       background-size: cover;
@@ -2434,9 +2442,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
+      padding: calc(12px + env(safe-area-inset-top)) 14px 12px;
       background: linear-gradient(180deg, #ffffff 0%, #eef5fc 100%) !important;
-      border-bottom: 1.5px solid #e0e4eb !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
       box-shadow: none !important;
       z-index: 10;
     }
@@ -2603,7 +2611,7 @@
     .qq-message-row.friend .qq-message-bubble {
       color: #2d3035 !important;
       background: var(--friend-bubble-color, #f0f2f5) !important;
-      border: 0.3px solid #dce0e6 !important;
+      border: 0.5px solid rgba(0, 0, 0, 0.05) !important;
       box-shadow: none !important;
     }
 
@@ -2755,8 +2763,8 @@
       position: relative;
       z-index: 2;
       background: linear-gradient(180deg, #ffffff 0%, #eef5fc 100%) !important;
-      border-bottom: 1.5px solid #e0e4eb !important;
-      padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+      padding: calc(12px + env(safe-area-inset-top)) 14px 12px;
       margin-bottom: 0;
     }
 
@@ -2775,7 +2783,7 @@
       bottom: 0;
       z-index: 16;
       width: 100%;
-      max-width: var(--phone-width, 390px);
+      max-width: 100%;
       margin: 0 auto;
       transform: none;
       display: flex;
@@ -2806,7 +2814,7 @@
       flex: 1;
       height: 38px;
       border-radius: 6px;
-      background: #edf6fd;
+      background: #f4f9fc;
       border: 0.3px solid #dce0e6;
       display: flex;
       align-items: center;
@@ -2866,7 +2874,7 @@
       left: 50%;
       bottom: calc(48px + env(safe-area-inset-bottom));
       z-index: 18;
-      width: min(calc(var(--phone-width, 390px) - 32px), calc(100vw - 32px));
+      width: calc(100vw - 32px);
       margin: 0;
       transform: translateX(-50%);
       background: #edeef1;
@@ -3251,7 +3259,7 @@
     .qq-thread {
       --chat-avatar-size: 40px;
       --chat-avatar-radius: 50%;
-      --self-bubble-color: #2e2e2e;
+      --self-bubble-color: #e3f2fd;
       --friend-bubble-color: rgba(255, 255, 255, 0.96);
       background-size: cover;
       background-position: center;
@@ -3297,6 +3305,15 @@
       font-variant-numeric: tabular-nums;
       letter-spacing: -0.02em;
       white-space: nowrap;
+    }
+
+    .qq-message-time-gap {
+      text-align: center;
+      font-size: 11px;
+      color: #a3a6ad;
+      font-weight: 600;
+      margin: 16px 0 16px;
+      clear: both;
     }
 
     .qq-thread.timestamp-visible .qq-message-timestamp {
@@ -3622,7 +3639,7 @@
 
     .font-manager-card {
       width: 100%;
-      max-width: var(--phone-width, 390px);
+      max-width: 100%;
       height: 100dvh;
       margin: 0 auto;
       border-radius: 0;
@@ -3803,7 +3820,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: var(--phone-width, 390px);
+      max-width: 100%;
       height: 100dvh;
       margin: 0 auto;
       border-radius: 0;
@@ -5166,7 +5183,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: var(--phone-width, 390px);
+      max-width: 100%;
       height: 100dvh;
       margin: 0 auto;
       padding: calc(12px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));
@@ -5668,7 +5685,7 @@
 
     .sticker-manager-card {
       width: 100%;
-      max-width: var(--phone-width, 390px);
+      max-width: 100%;
       height: 100dvh;
       margin: 0 auto;
       padding: calc(12px + env(safe-area-inset-top)) 16px calc(30px + env(safe-area-inset-bottom));
@@ -6693,7 +6710,7 @@
       padding: 10px 14px;
       border-radius: 999px;
       background: var(--friend-bubble-color, #f0f2f5);
-      border: 0.3px solid #dce0e6;
+      border: 0.5px solid rgba(0, 0, 0, 0.05);
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
@@ -7673,8 +7690,8 @@
             <div class="qq-thread-messages" id="qqThreadMessages"></div>
 
             <div class="qq-thread-compose">
-              <button class="qq-compose-heart-btn" id="openAttachMenu" type="button" aria-label="爱心功能菜单">
-                <i class="fa-solid fa-heart"></i>
+              <button class="qq-compose-heart-btn" id="openAttachMenu" type="button" aria-label="附加功能菜单">
+                <i class="fa-solid fa-door-open"></i>
               </button>
               <div class="qq-attach-menu" id="qqAttachMenu" aria-label="更多功能菜单">
                 <div class="qq-attach-menu-inner">
@@ -8488,15 +8505,15 @@
           <div class="chat-setting-title"><i class="fa-solid fa-palette"></i> 会话主题色</div>
           <div class="chat-theme-row">
             <button class="chat-theme-option" type="button" data-chat-theme="blue" aria-label="蓝色主题">
-              <span class="chat-theme-swatch" style="background:#d6ecfa;"></span>
+              <span class="chat-theme-swatch" style="background:#e3f2fd;"></span>
               <span>蓝色</span>
             </button>
             <button class="chat-theme-option" type="button" data-chat-theme="pink" aria-label="粉色主题">
-              <span class="chat-theme-swatch" style="background:#fdd9e2;"></span>
+              <span class="chat-theme-swatch" style="background:#fceef1;"></span>
               <span>粉色</span>
             </button>
             <button class="chat-theme-option" type="button" data-chat-theme="green" aria-label="绿色主题">
-              <span class="chat-theme-swatch" style="background:#d7f4e4;"></span>
+              <span class="chat-theme-swatch" style="background:#e8f5ec;"></span>
               <span>绿色</span>
             </button>
           </div>
@@ -9445,6 +9462,19 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       return `${hour}:${minute}:${second}`;
     }
 
+    function formatMessageGapTime(value) {
+      const date = value ? new Date(value) : new Date();
+      const safeDate = Number.isNaN(date.getTime()) ? new Date() : date;
+      const now = new Date();
+      const isToday = safeDate.toDateString() === now.toDateString();
+      const hour = String(safeDate.getHours()).padStart(2, "0");
+      const minute = String(safeDate.getMinutes()).padStart(2, "0");
+      if (isToday) {
+        return `${hour}:${minute}`;
+      }
+      return `${safeDate.getMonth() + 1}月${safeDate.getDate()}日 ${hour}:${minute}`;
+    }
+
     function formatRealityTime(date = new Date()) {
       const weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
       const year = date.getFullYear();
@@ -10363,27 +10393,27 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
 
     const CHAT_THEME_PRESETS = {
       blue: {
-        selfBubbleColor: "#d6ecfa",
+        selfBubbleColor: "#e3f2fd",
         friendBubbleColor: "#ffffff",
         selfTextColor: "#2d3035",
         friendTextColor: "#2d3035",
-        composeStripColor: "#edf6fd",
+        composeStripColor: "#f4f9fc",
         threadHeadGradient: "linear-gradient(180deg, #ffffff 0%, #eef5fc 100%)"
       },
       pink: {
-        selfBubbleColor: "#fdd9e2",
+        selfBubbleColor: "#fceef1",
         friendBubbleColor: "#ffffff",
         selfTextColor: "#2d3035",
         friendTextColor: "#2d3035",
-        composeStripColor: "#fde6eb",
+        composeStripColor: "#fcf2f4",
         threadHeadGradient: "linear-gradient(180deg, #ffffff 0%, #fdeef0 100%)"
       },
       green: {
-        selfBubbleColor: "#d5f0e0",
+        selfBubbleColor: "#e8f5ec",
         friendBubbleColor: "#ffffff",
         selfTextColor: "#2d3035",
         friendTextColor: "#2d3035",
-        composeStripColor: "#e4f4ea",
+        composeStripColor: "#f0f9f3",
         threadHeadGradient: "linear-gradient(180deg, #ffffff 0%, #e4f4ea 100%)"
       }
     };
@@ -10406,7 +10436,7 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
         wallpaper: "",
         avatarSize: 30,
         avatarRadius: 10,
-        selfBubbleColor: "#d6ecfa",
+        selfBubbleColor: "#e3f2fd",
         friendBubbleColor: "#ffffff",
         selfTextColor: "#2d3035",
         friendTextColor: "#2d3035",
@@ -10801,8 +10831,27 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       rows.forEach((item, index) => {
         const isFriend = item.sender === "friend";
         const messageId = getMessageId(item);
-        const prevItem = index > 0 ? rows[index - 1] : null;
-        const isSubsequent = !!(settings.showOnlyFirstAvatar && prevItem && prevItem.sender === item.sender);
+        const realIndex = allRows.length - rows.length + index;
+        const prevItem = realIndex > 0 ? allRows[realIndex - 1] : null;
+        
+        let showTimeGap = false;
+        if (!prevItem) {
+          showTimeGap = true;
+        } else {
+          // 超过 3 分钟显示时间戳
+          if (item.createdAtMs - prevItem.createdAtMs > 3 * 60 * 1000) {
+            showTimeGap = true;
+          }
+        }
+
+        if (showTimeGap) {
+          const gapNode = document.createElement("div");
+          gapNode.className = "qq-message-time-gap";
+          gapNode.textContent = formatMessageGapTime(item.createdAtMs);
+          qqThreadMessages.appendChild(gapNode);
+        }
+
+        const isSubsequent = !!(settings.showOnlyFirstAvatar && prevItem && prevItem.sender === item.sender && !showTimeGap);
 
         const row = document.createElement("div");
         row.className = `qq-message-row ${isFriend ? "friend" : "self"}${isSubsequent ? " subsequent-msg" : ""}`;
@@ -11743,7 +11792,7 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
       const parameters = {
         temperature: options.temperature ?? (isClaude ? 0.82 : isGemini ? 0.78 : 0.8),
         top_p: options.top_p ?? 0.92,
-        max_tokens: options.max_tokens ?? 900
+        max_tokens: options.max_tokens ?? 32768
       };
 
       // Gemini 的 OpenAI 兼容接口对 presence_penalty 和 frequency_penalty
@@ -12984,6 +13033,18 @@ const momentsAutoStatus = document.querySelector("#momentsAutoStatus");
 
       if (!line) return "";
 
+      // 0. 过滤系统指令复读/元提示漏出
+      line = line.replace(/\[\s*这是最后一条系统指令[\s\S]*?\]/gi, "")
+                 .replace(/\[\s*下面我将直接输出[\s\S]*?\]/gi, "")
+                 .replace(/\[\s*以下是符合要求的[\s\S]*?\]/gi, "")
+                 .replace(/【\s*朋友圈最终输出规则[\s\S]*?】/gi, "")
+                 .replace(/【\s*动态最终输出规则[\s\S]*?】/gi, "")
+                 .replace(/【\s*最终执行层[\s\S]*?】/gi, "")
+                 .replace(/这是最后一条系统指令[\s\S]*?动态正文[：:]?/gi, "")
+                 .trim();
+
+      if (!line) return "";
+
       // 1. 过滤英文思维链/CoT逻辑分析泄漏（如 "(killed someone), which fits..." 或 "* *Let's refine..." 等）
       line = line.replace(/\([^)]*vibe[^)]*\)/gi, "")
                  .replace(/\([^)]*contrast[^)]*\)/gi, "")
@@ -13063,9 +13124,37 @@ function extractRoleReplyLines(reply) {
       continue;
     }
 
+    // 如果同行普通文本中包含用空格分隔的多段短句（如"上来就乱叫 谁是你宝宝 ...... 咳"），智能拆分为独立气泡
+    let lineText = line;
+    const kaomojis = [];
+    // 保护常见颜文字 (如 ^ ^, > <, T_T 等) 不被空格误拆
+    lineText = lineText.replace(/(\^[\s_]*\^|>[\s_]*<|T[\s_]*T|O[\s_]*O|o[\s_]*o|;\s*;)/g, (match) => {
+      kaomojis.push(match);
+      return `__KAOMOJI_${kaomojis.length - 1}__`;
+    });
+
+    const spaceParts = lineText.split(/\s+/).filter(Boolean);
+    if (spaceParts.length > 1) {
+      spaceParts.forEach(part => {
+        let restored = part.replace(/__KAOMOJI_(\d+)__/g, (_, idx) => kaomojis[Number(idx)] || "").trim();
+        if (restored) {
+          // 如果子部分仍然过长且包含标点，进一步拆分
+          if (restored.length > 25 && /[。！？!?～~]\s*/.test(restored)) {
+            const subParts = restored.split(/(?<=[。！？!?～~])\s*/).filter(Boolean);
+            subParts.forEach(sp => result.push(sp.trim()));
+          } else {
+            result.push(restored);
+          }
+        }
+      });
+      continue;
+    }
+
+    line = lineText.replace(/__KAOMOJI_(\d+)__/g, (_, idx) => kaomojis[Number(idx)] || "").trim();
+
     // 如果文本过长或包含多个成句标点（且AI没有换行），智能二次拆分为独立气泡
     if (line.length > 25 && /[。！？!?～~]\s*/.test(line)) {
-      const sentenceParts = line.split(/(?<=[。！？!?～~])\s+/).filter(Boolean);
+      const sentenceParts = line.split(/(?<=[。！？!?～~])\s*/).filter(Boolean);
       if (sentenceParts.length > 1) {
         sentenceParts.forEach(p => result.push(p.trim()));
         continue;
@@ -13503,33 +13592,24 @@ function extractRoleReplyLines(reply) {
           "我必须只输出干净的动态正文，不得输出标题、前言、后语、解释、引号、括号动作或任何元信息。"
         ].join("\n");
 
+        const systemPromptCombined = [
+          ENHANCED_SYSTEM_PROMPT,
+          `【角色背景与记忆上下文】\n${promptMemory}\n当前模型：${appState.api.modelName || "未知"}`,
+          assistantMomentDirective,
+          buildRoleReplyPrompt(),
+          "【绝对禁用句式与格式铁律】",
+          "1. 绝不能输出任何系统指令、自我校验文字（如“这是最后一条系统指令”、“下面我将输出动态正文”等），违反将被判定严重故障！",
+          "2. 绝对禁止使用“倒是”二字及任何“倒是xxx”句式（如“你倒是……”“我倒是觉得……”“这倒是……”）。必须改用“你还挺……”“我觉得……”“其实……”等直接口语。",
+          "3. 必须直接、纯粹地输出 1 到 3 句角色随手发布的朋友圈动态正文。严禁标题、前言、后语、解释、引号、括号动作、Markdown 或元数据。"
+        ].join("\n\n");
+
         const text = await callChatCompletion([
-          { role: "system", content: ENHANCED_SYSTEM_PROMPT },
-          { role: "system", content: `【角色背景与记忆上下文】\n${promptMemory}\n当前模型：${appState.api.modelName || "未知"}` },
-          {
-            role: "system",
-            content: "【最高级别动态生成与格式强制指令】\n你必须以第一人称角色身份发朋友圈，绝不 OOC，只输出动态正文，严禁输出任何解释、标题或引号。"
-          },
-          {
-            role: "assistant",
-            content: `${assistantMomentDirective}\n\n我必须严格执行以上全部禁令。我必须像角色本人一样发布动态，不能像 AI、作者、客服或旁白。我必须特别注意：我绝对不能使用“倒是”或“倒是xxx”的句式，必须改成直接、松弛、自然的即时聊天表达。`
-          },
-          {
-            role: "system",
-            content: "【动态口吻最终校验：倒是句式禁令】\n本次输出绝对禁止出现“倒是”二字及任何“倒是xxx”句式，包括“你倒是……”“我倒是觉得……”“这倒是……”“倒是提醒我了……”。输出前必须重写所有包含该句式的内容，改用“你还挺……”“我觉得……”“其实……”“你不说我都忘了……”等自然表达。此规则优先于文采、押韵、修辞和原始生成结果。"
-          },
-          {
-            role: "assistant",
-            content: "我必须牢记：我绝对不能说“倒是”，也不能说“你倒是……”“我倒是觉得……”“这倒是……”。我必须直接说“你还挺会选”“我觉得还好”“其实还好”“你不说我都忘了”。我必须只输出最终的动态正文，绝不能输出校验过程。"
-          },
-          {
-            role: "system",
-            content: "【最终执行层】\n请根据角色人设、近期聊天记忆、现实时间和动态上下文，直接输出 1 到 3 句自然、口语化、像真人随手发布的动态正文。绝对禁止输出解释、标题、引号、括号动作、Markdown、JSON、旁白或任何元信息。最后一条消息必须是本条系统消息，不得再追加助手消息。"
-          }
+          { role: "system", content: systemPromptCombined },
+          { role: "user", content: "请根据以上你的角色人设与近期生活上下文，写一条你此刻最想随手发的朋友圈动态。" }
         ], {
           temperature: 0.84,
           top_p: 0.92,
-          max_tokens: 1600,
+          max_tokens: 600,
           silent
         });
 
@@ -13685,43 +13765,29 @@ function extractRoleReplyLines(reply) {
           "我必须只输出一条干净的评论正文，不得输出标题、前言、后语、解释、引号、括号动作或任何元信息。"
         ].join("\n");
 
+        const commentSystemPrompt = [
+          ENHANCED_SYSTEM_PROMPT,
+          `【角色记忆与背景】\n${promptMemory}`,
+          `动态作者：${moment.authorType === "self" ? "我" : (moment.authorName || role.name)}`,
+          `动态正文：${moment.text || ""}`,
+          `已有评论上下文：\n${existingComments || "暂无"}`,
+          `用户最新评论：${myComment || "未填写"}`,
+          `当前模型：${appState.api.modelName || "未知"}`,
+          assistantCommentDirective,
+          buildRoleReplyPrompt(),
+          "【绝对禁用句式与格式铁律】",
+          "1. 绝不能输出任何系统指令、自我校验文字（如“这是最后一条系统指令”、“下面我将输出评论”等）！",
+          "2. 绝对禁止使用“倒是”二字及任何“倒是xxx”句式！",
+          "3. 必须直接输出一条干净的朋友圈回复评论正文，严禁标题、前言、后语、解释、引号、括号动作、Markdown 或元数据。"
+        ].join("\n\n");
+
         const text = await callChatCompletion([
-          { role: "system", content: ENHANCED_SYSTEM_PROMPT },
-          {
-            role: "system",
-            content: [
-              `【角色记忆与背景】\n${promptMemory}`,
-              `动态作者：${moment.authorType === "self" ? "我" : (moment.authorName || role.name)}`,
-              `动态正文：${moment.text || ""}`,
-              `已有评论上下文：\n${existingComments || "暂无"}`,
-              `用户最新评论：${myComment || "未填写"}`,
-              `当前模型：${appState.api.modelName || "未知"}`
-            ].join("\n")
-          },
-          {
-            role: "system",
-            content: "【最高级别朋友圈评论格式强制指令】\n你必须以角色本人身份回复评论，严禁旁白、说教或破绽，只输出一条纯评论正文。"
-          },
-          {
-            role: "assistant",
-            content: `${assistantCommentDirective}\n\n我必须严格执行以上全部禁令。我必须以角色本人的口吻回复评论，不能像 AI、作者、客服或旁白。我必须特别注意：我绝对不能使用“倒是”或“倒是xxx”的句式，必须改成直接、松弛、自然的即时聊天表达。`
-          },
-          {
-            role: "system",
-            content: "【评论口吻最终校验：倒是句式禁令】\n本次输出绝对禁止出现“倒是”二字及任何“倒是xxx”句式，包括“你倒是……”“我倒是觉得……”“这倒是……”“倒是提醒我了……”。输出前必须重写所有包含该句式的内容，改用“你还挺……”“我觉得……”“其实……”“你不说我都忘了……”等自然表达。此规则优先于文采、押韵、修辞和原始生成结果。"
-          },
-          {
-            role: "assistant",
-            content: "我必须牢记：我绝对不能说“倒是”，也不能说“你倒是……”“我倒是觉得……”“这倒是……”。我必须直接说“你还挺会说”“我觉得还好”“其实还好”“你不说我都忘了”。我必须只输出最终的评论正文，绝不能输出校验过程。"
-          },
-          {
-            role: "system",
-            content: "【最终执行层】\n请根据动态正文、已有评论、用户最新评论、角色人设、近期聊天记忆和现实时间，直接输出一条自然、口语化、像真人写下的评论。绝对禁止输出解释、标题、引号、括号动作、Markdown、JSON、旁白或任何元信息。最后一条消息必须是本条系统消息，不得再追加助手消息。"
-          }
+          { role: "system", content: commentSystemPrompt },
+          { role: "user", content: "请根据以上上下文，以你的角色身份直接回复一条朋友圈评论。" }
         ], {
           temperature: 0.82,
           top_p: 0.92,
-          max_tokens: 1200
+          max_tokens: 400
         });
 
         if (!text) throw new Error("没有生成评论内容");
@@ -14401,9 +14467,9 @@ function extractRoleReplyLines(reply) {
               {
                 role: "system",
                 content: [
-                  "【角色断句与分行消息规则（严禁空格断句）】",
-                  "1. 严禁空格断句：绝对禁止在一行文字中间使用空格来充当标点符号或断句停顿！",
-                  "2. 分行即分消息：当你需要断句、分气泡或停顿时，必须直接回车换行（\\n）。系统会自动将你输出的每一行独立文本拆分为一条独立的消息/气泡发送给用户。",
+                  "【角色断句与分行消息规则（绝对铁律：严禁空格断句）】",
+                  "1. 绝对禁止空格断句：严禁在同行文字中间使用空格（Space）充当标点符号或断句停顿（例如绝对不能输出『上来就乱叫 谁是你宝宝 …… 咳 那你具体说说』）！",
+                  "2. 分行即分消息：当你需要断句、停顿或分气泡时，必须直接使用回车换行（\\n）！每一行短句都会被拆分为一个独立的消息气泡展示给用户。",
                   "3. 真实打字习惯：将一个完整意思拆成2-3条短句分行输出；情绪激动时连续换行多条短句刷屏；冷淡或疲惫时仅输出单行短句。"
                 ].join("\n")
               },
@@ -14420,7 +14486,7 @@ function extractRoleReplyLines(reply) {
             ]),
             temperature: 0.78,
             top_p: 0.92,
-            max_tokens: 900,
+            max_tokens: 32768,
             presence_penalty: 0.08,
             frequency_penalty: 0.08
           })
